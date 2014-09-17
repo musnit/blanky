@@ -50,9 +50,14 @@ define(function(require, exports, module) {
 
         this.position = 0;
 
+        this.createTouchBindings();
+
+    }
+
+    PageView.prototype.createTouchBindings = function(){
         var sync = new GenericSync(['mouse', 'touch'], {
             direction: GenericSync.DIRECTION_X
-        })
+        });
 
         this.pageSurface.pipe(sync);
 
@@ -61,7 +66,7 @@ define(function(require, exports, module) {
         }.bind(this));
 
         sync.on('update', function(data) {
-            var edge = window.innerWidth - (this.pageSurface.getSize()[0])
+            var edge = window.innerWidth - (this.pageSurface.getSize()[0]);
 
             if (this.touchJustStarted) {
                 if (data.position >= 0 && data.velocity >= 0) {
@@ -126,7 +131,6 @@ define(function(require, exports, module) {
             this.position = 0;
         }.bind(this));
     }
-
     PageView.prototype.setZIndex = function(index) {
         this.pageSurface.setProperties({
             zIndex: index
