@@ -1,6 +1,6 @@
 {
   "name": "blanky",
-  "root": "app",
+  "root": "app/dist",
   "clean_urls": true,
   "error_page": ""
 }
