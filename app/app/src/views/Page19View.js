@@ -8,38 +8,27 @@ define(function(require, exports, module) {
     var GenericSync = require('famous/inputs/GenericSync');
     var MouseSync = require('famous/inputs/MouseSync');
     var TouchSync = require('famous/inputs/TouchSync');
-    var View = require('famous/core/View');
     var Transitionable = require('famous/transitions/Transitionable');
     var TransitionableTransform = require('famous/transitions/TransitionableTransform');
+    var PageView  = require('views/PageView');
 
-    GenericSync.register({mouse: MouseSync});
-    GenericSync.register({touch: TouchSync});
-
-    function PageView() {
-        View.apply(this, arguments);
+    function Page19View() {
+        PageView.apply(this, arguments);
         _createPage.call(this);
     }
 
-    PageView.prototype = Object.create(View.prototype);
-    PageView.prototype.constructor = PageView;
-
-    PageView.DEFAULT_OPTIONS = {
-        last: false
-    };
+    Page19View.prototype = Object.create(PageView.prototype);
+    Page19View.prototype.constructor = Page19View;
 
     function _createPage() {
         this.originMod = new Modifier({
             origin: [0, 0]
         });
 
-        this.pageSurface = new Surface({
+        this.pageSurface = new ImageSurface({
             size: [undefined, undefined],
-            content: this.options.content,
             classes: ["page"],
-            properties: {
-                backgroundColor: '#111111',
-                fontSize: '16px'
-            }
+            content: '/content/images/pages/19/screenshot.png',
         });
 
         var modifier = new Modifier({
@@ -127,48 +116,5 @@ define(function(require, exports, module) {
         }.bind(this));
     }
 
-    PageView.prototype.setZIndex = function(index) {
-        this.pageSurface.setProperties({
-            zIndex: index
-        });
-    }
-
-    PageView.prototype.rotate = function(radians) {
-        this.originMod.setTransform(Transform.rotateY(radians));
-    }
-
-    PageView.prototype.turn = function() {
-        this.originMod.setTransform(Transform.rotateY(-2), {
-            duration: 500,
-            curve: 'easeOut'
-        });
-    }
-
-    /**
-     * Page half jump animation for page that can't turn.
-     * @return {[type]} [description]
-     */
-    PageView.prototype.hop = function() {
-        this.originMod.setTransform(
-            Transform.rotateY(-.3), {
-                duration: 200,
-                curve: 'easeOut'
-            }, function() {
-                this.originMod.setTransform(Transform.rotateY(0), {
-                    duration: 300,
-                    curve: 'easeOut'
-                });
-            }.bind(this));
-    }
-
-    PageView.prototype.turnBack = function() {
-        this.originMod.setTransform(Transform.rotateY(0), {
-            duration: 500,
-            curve: 'easeOut'
-        });
-
-        this.position = 0;
-    }
-
-    module.exports = PageView;
+    module.exports = Page19View;
 });
