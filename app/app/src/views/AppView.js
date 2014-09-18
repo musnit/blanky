@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
 
     var ContentView = require('views/ContentView');
+    var Page19View = require('views/Page19View');
 
     function AppView() {
         View.apply(this, arguments);
@@ -20,7 +21,7 @@ define(function(require, exports, module) {
     AppView.DEFAULT_OPTIONS = {};
 
     function _createPageView() {
-        this.contentView = new ContentView();
+        this.contentView = new Page19View();
         this.pageModifier = new StateModifier();
 
         this.add(this.pageModifier).add(this.contentView);

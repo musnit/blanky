@@ -1,10 +1,13 @@
 html {
     background-color: #000;
-    color: #fff;
 } 
 
 .page img {
     width: 100%;
+}
+
+.debug {
+    background: green;
 }
 
 section {

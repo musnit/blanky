@@ -42,10 +42,6 @@ define(function(require, exports, module) {
             }
         });
 
-        var modifier = new Modifier({
-            transform: Transform.rotateY(0)
-        });
-
         this._add(this.originMod).add(this.pageSurface);
 
         this.position = 0;

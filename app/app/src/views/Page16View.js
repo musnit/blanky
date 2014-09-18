@@ -32,10 +32,10 @@ define(function(require, exports, module) {
         });
 
         var modifier = new Modifier({
-            transform: Transform.rotateY(0)
+            transform: Transform.thenScale(Transform.rotateY(0), [1,1,1])
         });
 
-        this._add(this.originMod).add(this.pageSurface);
+        this.add(modifier).add(this.originMod).add(this.pageSurface);
 
         this.position = 0;
 
