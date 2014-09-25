@@ -1,6 +1,5 @@
 define(function(require, exports, module) {
     var Modifier                = require('famous/core/Modifier');
-    var TouchSync               = require('famous/inputs/TouchSync');
     var View                    = require('famous/core/View');
 
     var PageViews = [];
@@ -8,6 +7,8 @@ define(function(require, exports, module) {
     PageViews.push(require('views/Page19View'));
 
     function _createPages() {
+        var x;
+
         this.pages = [];
         this.mods = [];
         this.currentPageIndex = 0;
@@ -22,7 +23,19 @@ define(function(require, exports, module) {
             this._eventOutput.emit('nextPage');
         }
 
-        for (var x = 0; x < this.pages.length; x++) {
+        function rotatePreviousEvent(data) {
+            if (this.currentPageIndex > 0)
+                this.pages[this.currentPageIndex - 1].rotate(-data.radians);
+        }
+
+        function touchEndPreviousEvent(data) {
+            if (this.currentPageIndex > 0) {
+                this.pages[this.currentPageIndex - 1]._eventOutput.emit('end', data);
+                this._eventOutput.emit('prevPage');
+            }
+        }
+
+        for (x = 0; x < this.pages.length; x += 1) {
             this.mods.push(new Modifier({
                 origin: [0, 0]
             }));
@@ -32,32 +45,21 @@ define(function(require, exports, module) {
             this.pages[x].on('nextPage', emitNextPageEvent.bind(this));
 
             // Gets event from slide transfers rotation to previous slide.
-            this.pages[x].on('rotatePrevious', function(data) {
-                if (this.currentPageIndex > 0) {
-                    this.pages[this.currentPageIndex - 1].rotate(-data.radians);
-                }
-
-            }.bind(this));
+            this.pages[x].on('rotatePrevious', rotatePreviousEvent.bind(this));
 
             // Determines whether the previous slide will become current page or not
-            this.pages[x].on('touchEndPrevious', function(data) {
-                if (this.currentPageIndex > 0) {
-                    this.pages[this.currentPageIndex - 1]._eventOutput.emit('end', data);
-                    this._eventOutput.emit('prevPage');
-                }
-            }.bind(this));
+            this.pages[x].on('touchEndPrevious', touchEndPreviousEvent.bind(this));
 
             // Sets the zIndex so the page are stacked properly
             this.pages[x].setZIndex(zIndex);
             zIndex--;
 
             // Last flag disables page from turning.
-            if (x == this.pages.length - 1) {
+            if (x === this.pages.length - 1)
                 this.pages[x].setOptions({
                     last: true,
                     classes: ['page', 'last']
                 });
-            }
         }
 
         /**
@@ -65,9 +67,8 @@ define(function(require, exports, module) {
          * @return {[type]} [description]
          */
         this.on('nextPage', function() {
-            if (this.currentPageIndex < this.pages.length - 1) {
+            if (this.currentPageIndex < this.pages.length - 1)
                 this.currentPageIndex++;
-            }
         }.bind(this));
 
         /**
@@ -75,10 +76,14 @@ define(function(require, exports, module) {
          * @return {[type]} [description]
          */
         this.on('prevPage', function() {
-            if (this.currentPageIndex > 0) {
+            if (this.currentPageIndex > 0)
                 this.currentPageIndex--;
-            }
         }.bind(this));
+    }
+
+    function ContentView() {
+        View.apply(this, arguments);
+        _createPages.call(this);
     }
 
     /**
@@ -89,15 +94,10 @@ define(function(require, exports, module) {
         if (this.currentPageIndex < this.pages.length - 1) {
             this.pages[this.currentPageIndex].turn();
             this._eventOutput.emit('nextPage');
-        } else {
-            this.pages[this.currentPageIndex].hop();
         }
+        else
+            this.pages[this.currentPageIndex].hop();
     };
-
-    function ContentView() {
-        View.apply(this, arguments);
-        _createPages.call(this);
-    }
 
     ContentView.prototype = Object.create(View.prototype);
     ContentView.prototype.constructor = ContentView;
@@ -113,7 +113,7 @@ define(function(require, exports, module) {
             this._eventOutput.emit('prevPage');
             this.pages[this.currentPageIndex].turnBack();
         }
-    }
+    };
 
     module.exports = ContentView;
 });
