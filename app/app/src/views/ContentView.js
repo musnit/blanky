@@ -1,36 +1,26 @@
 define(function(require, exports, module) {
-    var Surface                 = require('famous/core/Surface');
     var Modifier                = require('famous/core/Modifier');
-    var Transform               = require('famous/core/Transform');
     var TouchSync               = require('famous/inputs/TouchSync');
-    var GenericSync             = require('famous/inputs/GenericSync');
     var View                    = require('famous/core/View');
-    var Transitionable          = require('famous/transitions/Transitionable');
-    var TransitionableTransform = require('famous/transitions/TransitionableTransform');
+
     var PageViews = [];
     PageViews.push(require('views/Page16View'));
     PageViews.push(require('views/Page19View'));
-
-    function ContentView() {
-        View.apply(this, arguments);
-        _createPages.call(this);
-    }
-
-    ContentView.prototype = Object.create(View.prototype);
-    ContentView.prototype.constructor = ContentView;
-
-    ContentView.DEFAULT_OPTIONS = {};
 
     function _createPages() {
         this.pages = [];
         this.mods = [];
         this.currentPageIndex = 0;
-        self = this;
-        PageViews.forEach(function(pageView){
-            self.pages.push(new pageView());
+        var self = this;
+        PageViews.forEach(function(PageView) {
+            self.pages.push(new PageView());
         });
 
         var zIndex = this.pages.length;
+
+        function emitNextPageEvent() {
+            this._eventOutput.emit('nextPage');
+        }
 
         for (var x = 0; x < this.pages.length; x++) {
             this.mods.push(new Modifier({
@@ -39,9 +29,7 @@ define(function(require, exports, module) {
 
             this._add(this.mods[x]).add(this.pages[x]);
 
-            this.pages[x].on('nextPage', function() {
-                this._eventOutput.emit('nextPage');
-            }.bind(this));
+            this.pages[x].on('nextPage', emitNextPageEvent.bind(this));
 
             // Gets event from slide transfers rotation to previous slide.
             this.pages[x].on('rotatePrevious', function(data) {
@@ -67,7 +55,7 @@ define(function(require, exports, module) {
             if (x == this.pages.length - 1) {
                 this.pages[x].setOptions({
                     last: true,
-                    classes: ["page", "last"]
+                    classes: ['page', 'last']
                 });
             }
         }
@@ -104,7 +92,17 @@ define(function(require, exports, module) {
         } else {
             this.pages[this.currentPageIndex].hop();
         }
+    };
+
+    function ContentView() {
+        View.apply(this, arguments);
+        _createPages.call(this);
     }
+
+    ContentView.prototype = Object.create(View.prototype);
+    ContentView.prototype.constructor = ContentView;
+
+    ContentView.DEFAULT_OPTIONS = {};
 
     /**
      * Manually triggers previous page

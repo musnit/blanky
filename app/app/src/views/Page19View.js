@@ -1,24 +1,10 @@
 define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
-    var VideoSurface = require('famous/surfaces/VideoSurface');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
-    var GenericSync = require('famous/inputs/GenericSync');
-    var MouseSync = require('famous/inputs/MouseSync');
-    var TouchSync = require('famous/inputs/TouchSync');
-    var Transitionable = require('famous/transitions/Transitionable');
-    var TransitionableTransform = require('famous/transitions/TransitionableTransform');
     var PageView  = require('views/PageView');
-
-    function Page19View() {
-        PageView.apply(this, arguments);
-        _createPage.call(this);
-    }
-
-    Page19View.prototype = Object.create(PageView.prototype);
-    Page19View.prototype.constructor = Page19View;
 
     function _createPage() {
         this.backgroundMod = new Modifier({
@@ -29,8 +15,8 @@ define(function(require, exports, module) {
 
         this.backgroundSurface = new ImageSurface({
             size: [undefined, undefined],
-            classes: ["page"],
-            content: '/content/images/pages/19/background.png',
+            classes: ['page'],
+            content: '/content/images/pages/19/background.png'
         });
 
         this.hand01Mod = new Modifier({
@@ -40,8 +26,8 @@ define(function(require, exports, module) {
 
         this.hand01Surface = new ImageSurface({
             size: [undefined, undefined],
-            classes: ["page"],
-            content: '/content/images/pages/19/hand01.png',
+            classes: ['page'],
+            content: '/content/images/pages/19/hand01.png'
         });
 
         this.hand02Mod = new Modifier({
@@ -51,8 +37,8 @@ define(function(require, exports, module) {
 
         this.hand02Surface = new ImageSurface({
             size: [undefined, undefined],
-            classes: ["page"],
-            content: '/content/images/pages/19/hand02.png',
+            classes: ['page'],
+            content: '/content/images/pages/19/hand02.png'
         });
 
         this.hand03Mod = new Modifier({
@@ -62,8 +48,8 @@ define(function(require, exports, module) {
 
         this.hand03Surface = new ImageSurface({
             size: [undefined, undefined],
-            classes: ["page"],
-            content: '/content/images/pages/19/hand03.png',
+            classes: ['page'],
+            content: '/content/images/pages/19/hand03.png'
         });
 
         this.hand04Mod = new Modifier({
@@ -73,8 +59,8 @@ define(function(require, exports, module) {
 
         this.hand04Surface = new ImageSurface({
             size: [undefined, undefined],
-            classes: ["page"],
-            content: '/content/images/pages/19/hand04.png',
+            classes: ['page'],
+            content: '/content/images/pages/19/hand04.png'
         });
 
         this.debugMod = new Modifier({
@@ -83,7 +69,7 @@ define(function(require, exports, module) {
 
         this.debugSurface = new Surface({
             size: [200, 200],
-            content: '<div class="debug">yay</div>',
+            content: '<div class="debug">yay</div>'
         });
 
         this._add(this.backgroundMod).add(this.backgroundSurface);
@@ -99,26 +85,34 @@ define(function(require, exports, module) {
         this.createMotionBindings();
     }
 
-    Page19View.prototype.adjustOrientation = function(tiltLR, tiltFB, dir){
+    function Page19View() {
+        PageView.apply(this, arguments);
+        _createPage.call(this);
+    }
+
+    Page19View.prototype = Object.create(PageView.prototype);
+    Page19View.prototype.constructor = Page19View;
+
+    Page19View.prototype.adjustOrientation = function(tiltLR, tiltFB, dir) {
         this.backgroundMod.setAlign([0.5,0.5]);
-        changeInX = tiltLR-this.originalOrientation[0];
-        changeInY = tiltFB-this.originalOrientation[1];
-        if(changeInX >30) changeInX = 30;
-        if(changeInY >30) changeInY = 30;
-        if(changeInX <-30) changeInX = -30;
-        if(changeInY <-30) changeInY = -30;
-        percentChangeInX = (((changeInX + 60)*(100/60) - 100)*2)/100;
-        percentChangeInY = (((changeInY + 60)*(100/60) - 100)*2)/100;
-        alignChangeInX = 0.05*percentChangeInX;
-        alignChangeInY = 0.05*percentChangeInY;
+        var changeInX = tiltLR-this.originalOrientation[0];
+        var changeInY = tiltFB-this.originalOrientation[1];
+        if (changeInX >30) changeInX = 30;
+        if (changeInY >30) changeInY = 30;
+        if (changeInX <-30) changeInX = -30;
+        if (changeInY <-30) changeInY = -30;
+        var percentChangeInX = (((changeInX + 60)*(100/60) - 100)*2)/100;
+        var percentChangeInY = (((changeInY + 60)*(100/60) - 100)*2)/100;
+        var alignChangeInX = 0.05*percentChangeInX;
+        var alignChangeInY = 0.05*percentChangeInY;
         this.backgroundMod.setAlign([0.5+alignChangeInX,0.5+alignChangeInY]);
-        this.debugSurface.setContent('<div class="debug">'+ (alignChangeInX) +"<br/>"+(alignChangeInY) +'</div>');
+        this.debugSurface.setContent('<div class="debug">'+ (alignChangeInX) +'<br/>'+(alignChangeInY) +'</div>');
     };
 
-    Page19View.prototype.createMotionBindings = function(){
+    Page19View.prototype.createMotionBindings = function() {
 
         if (window.DeviceOrientationEvent) {
-            self = this;   
+            var self = this;
             this.originalOrientation = false;
             window.addEventListener('deviceorientation', function(eventData) {
                 // gamma is the left-to-right tilt in degrees, where right is positive
@@ -131,9 +125,8 @@ define(function(require, exports, module) {
                 var dir = eventData.alpha;
 
                 // call our orientation event handler
-                if(!self.originalOrientation){
+                if (!self.originalOrientation)
                     self.originalOrientation = [tiltLR, tiltFB, dir];
-                }
                 self.adjustOrientation(tiltLR, tiltFB, dir);
             }, false);
         }
