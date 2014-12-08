@@ -4,10 +4,10 @@ define(function(require, exports, module) {
     var View          = require('famous/core/View');
     var StateModifier = require('famous/modifiers/StateModifier');
 
-    var Page19View = require('views/Page19View');
+    var Page22And23View = require('views/Page22And23View');
 
     function _createPageView() {
-        this.contentView = new Page19View();
+        this.contentView = new Page22And23View();
         this.pageModifier = new StateModifier();
 
         this.add(this.pageModifier).add(this.contentView);
