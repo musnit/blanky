@@ -25,8 +25,8 @@ define(function(require, exports, module) {
 
         this.wavesMod = new Modifier({
             origin: [0.5, 0.5],
-            transform: function(){
-                timePassed = Date.now() - self.initialTime;
+            transform: function() {
+                var timePassed = Date.now() - self.initialTime;
                 var y = Math.sin(timePassed/250)*100;
                 var x = Math.sin(timePassed/500)*100;
                 return Transform.translate(x,y,0);
@@ -42,8 +42,8 @@ define(function(require, exports, module) {
 
         this.shipMod = new Modifier({
             origin: [0.5, 0.5],
-            transform: function(){
-                timePassed = Date.now() - self.initialTime;
+            transform: function() {
+                var timePassed = Date.now() - self.initialTime;
                 var rotate = Math.sin(timePassed/1000)/6;
                 return Transform.rotate(0,0,rotate);
             },
@@ -58,8 +58,8 @@ define(function(require, exports, module) {
 
         this.mainPirateMod = new Modifier({
             origin: [0.5, 0.5],
-            transform: function(){
-                timePassed = Date.now() - self.initialTime;
+            transform: function() {
+                var timePassed = Date.now() - self.initialTime;
                 var rotate = Math.sin(timePassed/1000)/5;
                 return Transform.rotate(0,0,rotate);
             },
@@ -74,8 +74,8 @@ define(function(require, exports, module) {
 
         this.charlieMod = new Modifier({
             origin: [0.5, 0.5],
-            transform: function(){
-                timePassed = Date.now() - self.initialTime;
+            transform: function() {
+                var timePassed = Date.now() - self.initialTime;
                 var rotate = Math.sin(timePassed/1000)/4;
                 return Transform.rotate(0,0,rotate);
             },
@@ -90,8 +90,8 @@ define(function(require, exports, module) {
 
         this.frontRopeMod = new Modifier({
             origin: [0.5, 0.5],
-            transform: function(){
-                timePassed = Date.now() - self.initialTime;
+            transform: function() {
+                var timePassed = Date.now() - self.initialTime;
                 var rotate = Math.sin(timePassed/1000)/3;
                 return Transform.rotate(0,0,rotate);
             },
