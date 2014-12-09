@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     var AppView = require('views/AppView');
 
     // create the main context
-    var mainContext = Engine.createContext();
+    var mainContext = Engine.createContext(document.getElementById('device-screen'));
     mainContext.setPerspective(1000);
     var appView = new AppView();
 

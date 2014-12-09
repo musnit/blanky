@@ -1,10 +1,6 @@
 html {
 }
 
-.page img {
-    width: 100%;
-}
-
 section {
     width: 100%;
     height: 100%;
@@ -21,4 +17,15 @@ section {
     background-size: cover;
 
     background-position: top center;
+}
+
+#device-screen {
+  overflow: hidden;
+  width: 1024px;
+  height: 768px;
+  position: inherit;
+  top: inherit;
+  left: inherit;
+  bottom: inherit;
+  right: inherit;
 }
