@@ -17,6 +17,8 @@
         <!-- endbower -->
         <!-- endbuild -->
 
+        <script src="lib/rivets/dist/rivets.bundled.min.js"></script>
+
         <!-- build:js(app/) src/polyfills.js -->
         <script type="text/javascript" src="lib/famous-polyfills/functionPrototypeBind.js"></script>
         <script type="text/javascript" src="lib/famous-polyfills/classList.js"></script>
@@ -32,9 +34,36 @@
         <!-- /process -->
     </head>
     <body>
-        BlankyStuff<br/>
+        Edit the values to change the animation. Some notes:<br/>
+        <ul>
+        <li>They won't be saved if you close/refresh, so write them down if you like them!<br/></li>
+        <li>for rotation angle, a lower number means a bigger angle<br/></li>
+        <li>for rotation and translation speed,a lower number means a faster speed<br/></li>
+        <li>I'll add more things like size, position, stretch, etc too<br/></li>
+        <li>Sorry this is a super terrible UI with weird numbers but should be enough for us to play with to start - i'll improve it with like sliders and more intuitive numbers in future)<br/></li>
+        </ul>
+        <div id="edit-section">
+            <ul>
+                <li rv-each-item="popups">
+                 {item.name} .........
+                 translation?:<input rv-input="item.translate | boolean">
+                 <span rv-if="item.translate">
+                     translationY:<input rv-input="item.translateY">
+                     translationX:<input rv-input="item.translateX">
+                     translationXSpeed:<input rv-input="item.translateXSpeed">
+                     translationYSpeed:<input rv-input="item.translateYSpeed">
+                 </span>
+                 rotation?:<input rv-input="item.rotate | boolean">
+                 <span rv-if="item.rotate">
+                     rotationAngle:<input rv-input="item.rotateAngle">
+                     rotationSpeed:<input rv-input="item.rotateSpeed">
+                 </span>
+                </li>
+            </ul>
+            {test}
+        </div>
         <div>
-        device pic<br/>
+        Actual app: (Aspect ratio is iPad size):<br/><br/>
         <div id="device-screen" class="famous-container"></div>
         </div>
     </body>

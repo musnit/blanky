@@ -15,15 +15,15 @@ define(function(require, exports, module) {
                 var rotate, timePassed, x, y;
                 timePassed = Date.now() - self.config.timer.initialTime;
                 if (self.config.translate){
-                    y = Math.sin(timePassed/250)*self.config.translateY;
-                    x = Math.sin(timePassed/500)*self.config.translateX;
+                    y = Math.sin(timePassed/self.config.translateYSpeed)*self.config.translateY;
+                    x = Math.sin(timePassed/self.config.translateXSpeed)*self.config.translateX;
                 }
                 else {
                     y = 0;
                     x = 0;
                 }
                 if (self.config.rotate){
-                    rotate = Math.sin(timePassed/1000)/self.config.rotateAngle;
+                    rotate = Math.sin(timePassed/self.config.rotateSpeed)/self.config.rotateAngle;
                 }
                 else {
                     rotate = 0;

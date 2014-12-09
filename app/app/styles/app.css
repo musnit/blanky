@@ -21,8 +21,8 @@ section {
 
 #device-screen {
   overflow: hidden;
-  width: 1024px;
-  height: 768px;
+  width: 768px;
+  height: 576px;
   position: inherit;
   top: inherit;
   left: inherit;

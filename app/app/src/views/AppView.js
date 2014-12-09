@@ -7,14 +7,15 @@ define(function(require, exports, module) {
     var Page22And23View = require('views/Page22And23View');
 
     function _createPageView() {
-        this.contentView = new Page22And23View();
+        this.contentView = new Page22And23View(this.model);
         this.pageModifier = new StateModifier();
 
         this.add(this.pageModifier).add(this.contentView);
     }
 
-    function AppView() {
+    function AppView(model) {
         View.apply(this, arguments);
+        this.model = model;
 
         _createPageView.call(this);
     }
