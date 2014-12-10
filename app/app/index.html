@@ -37,30 +37,28 @@
         Edit the values to change the animation. Some notes:<br/>
         <ul>
         <li>They won't be saved if you close/refresh, so write them down if you like them!<br/></li>
-        <li>for rotation angle, a lower number means a bigger angle<br/></li>
-        <li>for rotation and translation speed,a lower number means a faster speed<br/></li>
-        <li>I'll add more things like size, position, stretch, etc too<br/></li>
-        <li>Sorry this is a super terrible UI with weird numbers but should be enough for us to play with to start - i'll improve it with like sliders and more intuitive numbers in future)<br/></li>
+        <li>for angle and speeds, a lower number means wider/faster, not a higher number<br/></li>
+        <li>I'll add more things like size, startingposition, stretch, time offsets etc too, which we should be able to play with to get the art all fitting properly on screen<br/></li>
+        <li>The white borders that you occasionally see on the edges are, I think, due to the photoshop cutouts having the white border in those layers<br/></li>
+        <li>Sorry this is a super terrible UI with weird numbers but should be enough for us to play with to start - i'll improve it)<br/></li>
         </ul>
         <div id="edit-section">
-            <ul>
-                <li rv-each-item="popups">
-                 {item.name} .........
-                 translation?:<input rv-input="item.translate | boolean">
-                 <span rv-if="item.translate">
-                     translationY:<input rv-input="item.translateY">
-                     translationX:<input rv-input="item.translateX">
-                     translationXSpeed:<input rv-input="item.translateXSpeed">
-                     translationYSpeed:<input rv-input="item.translateYSpeed">
-                 </span>
-                 rotation?:<input rv-input="item.rotate | boolean">
-                 <span rv-if="item.rotate">
-                     rotationAngle:<input rv-input="item.rotateAngle">
-                     rotationSpeed:<input rv-input="item.rotateSpeed">
-                 </span>
-                </li>
-            </ul>
-            {test}
+            <table border=1>
+            <tr>
+            <td>Name</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td>
+            </tr>
+            <tr rv-each-item="popups">
+                <td>{item.name}</td>
+                <td><input type="checkbox" rv-checked="item.translate"></td>
+                <td><input rv-input="item.translateX"type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateX"></td>
+                <td><input rv-input="item.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateXSpeed"></td>
+                <td><input rv-input="item.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateY"></td>
+                <td><input rv-input="item.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateYSpeed"></td>
+                <td><input type="checkbox" rv-checked="item.rotate"></td>
+                <td><input rv-input="item.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="item.rotateAngle"></td>
+                <td><input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
+            </tr>
+            </table>
         </div>
         <div>
         Actual app: (Aspect ratio is iPad size):<br/><br/>
