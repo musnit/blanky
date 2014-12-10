@@ -1,11 +1,9 @@
 define(function(require, exports, module) {
-    var Surface = require('famous/core/Surface');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var Transitionable = require('famous/transitions/Transitionable');
 
     function _createPopup() {
         var self = this;

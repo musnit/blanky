@@ -16,7 +16,6 @@ define(function(require, exports, module) {
             {name: 'front_rope', timer: this, url: '/content/images/pages/22and23/front_rope.png', rotate: true, rotateAngle: 8, rotateSpeed: 2000}
         ]};
 
-
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
     mainContext.setPerspective(1000);
@@ -27,10 +26,10 @@ define(function(require, exports, module) {
     rivets.binders.input = {
         publishes: true,
         routine: rivets.binders.value.routine,
-        bind: function (el) {
+        bind: function(el) {
             el.addEventListener('input', this.publish);
         },
-        unbind: function (el) {
+        unbind: function(el) {
             el.removeEventListener('input', this.publish);
         }
     };
