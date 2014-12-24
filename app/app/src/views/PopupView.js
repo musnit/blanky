@@ -11,14 +11,16 @@ define(function(require, exports, module) {
             origin: [0.5, 0.5],
             transform: function() {
                 var rotate, timePassed, x, y;
+                x = parseInt(self.config.initialX);
+                y = parseInt(self.config.initialY);
                 timePassed = Date.now() - self.config.timer.initialTime;
                 if (self.config.translate){
-                    y = Math.sin(timePassed/self.config.translateYSpeed)*self.config.translateY;
-                    x = Math.sin(timePassed/self.config.translateXSpeed)*self.config.translateX;
+                    y += Math.sin(timePassed/self.config.translateYSpeed)*self.config.translateY;
+                    x += Math.sin(timePassed/self.config.translateXSpeed)*self.config.translateX;
                 }
                 else {
-                    y = 0;
-                    x = 0;
+                    y += 0;
+                    x += 0;
                 }
                 if (self.config.rotate){
                     rotate = Math.sin(timePassed/self.config.rotateSpeed)/self.config.rotateAngle;
