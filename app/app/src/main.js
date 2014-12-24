@@ -1,4 +1,3 @@
-var saver = {};
 
 /* globals define */
 define(function(require, exports, module) {
@@ -28,6 +27,16 @@ define(function(require, exports, module) {
     // Create a new instance of that class.
 
     var page22And23Model;
+    var saver = {};
+    saver.saveToParse = function() {
+        var page22And23 = new this.Page();
+        page22And23.save(this.model, {
+          success: function() {
+            alert('saved successfully!');
+          }
+        });
+    }
+    window.saver = saver;
 
     var query = new Parse.Query(Page);
     query.get('w9zCNnEbfC', {
@@ -36,17 +45,8 @@ define(function(require, exports, module) {
         var appView = new AppView(page22And23Model);
         mainContext.add(appView);
         rivets.bind(document.getElementById('edit-section'), page22And23Model);
-        saver.model = page22And23Model;
-        saver.Page = Page;
+        window.saver.model = page22And23Model;
+        window.saver.Page = Page;
       }
     });
 });
-
-saver.saveToParse = function() {
-    var page22And23 = new this.Page();
-    page22And23.save(this.model, {
-      success: function() {
-        alert('saved successfully!');
-      }
-    });
-}
