@@ -30,8 +30,10 @@ define(function(require, exports, module) {
     var saver = {};
     saver.saveToParse = function() {
         var page22And23 = new this.Page();
+        this.model.objectId = 'w9zCNnEbfC';
         page22And23.save(this.model, {
           success: function() {
+            window.saver.model.objectId = 'w9zCNnEbfC';
             alert('saved successfully!');
           }
         });
