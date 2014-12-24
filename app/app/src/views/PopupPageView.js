@@ -13,15 +13,15 @@ define(function(require, exports, module) {
         });
     }
 
-    function Page22And23View(model) {
+    function PopupPageView(model) {
         PageView.apply(this, arguments);
         this.popups = model.popups;
 
         _createPage.call(this);
     }
 
-    Page22And23View.prototype = Object.create(PageView.prototype);
-    Page22And23View.prototype.constructor = Page22And23View;
+    PopupPageView.prototype = Object.create(PageView.prototype);
+    PopupPageView.prototype.constructor = PopupPageView;
 
-    module.exports = Page22And23View;
+    module.exports = PopupPageView;
 });
