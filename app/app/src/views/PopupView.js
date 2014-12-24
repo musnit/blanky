@@ -28,7 +28,12 @@ define(function(require, exports, module) {
                 else {
                     rotate = 0;
                 }
-                return Transform.thenMove(Transform.rotate(0,0,rotate),[x,y,0]);
+                return Transform.thenScale(
+                    Transform.thenMove(
+                        Transform.rotate(0,0,rotate),
+                        [x,y,0])
+                    ,[parseFloat(self.config.scale),parseFloat(self.config.scale),1]
+                );
             },
             align: [0.5,0.5]
         });
