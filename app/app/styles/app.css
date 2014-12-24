@@ -32,4 +32,6 @@ section {
   left: inherit;
   bottom: inherit;
   right: inherit;
+  margin-left: 100px;
+  margin-bottom: 100px;
 }

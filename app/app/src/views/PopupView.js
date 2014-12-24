@@ -10,9 +10,11 @@ define(function(require, exports, module) {
         this.modifier = new Modifier({
             origin: [0.5, 0.5],
             transform: function() {
-                var rotate, timePassed, x, y;
+                var rotate, timePassed, x, y, xyRatio, scale;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
+                scale = parseFloat(self.config.scale);
+                xyRatio = parseFloat(self.config.xyRatio)
                 timePassed = Date.now() - self.config.timer.initialTime;
                 if (self.config.translate){
                     y += Math.sin(timePassed/self.config.translateYSpeed)*self.config.translateY;
@@ -32,7 +34,7 @@ define(function(require, exports, module) {
                     Transform.thenMove(
                         Transform.rotate(0,0,rotate),
                         [x,y,0])
-                    ,[parseFloat(self.config.scale),parseFloat(self.config.scale),1]
+                    ,[scale*xyRatio,scale,1]
                 );
             },
             align: [0.5,0.5]
