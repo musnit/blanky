@@ -8,8 +8,8 @@ define(function(require, exports, module) {
     var AppView = require('views/AppView');
     this.initialTime = Date.now();
     Engine.setOptions({appMode: false});
-    Parse.initialize("U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH", "aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X");
-    var Page = Parse.Object.extend("Page");
+    Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
+    var Page = Parse.Object.extend('Page');
 
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
@@ -30,7 +30,7 @@ define(function(require, exports, module) {
     var page22And23Model;
 
     var query = new Parse.Query(Page);
-    query.get("w9zCNnEbfC", {
+    query.get('w9zCNnEbfC', {
       success: function(page) {
         page22And23Model = page.toJSON();
         var appView = new AppView(page22And23Model);
@@ -42,11 +42,11 @@ define(function(require, exports, module) {
     });
 });
 
-saver.saveToParse = function(){
+saver.saveToParse = function() {
     var page22And23 = new this.Page();
     page22And23.save(this.model, {
-      success: function(){
-        alert("saved successfully!");
+      success: function() {
+        alert('saved successfully!');
       }
     });
 }
