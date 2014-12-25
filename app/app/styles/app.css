@@ -23,8 +23,11 @@ section {
     background-position: top center;
 }
 
-#device-screen {
+.hidden-overflow {
   overflow: hidden;
+}
+
+#device-screen {
   width: 768px;
   height: 576px;
   position: inherit;

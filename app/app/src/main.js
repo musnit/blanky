@@ -44,9 +44,10 @@ define(function(require, exports, module) {
     query.get('w9zCNnEbfC', {
       success: function(page) {
         page22And23Model = page.toJSON();
+        page22And23Model.hiddenOverflow = true;
         var appView = new AppView(page22And23Model);
         mainContext.add(appView);
-        rivets.bind(document.getElementById('edit-section'), page22And23Model);
+        rivets.bind(document.getElementById('body'), page22And23Model);
         window.saver.model = page22And23Model;
         window.saver.Page = Page;
       }
