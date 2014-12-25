@@ -8,7 +8,7 @@ define(function(require, exports, module) {
     function _createPopup() {
         var self = this;
         this.modifier = new Modifier({
-            origin: [0.5, 0.5],
+            origin: [0, 0],
             transform: function() {
                 var rotate, timePassed, x, y, xyRatio, scale;
                 x = parseInt(self.config.initialX);
@@ -37,11 +37,11 @@ define(function(require, exports, module) {
                     ,[scale*xyRatio,scale,1]
                 );
             },
-            align: [0.5,0.5]
+            align: [0,0]
         });
 
         this.surface = new ImageSurface({
-            size: [undefined, undefined],
+            size: [2048, 1040],
             content: this.config.url
         });
 
