@@ -77,10 +77,11 @@
                 <td><input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
             </tr>
             </table>
+        <button onclick="window.saver.saveToParse()">Save</button><br/>
         </div>
         <div>
-        <button onclick="window.saver.saveToParse()">Save</button><br/>
         Actual app: (Aspect ratio is iPad size):<br/><br/>
+        <img id="iphone-5-pic" src="/content/images/ipad.png">
         <div id="device-screen" rv-class-hidden-overflow="hiddenOverflow" class="pc iphone-5 famous-container"></div>
         </div>
     </body>

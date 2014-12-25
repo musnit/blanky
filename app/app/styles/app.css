@@ -9,7 +9,9 @@ section {
     width: 100%;
     height: 100%;
 }
-
+#edit-section{
+  z-index: 999;
+}
 .full-image {
     position: relative;
 
@@ -27,22 +29,42 @@ section {
   overflow: hidden;
 }
 
-.iphone-5 {
-  width: 1136px;
-  height: 640px;
-}
-
 .pc {
   position: inherit;
   top: inherit;
   left: inherit;
   bottom: inherit;
   right: inherit;
-  margin-left: 150px;
-  margin-top: 450px;
+  margin-left: 250px;
+  margin-top: 150px;
 }
 
 .ipad {
-  width: 768px;
-  height: 576px;
+  width: 1024px;
+  height: 768px;
 }
+
+#ipad-pic {
+  position: absolute;
+  width: 1282.46628131px;
+  height: 864.492307692px;
+  left: 110px;
+  top: 465px;
+  z-index: 999;
+}
+
+.iphone-5 {
+  width: 1136px;
+  height: 640px;
+}
+
+#iphone-5-pic {
+  position: absolute;
+  width: 1424.736031px;
+  height: 722.410256px;
+  left: 95px;
+  top: 485px;
+  z-index: 999;
+}
+
+

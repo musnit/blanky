@@ -46,15 +46,6 @@ define(function(require, exports, module) {
         });
 
         this.add(this.cameraModifier).add(this.contentView);
-        this.ipad = new ImageSurface({
-            size: [961, 650],
-            content: '/content/images/ipad.png'
-        });
-        this.ipadModifier = new Modifier({
-            origin: [0.507, 0.5],
-            align: [0.5,0.5]
-        });
-        this._add(this.ipadModifier).add(this.ipad);
     }
 
     function AppView(model) {
