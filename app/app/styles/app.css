@@ -29,7 +29,7 @@ section {
   overflow: hidden;
 }
 
-.pc {
+#device-area{
   position: inherit;
   top: inherit;
   left: inherit;
@@ -45,25 +45,25 @@ section {
 }
 
 #ipad-pic {
-  position: absolute;
+  position: relative;
   width: 1282.46628131px;
   height: 864.492307692px;
-  left: 110px;
-  top: 465px;
+  left: -139px;
+  top: -51px;
   z-index: 999;
 }
 
 .iphone-5 {
-  width: 1136px;
-  height: 640px;
+  width: 568px;
+  height: 320px;
 }
 
 #iphone-5-pic {
-  position: absolute;
-  width: 1424.736031px;
-  height: 722.410256px;
-  left: 95px;
-  top: 485px;
+  position: relative;
+  width: 712px;
+  height: 361px;
+  left: -77px;
+  top: -20px;
   z-index: 999;
 }
 
