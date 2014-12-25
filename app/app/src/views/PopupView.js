@@ -15,17 +15,24 @@ define(function(require, exports, module) {
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
                 xyRatio = parseFloat(self.config.xyRatio)
-                timePassed = Date.now() - self.config.timer.initialTime;
+                timePassed = parseInt(Date.now());
+                timeOffset = parseInt(self.config.timeOffset);
+                translateXSpeed = parseInt(self.config.translateXSpeed);
+                translateYSpeed = parseInt(self.config.translateYSpeed);
+                translateX = parseInt(self.config.translateX);
+                translateY = parseInt(self.config.translateY);
+                rotateSpeed = parseInt(self.config.rotateSpeed);
+                rotateAngle = parseInt(self.config.rotateAngle);
                 if (self.config.translate){
-                    y += Math.sin(timePassed/self.config.translateYSpeed)*self.config.translateY;
-                    x += Math.sin(timePassed/self.config.translateXSpeed)*self.config.translateX;
+                    y += Math.sin((timePassed+timeOffset)/translateYSpeed)*translateY;
+                    x += Math.sin((timePassed+timeOffset)/translateXSpeed)*translateX;
                 }
                 else {
                     y += 0;
                     x += 0;
                 }
                 if (self.config.rotate){
-                    rotate = Math.sin(timePassed/self.config.rotateSpeed)/self.config.rotateAngle;
+                    rotate = Math.sin((timePassed+timeOffset)/rotateSpeed)/rotateAngle;
                 }
                 else {
                     rotate = 0;
