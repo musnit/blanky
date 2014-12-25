@@ -14,7 +14,7 @@ define(function(require, exports, module) {
                         origin: [0.5, 0.5],
                         align: [0.5,0.5],
                         transform: function(){
-                            return Transform.scale(self.model.globalScale,self.model.globalScale,1);
+                            return Transform.scale(self.model.camera.scale,self.model.camera.scale,1);
                         }
             });
 
