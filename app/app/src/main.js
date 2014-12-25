@@ -49,6 +49,18 @@ define(function(require, exports, module) {
         rivets.bind(document.getElementById('body'), page22And23Model);
         window.saver.model = page22And23Model;
         window.saver.Page = Page;
+        var audioPath = 'content/sounds/';
+        var manifest = [
+            {id:'Music', src:'bgMusic.mp3'},
+        ];
+        createjs.Sound.alternateExtensions = ['mp3'];
+        var handleLoad = function(event) {
+            createjs.Sound.play(event.src, { loop: -1 });
+        };
+        createjs.Sound.addEventListener('fileload', handleLoad);
+        createjs.Sound.registerManifest(manifest, audioPath);
+        createjs.Sound.registerSound('content/sounds/bgMusic.mp3', 'bgMusic');
+        createjs.Sound.play('bgMusic');
       }
     });
 });
