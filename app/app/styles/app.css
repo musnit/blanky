@@ -27,9 +27,12 @@ section {
   overflow: hidden;
 }
 
-#device-screen {
-  width: 768px;
-  height: 576px;
+.iphone-5 {
+  width: 1136px;
+  height: 640px;
+}
+
+.pc {
   position: inherit;
   top: inherit;
   left: inherit;
@@ -37,4 +40,9 @@ section {
   right: inherit;
   margin-left: 150px;
   margin-top: 450px;
+}
+
+.ipad {
+  width: 768px;
+  height: 576px;
 }
