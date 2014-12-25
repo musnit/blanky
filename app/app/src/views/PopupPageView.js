@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-    var PageView  = require('views/PageView');
+    var View = require('famous/core/View');
     var PopupView  = require('views/PopupView');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -23,14 +23,14 @@ define(function(require, exports, module) {
     }
 
     function PopupPageView(model) {
-        PageView.apply(this, arguments);
+        View.apply(this, arguments);
         this.popups = model.popups;
         this.model = model;
 
         _createPage.call(this);
     }
 
-    PopupPageView.prototype = Object.create(PageView.prototype);
+    PopupPageView.prototype = Object.create(View.prototype);
     PopupPageView.prototype.constructor = PopupPageView;
 
     module.exports = PopupPageView;
