@@ -13,7 +13,7 @@ define(function(require, exports, module) {
             var modifier = new Modifier({
                         origin: [0.5, 0.5],
                         align: [0.5,0.5],
-                        transform: function(){
+                        transform: function() {
                             return Transform.scale(self.model.camera.scale,self.model.camera.scale,1);
                         }
             });

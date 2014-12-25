@@ -15,7 +15,7 @@ define(function(require, exports, module) {
         this.cameraModifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle;
                 x = parseInt(self.model.camera.initialX);
                 y = parseInt(self.model.camera.initialY);
                 scale = parseFloat(self.model.camera.scale);

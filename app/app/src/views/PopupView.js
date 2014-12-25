@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         this.modifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
