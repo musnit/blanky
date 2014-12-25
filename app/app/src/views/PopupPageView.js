@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var PopupView  = require('views/PopupView');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
 
     function _createPage() {
         var self = this;
@@ -21,15 +20,6 @@ define(function(require, exports, module) {
 
             self._add(modifier).add(popupView);
         });
-        this.ipad = new ImageSurface({
-            size: [960, 650],
-            content: '/content/images/ipad.png'
-        });
-        this.ipadModifier = new Modifier({
-            origin: [0.506, 0.5],
-            align: [0.5,0.5]
-        });
-        this._add(this.ipadModifier).add(this.ipad);
     }
 
     function PopupPageView(model) {
