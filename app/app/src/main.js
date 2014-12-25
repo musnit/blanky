@@ -52,15 +52,19 @@ define(function(require, exports, module) {
         var audioPath = 'content/sounds/';
         var manifest = [
             {id:'Music', src:'bgMusic.mp3'},
+            {id:'Waves', src:'light_ocean_waves_on_rocks_001.mp3'}
         ];
         createjs.Sound.alternateExtensions = ['mp3'];
         var handleLoad = function(event) {
-            createjs.Sound.play(event.src, { loop: -1 });
+            if (event.src == 'content/sounds/bgMusic.mp3'){
+                createjs.Sound.play(event.src, { loop: -1 });
+            }
+            else if (event.src == 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
+               createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
+            }
         };
         createjs.Sound.addEventListener('fileload', handleLoad);
-        createjs.Sound.registerManifest(manifest, audioPath);
-        createjs.Sound.registerSound('content/sounds/bgMusic.mp3', 'bgMusic');
-        createjs.Sound.play('bgMusic');
+        createjs.Sound.registerSounds(manifest, audioPath);
       }
     });
 });
