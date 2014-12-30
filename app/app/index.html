@@ -40,12 +40,20 @@
             <table border=1>
             <tr>
             Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'>
+            Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
+            <select id='page-chooser'>
+                <option value='w9zCNnEbfC'>ship</option>
+                <option value='GjENlwcbMb'>street</option>
+                <option value='FnTu1Egg5v'>hands</option>
+            </select><br/>
             </tr>
             <tr>
-            <td>Name</td><td>InitialX</td><td>InitialY</td><td>Scale</td><td>XYRatio</td><td>Time offset</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td>
+            <td>Name</td><td>File Url</td><td>Height</td><td>InitialX</td><td>InitialY</td><td>Scale</td><td>XYRatio</td><td>Time offset</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td>
             </tr>
             <tr>
                 <td>camera</td>
+                <td>-</td>
+                <td><input rv-input="camera.height" type='range' min='0' max='20'><input style="width:50px" rv-input="camera.height"></td>
                 <td><input rv-input="camera.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialX"></td>
                 <td><input rv-input="camera.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialY"></td>
                 <td><input rv-input="camera.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.scale"></td>
@@ -61,7 +69,9 @@
                 <td><input rv-input="camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.rotateSpeed"></td>
             </tr>
             <tr rv-each-item="popups">
-                <td>{item.name}</td>
+                <td><input rv-input="item.name"></td>
+                <td><input rv-input="item.url"></td>
+                <td><input rv-input="item.height" type='range' min='0' max='20'><input style="width:50px" rv-input="item.height"></td>
                 <td><input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>
                 <td><input rv-input="item.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialY"></td>
                 <td><input rv-input="item.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.scale"></td>
@@ -77,6 +87,7 @@
                 <td><input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
             </tr>
             </table>
+        <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
         <button onclick="window.saver.saveToParse()">Save</button><br/>
         </div>
         <div id="device-area">

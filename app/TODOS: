@@ -1,3 +1,6 @@
 TODOS:
 
-DRY the popupview and camera modifier code 
+DRY the popupview and camera modifier code. well like literally CR all files.
+split app code from main code
+add zooming control over time
+add accelerometer control 

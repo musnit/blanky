@@ -23,6 +23,7 @@ define(function(require, exports, module) {
                 translateY = parseInt(self.config.translateY);
                 rotateSpeed = parseInt(self.config.rotateSpeed);
                 rotateAngle = parseInt(self.config.rotateAngle);
+                height = parseInt(self.config.height);
                 if (self.config.translate){
                     y += Math.sin((timePassed+timeOffset)/translateYSpeed)*translateY;
                     x += Math.sin((timePassed+timeOffset)/translateXSpeed)*translateX;
@@ -40,7 +41,7 @@ define(function(require, exports, module) {
                 return Transform.thenScale(
                     Transform.thenMove(
                         Transform.rotate(0,0,rotate),
-                        [x,y,0])
+                        [x,y,height])
                     ,[scale*xyRatio,scale,1]
                 );
             },
