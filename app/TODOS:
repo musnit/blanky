@@ -1,6 +1,12 @@
 TODOS:
 
+add zooming control over time
+add accelerometer control
 DRY the popupview and camera modifier code. well like literally CR all files.
 split app code from main code
-add zooming control over time
-add accelerometer control 
+add swipe transitioning in app code with cool transition
+add sound controls
+remove all globalz!
+cordova and build as real app and test on my phone
+add remaining pages
+add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions/sprite basd animations
