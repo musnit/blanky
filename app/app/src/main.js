@@ -9,6 +9,7 @@ define(function(require, exports, module) {
     Engine.setOptions({appMode: false});
     Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
     var Page = Parse.Object.extend('Page');
+    var Fixtures = require('Fixtures');
 
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
