@@ -8,7 +8,7 @@ define(function(require, exports, module) {
         var self = this;
         this.popupViews = [];
         this.popups.forEach(function(popup) {
-            var popupView = new PopupView(popup);
+            var popupView = new PopupView(popup, self.model);
             self.popupViews.push(popupView);
             var modifier = new Modifier({
                         origin: [0.5, 0.5],

@@ -57,7 +57,7 @@ define(function(require, exports, module) {
         });
 
         this.surface = new ImageSurface({
-            size: [2048, 1040],
+            size: [this.model.page.x, this.model.page.y],
             content: this.config.url
         });
 
@@ -65,9 +65,10 @@ define(function(require, exports, module) {
 
     }
 
-    function PopupView(config) {
+    function PopupView(config, model) {
         View.apply(this, arguments);
         this.config = config;
+        this.model = model;
         _createPopup.call(this);
     }
 
