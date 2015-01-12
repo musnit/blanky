@@ -52,6 +52,7 @@ define(function(require, exports, module) {
             window.rivetsView.bind();
             window.saver.model = pageModel;
             window.saver.Page = Page;
+            window.pageModel.editPopup = [window.pageModel.camera];
             var audioPath = 'content/sounds/';
             var manifest = [
                 {id:'Music', src:'bgMusic.mp3'},
@@ -79,6 +80,7 @@ define(function(require, exports, module) {
             window.rivetsView.unbind();
             window.rivetsView.models = pageModel;
             window.rivetsView.bind();
+            window.pageModel.editPopup = [window.pageModel.camera];
             window.saver.model = pageModel;
             window.saver.Page = Page;
             var audioPath = 'content/sounds/';
@@ -160,6 +162,27 @@ define(function(require, exports, module) {
         this.main.loadPage(pageID);
     }
     window.pageChanger = pageChanger;
+
+    var editChanger = {};
+    editChanger.main = this;
+    editChanger.changeEditing = function() {
+        var itemID = document.querySelector('input[name="edit-chooser"]:checked').value;
+        if (itemID !== 'camera'){
+            var editPopup = window.pageModel.popups.filter(function(popup){
+                if(popup.name === itemID){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            });
+            window.pageModel.editPopup = editPopup;
+        }
+        else{
+            window.pageModel.editPopup = [window.pageModel.camera]
+        }
+    }
+    window.editChanger = editChanger;
 
     this.loadPage('w9zCNnEbfC');
 
