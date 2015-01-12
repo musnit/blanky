@@ -71,7 +71,7 @@ define(function(require, exports, module) {
           },
           error: function(){
             window.saver.currentPageID = pageID;
-            var pageModel = window.Fixtures.shipFixture;
+            var pageModel = window.Fixtures[pageID];
             window.pageModel = pageModel;
             window.appView.createAndShowPage(pageModel);
             var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);

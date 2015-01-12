@@ -2,7 +2,7 @@ define(function(require, exports, module) {
 
   var Fixtures = {};
   
-  Fixtures.shipFixture = {
+  Fixtures['w9zCNnEbfC'] = {
       "camera": {
           "height": "0",
           "initialX": "-15",
@@ -177,7 +177,7 @@ define(function(require, exports, module) {
       "updatedAt": "2015-01-08T15:11:40.335Z"
   };
 
-  Fixtures.streetFixture = {
+  Fixtures['GjENlwcbMb'] = {
       "camera": {
           "height": "0",
           "initialX": "-15",
@@ -265,7 +265,7 @@ define(function(require, exports, module) {
       "updatedAt": "2014-12-30T13:37:24.294Z"
   };
 
-  Fixtures.handsFixture = {
+  Fixtures['FnTu1Egg5v'] = {
       "camera": {
           "height": "0",
           "initialX": "-15",
