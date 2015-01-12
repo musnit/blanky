@@ -100,6 +100,41 @@ define(function(require, exports, module) {
           }
         });
     };
+
+    this.createMotionBindings = function() {
+
+        if (window.DeviceOrientationEvent) {
+            window.originalOrientation = false;
+            window.orientationDifference = [0,0,0];
+            window.addEventListener('deviceorientation', function(eventData) {
+                // gamma is the left-to-right tilt in degrees, where right is positive
+                var tiltLR = eventData.gamma;
+
+                // beta is the front-to-back tilt in degrees, where front is positive
+                var tiltFB = eventData.beta;
+
+                // alpha is the compass direction the device is facing in degrees
+                var dir = eventData.alpha;
+
+                // call our orientation event handler
+                if (!window.originalOrientation){
+                    window.originalOrientation = [tiltLR, tiltFB, dir];
+                }
+
+                var changeInX = tiltLR-window.originalOrientation[0];
+                var changeInY = tiltFB-window.originalOrientation[1];
+                if (changeInX >30) changeInX = 30;
+                if (changeInY >30) changeInY = 30;
+                if (changeInX <-30) changeInX = -30;
+                if (changeInY <-30) changeInY = -30;
+
+                window.orientationDifference = [changeInX, changeInY];
+            }, false);
+        }
+    };
+    this.createMotionBindings();
+
+
     
     var saver = {};
     saver.saveToParse = function() {

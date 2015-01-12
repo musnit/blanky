@@ -48,7 +48,7 @@
             </select><br/>
             </tr>
             <tr>
-            <td>Name</td><td>File Url</td><td>Height</td><td>InitialX</td><td>InitialY</td><td>Scale</td><td>XYRatio</td><td>Time offset</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td><td>Zoom?</td><td>ZoomAmount</td><td>ZoomSpeed</td>
+            <td>Name</td><td>File Url</td><td>Height</td><td>InitialX</td><td>InitialY</td><td>Scale</td><td>XYRatio</td><td>Time offset</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td><td>Zoom?</td><td>ZoomAmount</td><td>ZoomSpeed</td><td>Accel?</td>
             </tr>
             <tr>
                 <td>camera</td>
@@ -70,6 +70,7 @@
                 <td><input type="checkbox" rv-checked="camera.zoom"></td>
                 <td><input rv-input="camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomAmount"></td>
                 <td><input rv-input="camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomSpeed"></td>
+                <td><input type="checkbox" rv-checked="camera.accel"></td>
             </tr>
             <tr rv-each-item="popups">
                 <td><input rv-input="item.name"></td>
@@ -91,6 +92,7 @@
                 <td><input type="checkbox" rv-checked="item.zoom"></td>
                 <td><input rv-input="item.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomAmount"></td>
                 <td><input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
+                <td><input type="checkbox" rv-checked="item.accel"></td>
             </tr>
             </table>
         <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>

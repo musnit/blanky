@@ -30,9 +30,9 @@ define(function(require, exports, module) {
                     y += Math.sin((timePassed+timeOffset)/translateYSpeed)*translateY;
                     x += Math.sin((timePassed+timeOffset)/translateXSpeed)*translateX;
                 }
-                else {
-                    y += 0;
-                    x += 0;
+                if (self.config.accel){
+                    x += window.orientationDifference[0];
+                    y += window.orientationDifference[1];
                 }
                 if (self.config.rotate){
                     rotate = Math.sin((timePassed+timeOffset)/rotateSpeed)/rotateAngle;
