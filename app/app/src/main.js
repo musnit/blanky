@@ -10,6 +10,7 @@ define(function(require, exports, module) {
     Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
     var Page = Parse.Object.extend('Page');
     var Fixtures = require('Fixtures');
+    window.Fixtures = Fixtures;
 
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
@@ -44,7 +45,35 @@ define(function(require, exports, module) {
             var pageModel = page.toJSON();
             window.pageModel = pageModel;
             window.appView.createAndShowPage(pageModel);
-            window.originalBody = document.getElementById('body');
+            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);
+            window.rivetsView = rivetsView;
+            window.rivetsView.unbind();
+            window.rivetsView.models = pageModel;
+            window.rivetsView.bind();
+            window.saver.model = pageModel;
+            window.saver.Page = Page;
+            var audioPath = 'content/sounds/';
+            var manifest = [
+                {id:'Music', src:'bgMusic.mp3'},
+                {id:'Waves', src:'light_ocean_waves_on_rocks_001.mp3'}
+            ];
+            createjs.Sound.alternateExtensions = ['mp3'];
+            var handleLoad = function(event) {
+                if (event.src == 'content/sounds/bgMusic.mp3'){
+                    createjs.Sound.play(event.src, { loop: -1 });
+                }
+                else if (event.src == 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
+                   createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
+                }
+            };
+            createjs.Sound.addEventListener('fileload', handleLoad);
+            createjs.Sound.registerSounds(manifest, audioPath);
+          },
+          error: function(){
+            window.saver.currentPageID = pageID;
+            var pageModel = window.Fixtures.shipFixture;
+            window.pageModel = pageModel;
+            window.appView.createAndShowPage(pageModel);
             var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);
             window.rivetsView = rivetsView;
             window.rivetsView.unbind();
