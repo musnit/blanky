@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         this.modifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -23,6 +23,8 @@ define(function(require, exports, module) {
                 translateY = parseInt(self.config.translateY);
                 rotateSpeed = parseInt(self.config.rotateSpeed);
                 rotateAngle = parseInt(self.config.rotateAngle);
+                zoomSpeed = parseInt(self.config.zoomSpeed);
+                zoomAmount = parseInt(self.config.zoomAmount);
                 height = parseInt(self.config.height);
                 if (self.config.translate){
                     y += Math.sin((timePassed+timeOffset)/translateYSpeed)*translateY;
@@ -38,11 +40,17 @@ define(function(require, exports, module) {
                 else {
                     rotate = 0;
                 }
+                if (self.config.zoom){
+                    zoom = (Math.sin((timePassed+timeOffset)/zoomSpeed)+1)/2*zoomAmount;
+                }
+                else {
+                    zoom = 0;
+                }
                 return Transform.thenScale(
                     Transform.thenMove(
                         Transform.rotate(0,0,rotate),
                         [x,y,height])
-                    ,[scale*xyRatio,scale,1]
+                    ,[scale*xyRatio+zoom,scale+zoom,1]
                 );
             },
             align: [0,0]

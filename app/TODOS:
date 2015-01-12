@@ -1,5 +1,5 @@
 TODOS:
-
+null/zerochecks for the different values used on popupview/camera/...
 add zooming control over time
 add accelerometer control
 DRY the popupview and camera modifier code. well like literally CR all files.
