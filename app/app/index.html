@@ -53,52 +53,89 @@
                 </span>
             </form><br/>
             </tr>
-            <tr>
-            <td>Name</td><td>File Url</td><td>Height</td><td>InitialX</td><td>InitialY</td><td>Scale</td><td>XYRatio</td><td>Time offset</td><td>Translation?</td><td>X</td><td>XSpeed</td><td>Y</td><td>YSpeed</td><td>Rotation?</td><td>RotationAngle</td><td>RotationSpeed</td><td>Zoom?</td><td>ZoomAmount</td><td>ZoomSpeed</td><td>Accel?</td>
-            </tr>
-            <tr>
-                <td>camera</td>
-                <td>-</td>
-                <td><input rv-input="camera.height" type='range' min='0' max='20'><input style="width:50px" rv-input="camera.height"></td>
-                <td><input rv-input="camera.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialX"></td>
-                <td><input rv-input="camera.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialY"></td>
-                <td><input rv-input="camera.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.scale"></td>
-                <td><input rv-input="camera.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.xyRatio"></td>
-                <td><input rv-input="camera.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.timeOffset"></td>
-                <td><input type="checkbox" rv-checked="camera.translate"></td>
-                <td><input rv-input="camera.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateX"></td>
-                <td><input rv-input="camera.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateXSpeed"></td>
-                <td><input rv-input="camera.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateY"></td>
-                <td><input rv-input="camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateYSpeed"></td>
-                <td><input type="checkbox" rv-checked="camera.rotate"></td>
-                <td><input rv-input="camera.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="camera.rotateAngle"></td>
-                <td><input rv-input="camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.rotateSpeed"></td>
-                <td><input type="checkbox" rv-checked="camera.zoom"></td>
-                <td><input rv-input="camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomAmount"></td>
-                <td><input rv-input="camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomSpeed"></td>
-                <td><input type="checkbox" rv-checked="camera.accel"></td>
-            </tr>
             <tr rv-each-item="editPopup">
-                <td><input rv-input="item.name"></td>
-                <td><input rv-input="item.url"></td>
-                <td><input rv-input="item.height" type='range' min='0' max='20'><input style="width:50px" rv-input="item.height"></td>
-                <td><input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>
-                <td><input rv-input="item.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialY"></td>
-                <td><input rv-input="item.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.scale"></td>
-                <td><input rv-input="item.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.xyRatio"></td>
-                <td><input rv-input="item.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.timeOffset"></td>
-                <td><input type="checkbox" rv-checked="item.translate"></td>
-                <td><input rv-input="item.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateX"></td>
-                <td><input rv-input="item.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateXSpeed"></td>
-                <td><input rv-input="item.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateY"></td>
-                <td><input rv-input="item.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateYSpeed"></td>
-                <td><input type="checkbox" rv-checked="item.rotate"></td>
-                <td><input rv-input="item.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="item.rotateAngle"></td>
-                <td><input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
-                <td><input type="checkbox" rv-checked="item.zoom"></td>
-                <td><input rv-input="item.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomAmount"></td>
-                <td><input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
-                <td><input type="checkbox" rv-checked="item.accel"></td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Name: <input rv-input="item.name"></td>
+                                <td>Url: <input rv-input="item.url"></td>
+                                <td>Depth: <input rv-input="item.height" type='range' min='0' max='20'><input style="width:50px" rv-input="item.height"></td>
+                            </tr>
+                            <tr>
+                                <td>Initial X:<input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>
+                                <td>Initial Y:<input rv-input="item.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialY"></td>
+                                <td>Scale: <input rv-input="item.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.scale"></td>
+                                <td>XYRatio: <input rv-input="item.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.xyRatio"></td>
+                            </tr>
+                            <tr>
+                                <td>Animation Time Offset: <input rv-input="item.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.timeOffset"></td>
+                            </tr>
+                            <tr>
+                                <td>Translation? <input type="checkbox" rv-checked="item.translate"></td>
+                                <td>X: <input rv-input="item.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateX"></td>
+                                <td>X Speed: <input rv-input="item.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateXSpeed"></td>
+                                <td>Y: <input rv-input="item.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateY"></td>
+                                <td>Y Speed:<input rv-input="item.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateYSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Rotation? <input type="checkbox" rv-checked="item.rotate"></td>
+                                <td>Angle: <input rv-input="item.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="item.rotateAngle"></td>
+                                <td>Speed: <input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Zooming? <input type="checkbox" rv-checked="item.zoom"></td>
+                                <td>Amount: <input rv-input="item.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomAmount"></td>
+                                <td>Speed: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Accelerometer Translation? <input type="checkbox" rv-checked="item.accel"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Name: <input rv-input="camera.name"></td>
+                                <td>Url: <input rv-input="camera.url"></td>
+                                <td>Depth: <input rv-input="camera.height" type='range' min='0' max='20'><input style="width:50px" rv-input="camera.height"></td>
+                            </tr>
+                            <tr>
+                                <td>Initial X:<input rv-input="camera.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialX"></td>
+                                <td>Initial Y:<input rv-input="camera.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialY"></td>
+                                <td>Scale: <input rv-input="camera.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.scale"></td>
+                                <td>XYRatio: <input rv-input="camera.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.xyRatio"></td>
+                            </tr>
+                            <tr>
+                                <td>Animation Time Offset: <input rv-input="camera.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.timeOffset"></td>
+                            </tr>
+                            <tr>
+                                <td>Translation? <input type="checkbox" rv-checked="camera.translate"></td>
+                                <td>X: <input rv-input="camera.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateX"></td>
+                                <td>X Speed: <input rv-input="camera.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateXSpeed"></td>
+                                <td>Y: <input rv-input="camera.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateY"></td>
+                                <td>Y Speed:<input rv-input="camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateYSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Rotation? <input type="checkbox" rv-checked="camera.rotate"></td>
+                                <td>Angle: <input rv-input="camera.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="camera.rotateAngle"></td>
+                                <td>Speed: <input rv-input="camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.rotateSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Zooming? <input type="checkbox" rv-checked="camera.zoom"></td>
+                                <td>Amount: <input rv-input="camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomAmount"></td>
+                                <td>Speed: <input rv-input="camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Accelerometer Translation? <input type="checkbox" rv-checked="camera.accel"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
             </table>
         <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>

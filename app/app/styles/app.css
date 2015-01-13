@@ -5,6 +5,10 @@ body {
   overflow: auto;
 }
 
+table {
+  width: 780px;
+}
+
 section {
     width: 100%;
     height: 100%;
@@ -30,9 +34,9 @@ section {
 }
 
 #device-area{
-  position: inherit;
-  top: inherit;
-  left: inherit;
+  position: absolute;
+  top: 0px;
+  left: 850px;
   bottom: inherit;
   right: inherit;
   margin-left: 250px;
