@@ -72,7 +72,7 @@ define(function(require, exports, module) {
           },
           error: function(){
             window.saver.currentPageID = pageID;
-            var pageModel = window.Fixtures[pageID];
+            var pageModel = window.Fixtures[pageID].results[0];
             window.pageModel = pageModel;
             window.appView.createAndShowPage(pageModel);
             var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);
