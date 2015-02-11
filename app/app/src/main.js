@@ -184,6 +184,6 @@ define(function(require, exports, module) {
     }
     window.editChanger = editChanger;
 
-    this.loadPage('w9zCNnEbfC');
+    this.loadPage('FnTu1Egg5v');
 
 });
