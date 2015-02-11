@@ -1,3 +1,10 @@
+Features needed:
+for tool: control time, pause, play. maybe at an individual popup level, maybe global?
+control start and end of animation positions, rather than midpoint? think about timeline based/ tweening between keyframes/ my way now which is just like choosing range (ie, start and end keyframe), and sin between those points, and buggy offset
+choose zoom origin?
+
+..relative animations/numbers rather than absolute?
+
 TODOS:
 null/zerochecks for the different values used on popupview/camera/...
 add zooming control over time
