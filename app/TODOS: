@@ -4,7 +4,10 @@ control start and end of animation positions, rather than midpoint? think about 
 choose zoom origin?
 
 ..relative animations/numbers rather than absolute?
+overflow-hidden bug: https://github.com/Famous/famous/issues/493 
 
+accelerometer - detect orientation and swpa x/y accordingly.
+accelerometer - test factor to multiply x/y translation when using real device.
 TODOS:
 null/zerochecks for the different values used on popupview/camera/...
 add zooming control over time
