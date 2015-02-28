@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         this.modifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, translateFunction;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -25,10 +25,11 @@ define(function(require, exports, module) {
                 rotateAngle = parseInt(self.config.rotateAngle);
                 zoomSpeed = parseInt(self.config.zoomSpeed);
                 zoomAmount = parseInt(self.config.zoomAmount);
+                translateFunction = self.sinFunction;
                 height = parseInt(self.config.height);
                 if (self.config.translate){
-                    y += Math.sin((timePassed+timeOffset)/translateYSpeed)*translateY;
-                    x += Math.sin((timePassed+timeOffset)/translateXSpeed)*translateX;
+                    y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
+                    x += translateFunction((timePassed+timeOffset)/translateXSpeed, translateX);
                 }
                 if (self.config.accel){
                     y += window.orientationDifference[0] * self.config.accelAmount;
@@ -74,6 +75,13 @@ define(function(require, exports, module) {
 
     PopupView.prototype = Object.create(View.prototype);
     PopupView.prototype.constructor = PopupView;
+    PopupView.prototype.sinFunction = function(xPosition, range){
+        return Math.sin(xPosition)*range;
+    };
+
+    PopupView.prototype.triangleFunction = function(xPosition, range){
+        return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
+    };
 
     module.exports = PopupView;
 });
