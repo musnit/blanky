@@ -45,13 +45,16 @@ define(function(require, exports, module) {
             var pageModel = page.toJSON();
             window.pageModel = pageModel;
             window.appView.createAndShowPage(pageModel);
-            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);
+
+            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), pageModel);
             window.rivetsView = rivetsView;
             window.rivetsView.unbind();
             window.rivetsView.models = pageModel;
             window.rivetsView.bind();
+
             window.saver.model = pageModel;
             window.saver.Page = Page;
+
             window.pageModel.editPopup = [window.pageModel.camera];
             var audioPath = 'content/sounds/';
             var manifest = [
@@ -75,14 +78,16 @@ define(function(require, exports, module) {
             var pageModel = window.Fixtures[pageID].results[0];
             window.pageModel = pageModel;
             window.appView.createAndShowPage(pageModel);
-            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('body'), pageModel);
+            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), pageModel);
             window.rivetsView = rivetsView;
             window.rivetsView.unbind();
             window.rivetsView.models = pageModel;
             window.rivetsView.bind();
+
             window.pageModel.editPopup = [window.pageModel.camera];
             window.saver.model = pageModel;
             window.saver.Page = Page;
+
             var audioPath = 'content/sounds/';
             var manifest = [
                 {id:'Music', src:'bgMusic.mp3'},
@@ -162,6 +167,37 @@ define(function(require, exports, module) {
         this.main.loadPage(pageID);
     }
     window.pageChanger = pageChanger;
+
+    var timeController = {};
+    timeController.main = this;
+    timeController.realTime = Date.now;
+    timeController.pause = function() {
+        var pauseButton = document.getElementById('pause-button');
+        pauseButton.onclick = function onclick(event) {
+          window.timeController.play()
+        }
+        pauseButton.textContent = "Play";
+        document.getElementById('time-chooser').hidden = false;
+        self = this;
+        Date.now = function(){
+            return 0;
+        }
+    }
+    timeController.update = function(newTime){
+        Date.now = function(){
+            return parseInt(newTime);
+        }
+    }
+    timeController.play = function(){
+        var pauseButton = document.getElementById('pause-button');
+        pauseButton.onclick = function onclick(event) {
+          window.timeController.pause()
+        }
+        pauseButton.textContent = "Pause";
+        Date.now = this.realTime;
+        document.getElementById('time-chooser').hidden = true;
+    }
+    window.timeController = timeController;
 
     var editChanger = {};
     editChanger.main = this;
