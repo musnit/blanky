@@ -186,7 +186,20 @@ define(function(require, exports, module) {
         this.model.popups.push(defaultPopup);
     };
     saver.dupePage = function() {
-
+        var page = new this.Page();
+        page.set("name", "dup of " + this.model.name);
+        page.set("device", this.model.device);
+        page.set("popups", this.model.popups);
+        page.set("camera", this.model.camera);
+        page.set("page", this.model.page);
+        page.save(null, {
+          success: function(page) {
+            alert('Duplicate page created with objectId: ' + page.id);
+          },
+          error: function(page, error) {
+            alert('Failed to create new page, with error code: ' + error.message);
+          }
+        });
     };
     saver.addNewPage = function() {
         var page = new this.Page();

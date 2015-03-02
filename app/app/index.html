@@ -44,8 +44,7 @@
             <select id='page-chooser'>
                 <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name }</option>
             </select><br/>
-            <button onclick="window.saver.dupePage()">Duplicate page (todo..)</button><br/>
-            <button onclick="window.saver.addNewPage()">Add new blank</button><br/>
+            <button onclick="window.saver.addNewPage()">Add new blank page</button><br/>
         </div>
     </p>
 
@@ -59,7 +58,8 @@
             Page X: <input rv-input="page.x"><br/>
             Page Y: <input rv-input="page.y"><br/>
             Page device: <input rv-input="device"><br/>
-            <button onclick="window.saver.saveToParse()">Save everything on page</button><br/><br/>
+            <button onclick="window.saver.saveToParse()">Save everything on page</button><br/>
+            <button onclick="window.saver.dupePage()">Duplicate this page</button><br/><br/>
             Change item to edit?:
             <form>
                 <span rv-each-item="popups">
