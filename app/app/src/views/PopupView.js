@@ -26,11 +26,10 @@ define(function(require, exports, module) {
                 zoomSpeed = parseInt(self.config.zoomSpeed);
                 zoomAmount = parseInt(self.config.zoomAmount);
                 height = parseInt(self.config.height);
-                if (self.config.motionType === "triangle"){
+                if (self.config.motionType === 'triangle'){
                     translateFunction = self.triangleFunction;
                 }
-                else
-                {
+                else {
                     translateFunction = self.sinFunction;
                 }
                 if (self.config.translate){
