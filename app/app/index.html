@@ -36,24 +36,37 @@
         <!-- /process -->
     </head>
     <body id="body">
+    <p>
+    <h3>Main controls</h3>
         <div id="editor-section">
           Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' hidden oninput="window.timeController.update(this.value)" type='range' min='0' max='100000' style="width:1000px"><br/>
             Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
             <select id='page-chooser'>
-                <option rv-each-page="pages" rv-value="page.objectId">{ page.objectId } - { page.device } - { page.name }</option>
-            </select>
+                <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name }</option>
+            </select><br/>
+            <button onclick="window.saver.dupePage()">Duplicate page (todo..)</button><br/>
+            <button onclick="window.saver.addNewPage()">Add new blank</button><br/>
         </div>
+    </p>
+
         <div id="edit-section">
+        <h3>Page controls</h3>
             <table border=1>
             <tr>
             Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
-            Page name: <input rv-input="name"><br/>
+            Example name: <input rv-input="name"><br/>
+            Page name: <input rv-input="page.name"><br/>
+            Page X: <input rv-input="page.x"><br/>
+            Page Y: <input rv-input="page.y"><br/>
+            Page device: <input rv-input="device"><br/>
+            <button onclick="window.saver.saveToParse()">Save everything on page</button><br/><br/>
             Change item to edit?:
             <form>
                 <span rv-each-item="popups">
                     <input name='edit-chooser' rv-value='item.name' onclick="window.editChanger.changeEditing()" type="radio">{item.name}
                 </span>
             </form><br/>
+            <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
             </tr>
             <tr rv-each-item="editPopup">
                 <td>
@@ -150,8 +163,6 @@
                 </td>
             </tr>
             </table>
-        <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
-        <button onclick="window.saver.saveToParse()">Save</button><br/>
         </div>
         <div id="device-area">
         <img id="iphone-5-pic" src="/content/images/ipad.png">
