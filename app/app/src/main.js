@@ -220,6 +220,6 @@ define(function(require, exports, module) {
     }
     window.editChanger = editChanger;
 
-    this.loadPage('FnTu1Egg5v');
+    this.loadPage('GjENlwcbMb');
 
 });
