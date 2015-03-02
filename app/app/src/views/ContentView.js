@@ -24,8 +24,9 @@ define(function(require, exports, module) {
         }
 
         function rotatePreviousEvent(data) {
-            if (this.currentPageIndex > 0)
+            if (this.currentPageIndex > 0){
                 this.pages[this.currentPageIndex - 1].rotate(-data.radians);
+            }
         }
 
         function touchEndPreviousEvent(data) {
@@ -55,11 +56,12 @@ define(function(require, exports, module) {
             zIndex--;
 
             // Last flag disables page from turning.
-            if (x === this.pages.length - 1)
+            if (x === this.pages.length - 1){
                 this.pages[x].setOptions({
                     last: true,
                     classes: ['page', 'last']
                 });
+            }
         }
 
         /**
@@ -67,8 +69,9 @@ define(function(require, exports, module) {
          * @return {[type]} [description]
          */
         this.on('nextPage', function() {
-            if (this.currentPageIndex < this.pages.length - 1)
+            if (this.currentPageIndex < this.pages.length - 1){
                 this.currentPageIndex++;
+            }
         }.bind(this));
 
         /**
@@ -76,8 +79,9 @@ define(function(require, exports, module) {
          * @return {[type]} [description]
          */
         this.on('prevPage', function() {
-            if (this.currentPageIndex > 0)
+            if (this.currentPageIndex > 0){
                 this.currentPageIndex--;
+            }
         }.bind(this));
     }
 
@@ -95,8 +99,9 @@ define(function(require, exports, module) {
             this.pages[this.currentPageIndex].turn();
             this._eventOutput.emit('nextPage');
         }
-        else
+        else {
             this.pages[this.currentPageIndex].hop();
+        }
     };
 
     ContentView.prototype = Object.create(View.prototype);

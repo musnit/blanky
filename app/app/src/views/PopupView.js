@@ -10,11 +10,11 @@ define(function(require, exports, module) {
         this.modifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, translateFunction;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, translateFunction, zoomSpeed, zoomAmount, height;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
-                xyRatio = parseFloat(self.config.xyRatio)
+                xyRatio = parseFloat(self.config.xyRatio);
                 timePassed = parseInt(Date.now());
                 timeOffset = parseInt(self.config.timeOffset);
                 translateXSpeed = parseInt(self.config.translateXSpeed);
@@ -75,11 +75,15 @@ define(function(require, exports, module) {
 
     PopupView.prototype = Object.create(View.prototype);
     PopupView.prototype.constructor = PopupView;
-    PopupView.prototype.sinFunction = function(xPosition, range){
+    PopupView.prototype.sinFunction = function(xPosition, range) {
         return Math.sin(xPosition)*range;
     };
 
-    PopupView.prototype.triangleFunction = function(xPosition, range){
+    PopupView.prototype.absSinFunction = function(xPosition, range) {
+        return -Math.abs(Math.sin(xPosition))*range;
+    };
+
+    PopupView.prototype.triangleFunction = function(xPosition, range) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
     };
 

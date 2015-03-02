@@ -61,20 +61,25 @@ define(function(require, exports, module) {
             var edge = window.innerWidth - (this.pageSurface.getSize()[0]);
 
             if (this.touchJustStarted) {
-                if (data.position >= 0 && data.velocity >= 0)
+                if (data.position >= 0 && data.velocity >= 0){
                     this.rotatePrevious = true;
-                else
+                }
+                else {
                     this.rotatePrevious = false;
+                }
                 this.touchJustStarted = false;
             }
 
             if (!this.rotatePrevious) {
-                if (data.position > edge)
+                if (data.position > edge){
                     this.position = edge;
-                else if (data.position >= 0)
+                }
+                else if (data.position >= 0){
                     this.position = 0;
-                else
+                }
+                else {
                     this.position = data.position;
+                }
 
                 // Converts position in pixels to degrees and then to radians.
                 var deg = (60 * Math.abs(this.position)) / window.innerWidth;
@@ -94,15 +99,17 @@ define(function(require, exports, module) {
         }.bind(this));
 
         sync.on('end', function(data) {
-            if (this.rotatePrevious)
+            if (this.rotatePrevious){
                 this._eventOutput.emit('touchEndPrevious', data);
+            }
             else
                 if (data.velocity.toFixed(2) < 0 && !this.options.last) {
                     this.turn();
                     this._eventOutput.emit('nextPage');
                 }
-                else
+                else {
                     this.turnBack();
+                }
 
             this.position = 0;
         }.bind(this));
@@ -113,8 +120,9 @@ define(function(require, exports, module) {
                 this.turn();
                 this._eventOutput.emit('nextPage');
             }
-            else
+            else {
                 this.turnBack();
+            }
 
             this.position = 0;
         }.bind(this));

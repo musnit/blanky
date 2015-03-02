@@ -2,8 +2,6 @@
 
 define(function(require, exports, module) {
     var View          = require('famous/core/View');
-    var StateModifier = require('famous/modifiers/StateModifier');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
     var Modifier = require('famous/core/Modifier');
 
     var PopupPageView = require('views/PopupPageView');
@@ -24,17 +22,16 @@ define(function(require, exports, module) {
 
     AppView.prototype = Object.create(View.prototype);
     AppView.prototype.constructor = AppView;
-    AppView.prototype.createAndShowPage = function(pageJSON){
+    AppView.prototype.createAndShowPage = function(pageJSON) {
         this.contentView = new PopupPageView(pageJSON);
-        self = this;
         this.cameraModifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle;
+                var rotate, timePassed, x, y, xyRatio, scale;
                 x = parseInt(pageJSON.camera.initialX);
                 y = parseInt(pageJSON.camera.initialY);
                 scale = parseFloat(pageJSON.camera.scale);
-                xyRatio = parseFloat(pageJSON.camera.xyRatio)
+                xyRatio = parseFloat(pageJSON.camera.xyRatio);
                 timePassed = Date.now();
                 if (pageJSON.camera.translate){
                     y += (Math.sin(timePassed/pageJSON.camera.translateYSpeed)+1)*pageJSON.camera.translateY;
@@ -60,10 +57,9 @@ define(function(require, exports, module) {
             align: [0,0]
         });
         var fullPage = new View();
-        fullPage.add(this.cameraModifier).add(this.contentView)
+        fullPage.add(this.cameraModifier).add(this.contentView);
         this.lightbox.show(fullPage);
     };
-
 
     AppView.DEFAULT_OPTIONS = {};
 

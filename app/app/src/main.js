@@ -32,12 +32,12 @@ define(function(require, exports, module) {
         }
     };
 
-    this.clearPage = function(){
+    this.clearPage = function() {
         window.rivetsView.unbind();
         window.appView.lightbox.hide();
     };
 
-    this.loadPage = function(pageID){
+    this.loadPage = function(pageID) {
         var query = new Parse.Query(Page);
         query.get(pageID, {
           success: function(page) {
@@ -63,17 +63,17 @@ define(function(require, exports, module) {
             ];
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                if (event.src == 'content/sounds/bgMusic.mp3'){
+                if (event.src === 'content/sounds/bgMusic.mp3'){
                     createjs.Sound.play(event.src, { loop: -1 });
                 }
-                else if (event.src == 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
+                else if (event.src === 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
                    createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
                 }
             };
             createjs.Sound.addEventListener('fileload', handleLoad);
             createjs.Sound.registerSounds(manifest, audioPath);
           },
-          error: function(){
+          error: function() {
             window.saver.currentPageID = pageID;
             var pageModel = window.Fixtures[pageID].results[0];
             window.pageModel = pageModel;
@@ -95,10 +95,10 @@ define(function(require, exports, module) {
             ];
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                if (event.src == 'content/sounds/bgMusic.mp3'){
+                if (event.src === 'content/sounds/bgMusic.mp3'){
                     createjs.Sound.play(event.src, { loop: -1 });
                 }
-                else if (event.src == 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
+                else if (event.src === 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
                    createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
                 }
             };
@@ -130,10 +130,18 @@ define(function(require, exports, module) {
 
                 var changeInX = tiltLR-window.originalOrientation[0];
                 var changeInY = tiltFB-window.originalOrientation[1];
-                if (changeInX >30) changeInX = 30;
-                if (changeInY >30) changeInY = 30;
-                if (changeInX <-30) changeInX = -30;
-                if (changeInY <-30) changeInY = -30;
+                if (changeInX >30) {
+                    changeInX = 30;
+                }
+                if (changeInY >30) {
+                    changeInY = 30;
+                }
+                if (changeInX <-30) {
+                    changeInX = -30;
+                }
+                if (changeInY <-30) {
+                    changeInY = -30;
+                }
 
                 window.orientationDifference = [changeInX, changeInY];
             }, false);
@@ -141,8 +149,6 @@ define(function(require, exports, module) {
     };
     this.createMotionBindings();
 
-
-    
     var saver = {};
     saver.saveToParse = function() {
         var page = new this.Page();
@@ -165,7 +171,7 @@ define(function(require, exports, module) {
         var pageID = document.getElementById('page-chooser').value;
         this.main.clearPage();
         this.main.loadPage(pageID);
-    }
+    };
     window.pageChanger = pageChanger;
 
     var timeController = {};
@@ -174,29 +180,28 @@ define(function(require, exports, module) {
     timeController.pause = function() {
         var pauseButton = document.getElementById('pause-button');
         pauseButton.onclick = function onclick(event) {
-          window.timeController.play()
-        }
-        pauseButton.textContent = "Play";
+          window.timeController.play();
+        };
+        pauseButton.textContent = 'Play';
         document.getElementById('time-chooser').hidden = false;
-        self = this;
-        Date.now = function(){
+        Date.now = function() {
             return 0;
-        }
-    }
-    timeController.update = function(newTime){
-        Date.now = function(){
+        };
+    };
+    timeController.update = function(newTime) {
+        Date.now = function() {
             return parseInt(newTime);
-        }
-    }
-    timeController.play = function(){
+        };
+    };
+    timeController.play = function() {
         var pauseButton = document.getElementById('pause-button');
         pauseButton.onclick = function onclick(event) {
-          window.timeController.pause()
-        }
-        pauseButton.textContent = "Pause";
+          window.timeController.pause();
+        };
+        pauseButton.textContent = 'Pause';
         Date.now = this.realTime;
         document.getElementById('time-chooser').hidden = true;
-    }
+    };
     window.timeController = timeController;
 
     var editChanger = {};
@@ -204,20 +209,20 @@ define(function(require, exports, module) {
     editChanger.changeEditing = function() {
         var itemID = document.querySelector('input[name="edit-chooser"]:checked').value;
         if (itemID !== 'camera'){
-            var editPopup = window.pageModel.popups.filter(function(popup){
-                if(popup.name === itemID){
+            var editPopup = window.pageModel.popups.filter(function(popup) {
+                if (popup.name === itemID){
                     return true;
                 }
-                else{
+                else {
                     return false;
                 }
             });
             window.pageModel.editPopup = editPopup;
         }
-        else{
-            window.pageModel.editPopup = [window.pageModel.camera]
+        else {
+            window.pageModel.editPopup = [window.pageModel.camera];
         }
-    }
+    };
     window.editChanger = editChanger;
 
     this.loadPage('GjENlwcbMb');
