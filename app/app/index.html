@@ -37,19 +37,17 @@
     </head>
     <body id="body">
         <div id="editor-section">
-          Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' hidden oninput="window.timeController.update(this.value)" type='range' min='0' max='100000' style="width:1000px">
-
+          Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' hidden oninput="window.timeController.update(this.value)" type='range' min='0' max='100000' style="width:1000px"><br/>
+            Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
+            <select id='page-chooser'>
+                <option rv-each-page="pages" rv-value="page.objectId">{ page.objectId } - { page.device } - { page.name }</option>
+            </select>
         </div>
         <div id="edit-section">
             <table border=1>
             <tr>
             Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
-            Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
-            <select id='page-chooser'>
-                <option value='w9zCNnEbfC'>ship</option>
-                <option value='GjENlwcbMb'>street</option>
-                <option value='FnTu1Egg5v'>hands</option>
-            </select><br/>
+            Page name: <input rv-input="name"><br/>
             Change item to edit?:
             <form>
                 <span rv-each-item="popups">
@@ -81,6 +79,10 @@
                                 <td>X Speed: <input rv-input="item.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateXSpeed"></td>
                                 <td>Y: <input rv-input="item.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.translateY"></td>
                                 <td>Y Speed:<input rv-input="item.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateYSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Motion type: Sine<input rv-checked='item.motionType' type="radio" value="sine"> Triangle<input rv-checked='item.motionType' type="radio" value="triangle">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Rotation? <input type="checkbox" rv-checked="item.rotate"></td>
@@ -124,6 +126,10 @@
                                 <td>X Speed: <input rv-input="camera.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateXSpeed"></td>
                                 <td>Y: <input rv-input="camera.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateY"></td>
                                 <td>Y Speed:<input rv-input="camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateYSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td>Motion type: Sine<input rv-checked='camera.motionType' type="radio" value="sine"> Triangle<input rv-checked='camera.motionType' type="radio" value="triangle">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Rotation? <input type="checkbox" rv-checked="camera.rotate"></td>

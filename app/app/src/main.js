@@ -32,6 +32,27 @@ define(function(require, exports, module) {
         }
     };
 
+    var PageCollection = Parse.Collection.extend({
+      model: Page
+    });
+    var pageCollection = new PageCollection();
+
+    pageCollection.fetch({
+      success: function(pages) {
+        var pagesModel = {};
+        pagesModel.pages = pages.toJSON();
+        window.pagesModel = pagesModel;
+        var pagesListView = window.pagesListView || rivets.bind(document.getElementById('editor-section'), pagesModel);
+        window.pagesListView = pagesListView;
+        window.pagesListView.unbind();
+        window.pagesListView.models = pagesModel;
+        window.pagesListView.bind();
+      },
+      error: function(collection, error) {
+        alert("error with fetching page list");
+      }
+    });
+
     this.clearPage = function() {
         window.rivetsView.unbind();
         window.appView.lightbox.hide();

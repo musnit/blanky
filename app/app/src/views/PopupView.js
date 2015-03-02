@@ -25,8 +25,14 @@ define(function(require, exports, module) {
                 rotateAngle = parseInt(self.config.rotateAngle);
                 zoomSpeed = parseInt(self.config.zoomSpeed);
                 zoomAmount = parseInt(self.config.zoomAmount);
-                translateFunction = self.sinFunction;
                 height = parseInt(self.config.height);
+                if (self.config.motionType === "triangle"){
+                    translateFunction = self.triangleFunction;
+                }
+                else
+                {
+                    translateFunction = self.sinFunction;
+                }
                 if (self.config.translate){
                     y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
                     x += translateFunction((timePassed+timeOffset)/translateXSpeed, translateX);
