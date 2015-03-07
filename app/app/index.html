@@ -60,6 +60,7 @@
             Page device: <input rv-input="device"><br/>
             <button onclick="window.saver.saveToParse()">Save everything on page</button><br/>
             <button onclick="window.saver.dupePage()">Duplicate this page</button><br/><br/>
+            <h3>Popup controls</h3>
             Change item to edit?:
             <form>
                 <span rv-each-item="popups">
@@ -85,6 +86,8 @@
                             </tr>
                             <tr>
                                 <td>Animation Time Offset: <input rv-input="item.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.timeOffset"></td>
+                                <td>XOrigin: <input rv-input="item.xOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="item.xOrigin"></td>
+                                <td>YOrigin: <input rv-input="item.yOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="item.yOrigin"></td>
                             </tr>
                             <tr>
                                 <td>Translation? <input type="checkbox" rv-checked="item.translate"></td>
@@ -106,6 +109,12 @@
                                 <td>Zooming? <input type="checkbox" rv-checked="item.zoom"></td>
                                 <td>Amount: <input rv-input="item.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomAmount"></td>
                                 <td>Speed: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Cut? <input type="checkbox" rv-checked="item.zoom"></td>
+                                <td>Start: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
+                                <td>End: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
                             </tr>
                             <tr>
                                 <td>Accelerometer Translation? <input type="checkbox" rv-checked="item.accel"></td>
@@ -132,6 +141,8 @@
                             </tr>
                             <tr>
                                 <td>Animation Time Offset: <input rv-input="camera.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.timeOffset"></td>
+                                <td>XOrigin: <input rv-input="camera.xOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="camera.xOrigin"></td>
+                                <td>YOrigin: <input rv-input="camera.yOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="camera.yOrigin"></td>
                             </tr>
                             <tr>
                                 <td>Translation? <input type="checkbox" rv-checked="camera.translate"></td>

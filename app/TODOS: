@@ -1,5 +1,4 @@
 Features needed:
-for tool: control time, pause, play. maybe at an individual popup level, maybe global?
 control start and end of animation positions, rather than midpoint? think about timeline based/ tweening between keyframes/ my way now which is just like choosing range (ie, start and end keyframe), and sin between those points, and buggy offset
 choose zoom origin?
 
@@ -10,7 +9,6 @@ accelerometer - detect orientation and swpa x/y accordingly.
 accelerometer - test factor to multiply x/y translation when using real device.
 TODOS:
 null/zerochecks for the different values used on popupview/camera/...
-add zooming control over time
 add accelerometer control
 DRY the popupview and camera modifier code. well like literally CR all files.
 split app code from main code

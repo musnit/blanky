@@ -8,9 +8,13 @@ define(function(require, exports, module) {
     function _createPopup() {
         var self = this;
         this.modifier = new Modifier({
-            origin: [0, 0],
+            origin: function() {
+                var originX = self.config.xOrigin || 0;
+                var originY = self.config.yOrigin || 0;
+                return [originX,originY];
+            },
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, translateFunction, zoomSpeed, zoomAmount, height;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -32,6 +36,11 @@ define(function(require, exports, module) {
                 else {
                     translateFunction = self.sinFunction;
                 }
+                zoomFunction = self.zeroOneSinFunction;
+                var zoomFunctionPeriod = 2 * Math.PI;
+                if (self.config.zoomTypeCut){
+                    zoomFunction = self.cutFunction(zoomFunction, self.config.zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
+                }
                 if (self.config.translate){
                     y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
                     x += translateFunction((timePassed+timeOffset)/translateXSpeed, translateX);
@@ -47,16 +56,16 @@ define(function(require, exports, module) {
                     rotate = 0;
                 }
                 if (self.config.zoom){
-                    zoom = (Math.sin((timePassed+timeOffset)/zoomSpeed)+1)/2*zoomAmount;
+                    zoom = 1+zoomFunction((timePassed+timeOffset)/zoomSpeed, (1/(translateY/-580))/15);
                 }
                 else {
-                    zoom = 0;
+                    zoom = 1;
                 }
-                return Transform.thenScale(
-                    Transform.thenMove(
+                return Transform.thenMove(
+                    Transform.thenScale(
                         Transform.rotate(0,0,rotate),
-                        [x,y,height])
-                    ,[scale*xyRatio+zoom,scale+zoom,1]
+                        [scale*xyRatio*zoom,scale*zoom,1])
+                    ,[x,y,height]
                 );
             },
             align: [0,0]
@@ -84,12 +93,29 @@ define(function(require, exports, module) {
         return Math.sin(xPosition)*range;
     };
 
+    PopupView.prototype.zeroOneSinFunction = function(xPosition, range) {
+        return (Math.sin(xPosition)+1)/2*range;
+    };
+
     PopupView.prototype.absSinFunction = function(xPosition, range) {
         return -Math.abs(Math.sin(xPosition))*range;
     };
 
     PopupView.prototype.triangleFunction = function(xPosition, range) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
+    };
+
+    PopupView.prototype.cutFunction = function(initialFunction, start, end, normalPeriod) {
+        var newPeriod = (end-start)/2;
+        var newFunction = function(xPosition, range){
+            if(xPosition < start || xPosition > end){
+                return 0;
+            }
+            else{
+                return initialFunction((normalPeriod*xPosition)/newPeriod, range)
+            }
+        }
+        return newFunction;
     };
 
     module.exports = PopupView;
