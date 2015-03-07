@@ -112,9 +112,14 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Cut? <input type="checkbox" rv-checked="item.zoom"></td>
-                                <td>Start: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
-                                <td>End: <input rv-input="item.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.zoomSpeed"></td>
+                                <td>Relative to translate? <input type="checkbox" rv-checked="item.zoomRelativeTranslate"></td>
+                                <td>Multiplier: <input rv-input="item.zoomRelativeMultiplier" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomRelativeMultiplier"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Cut? <input type="checkbox" rv-checked="item.zoomTypeCut"></td>
+                                <td>StartPercent: <input rv-input="item.zoomCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomCutStart"></td>
+                                <td>EndPercent: <input rv-input="item.zoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomCutEnd"></td>
                             </tr>
                             <tr>
                                 <td>Accelerometer Translation? <input type="checkbox" rv-checked="item.accel"></td>

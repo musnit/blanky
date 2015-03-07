@@ -14,7 +14,7 @@ define(function(require, exports, module) {
                 return [originX,originY];
             },
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -29,7 +29,10 @@ define(function(require, exports, module) {
                 rotateAngle = parseInt(self.config.rotateAngle);
                 zoomSpeed = parseInt(self.config.zoomSpeed);
                 zoomAmount = parseInt(self.config.zoomAmount);
+                zoomCutStart = parseInt(self.config.zoomCutStart);
+                zoomCutEnd = parseInt(self.config.zoomCutEnd);
                 height = parseInt(self.config.height);
+                zoomRelativeMultiplier = parseInt(self.config.zoomRelativeMultiplier);
                 if (self.config.motionType === 'triangle'){
                     translateFunction = self.triangleFunction;
                 }
@@ -39,7 +42,7 @@ define(function(require, exports, module) {
                 zoomFunction = self.zeroOneSinFunction;
                 var zoomFunctionPeriod = 2 * Math.PI;
                 if (self.config.zoomTypeCut){
-                    zoomFunction = self.cutFunction(zoomFunction, self.config.zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
+                    zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
                 }
                 if (self.config.translate){
                     y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
@@ -56,7 +59,12 @@ define(function(require, exports, module) {
                     rotate = 0;
                 }
                 if (self.config.zoom){
-                    zoom = 1+zoomFunction((timePassed+timeOffset)/zoomSpeed, (1/(translateY/-580))/15);
+                    if (self.config.zoomRelativeTranslate){
+                        zoom = 1+zoomFunction((timePassed+timeOffset)/zoomSpeed, zoomRelativeMultiplier/translateY);
+                    }
+                    else {
+                        zoom = 1+zoomFunction((timePassed+timeOffset)/zoomSpeed, zoomAmount);
+                    }
                 }
                 else {
                     zoom = 1;
@@ -106,15 +114,18 @@ define(function(require, exports, module) {
     };
 
     PopupView.prototype.cutFunction = function(initialFunction, start, end, normalPeriod) {
-        var newPeriod = (end-start)/2;
-        var newFunction = function(xPosition, range){
-            if(xPosition < start || xPosition > end){
+        var newPeriodPercent = (end-start);
+        var newPeriod = normalPeriod*newPeriodPercent/200;
+        var newFunction = function(xPosition, range) {
+            var startX = normalPeriod * start/100;
+            var endX = normalPeriod * end/100;
+            if (xPosition < startX || xPosition > endX){
                 return 0;
             }
-            else{
-                return initialFunction((normalPeriod*xPosition)/newPeriod, range)
+            else {
+                return initialFunction((normalPeriod*xPosition)/newPeriod, range);
             }
-        }
+        };
         return newFunction;
     };
 
