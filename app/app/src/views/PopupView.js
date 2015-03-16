@@ -14,7 +14,7 @@ define(function(require, exports, module) {
                 return [originX,originY];
             },
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier, animationSpeed;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -33,6 +33,7 @@ define(function(require, exports, module) {
                 zoomCutEnd = parseInt(self.config.zoomCutEnd);
                 height = parseInt(self.config.height);
                 zoomRelativeMultiplier = parseInt(self.config.zoomRelativeMultiplier);
+                animationSpeed = parseInt(self.config.animationSpeed);
                 if (self.config.motionType === 'triangle'){
                     translateFunction = self.triangleFunction;
                 }
@@ -68,6 +69,12 @@ define(function(require, exports, module) {
                 }
                 else {
                     zoom = 1;
+                }
+                if (self.config.animation){
+                    var numFrames = self.config.frames.length;
+                    animationSpeed = animationSpeed || 1;
+                    var frameNumber = Math.floor(self.sawToothFunction((timePassed+timeOffset)/animationSpeed, numFrames));
+                    self.surface.setContent(self.config.frames[frameNumber].url);
                 }
                 return Transform.thenMove(
                     Transform.thenScale(
@@ -111,6 +118,10 @@ define(function(require, exports, module) {
 
     PopupView.prototype.triangleFunction = function(xPosition, range) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
+    };
+
+    PopupView.prototype.sawToothFunction = function(xPosition, range) {
+        return range*(xPosition - Math.floor(xPosition));
     };
 
     PopupView.prototype.cutFunction = function(initialFunction, start, end, normalPeriod) {

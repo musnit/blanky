@@ -11,7 +11,7 @@ define(function(require, exports, module) {
     var Page = Parse.Object.extend('Page');
     var Fixtures = require('Fixtures');
     window.Fixtures = Fixtures;
-    var initialPageId = 'hazOfzS99D';
+    var initialPageId = 'LpOaOwDyXb';
     window.initialPageId = initialPageId;
 
     // create the main context
@@ -193,6 +193,18 @@ define(function(require, exports, module) {
         var index = this.model.popups.indexOf(editPopup);
         this.model.popups.splice(index, 1);
         window.editChanger.changeEditing();
+    };
+    saver.addFrame = function() {
+        var editPopup = this.model.editPopup[0];
+        editPopup.frames = editPopup.frames || [];
+        editPopup.frames.push({url:''});
+    };
+    saver.deleteFrame = function(frame) {
+        var editPopup = this.model.editPopup[0];
+        var frameTDs = frame.parentElement.parentElement.children;
+        var frameTDsArray = [].slice.call(frameTDs)
+        var clickedIndex = frameTDsArray.indexOf(frame.parentElement) - 1
+        editPopup.frames.splice(clickedIndex, 1);
     };
     saver.dupePage = function() {
         var page = new this.Page();
