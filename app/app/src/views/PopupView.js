@@ -115,7 +115,7 @@ define(function(require, exports, module) {
 
     PopupView.prototype.cutFunction = function(initialFunction, start, end, normalPeriod) {
         var newPeriodPercent = (end-start);
-        var newPeriod = normalPeriod*newPeriodPercent/200;
+        var newPeriod = normalPeriod*newPeriodPercent/100;
         var newFunction = function(xPosition, range) {
             var startX = normalPeriod * start/100;
             var endX = normalPeriod * end/100;

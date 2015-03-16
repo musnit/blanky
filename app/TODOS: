@@ -18,3 +18,19 @@ remove all globalz!
 cordova and build as real app and test on my phone
 add remaining pages
 add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions/sprite basd animations
+
+
+pages:
+
+-- self -- fix weird 0 index bug/zoom vs translate thing on the car page and then see...
+make cut tech work proper
+add full screen zoom tech
+do suttle full screen zoom on car page
+do suttle hands tilting on hands page
+
+sprite animations on a layer tech
+
+then,
+car vibrating
+car animations
+fill in tree layer

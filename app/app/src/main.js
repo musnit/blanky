@@ -11,6 +11,8 @@ define(function(require, exports, module) {
     var Page = Parse.Object.extend('Page');
     var Fixtures = require('Fixtures');
     window.Fixtures = Fixtures;
+    var initialPageId = 'hazOfzS99D';
+    window.initialPageId = initialPageId;
 
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
@@ -47,6 +49,7 @@ define(function(require, exports, module) {
         window.pagesListView.unbind();
         window.pagesListView.models = pagesModel;
         window.pagesListView.bind();
+        document.getElementById('page-chooser').value = window.initialPageId;
       },
       error: function(collection, error) {
         alert('error with fetching page list');
@@ -185,6 +188,12 @@ define(function(require, exports, module) {
         var defaultPopup = {'accel':false,'accelAmount':'1','height':'1','initialX':'0','initialY':'0','name':'new','rotateAngle':'100','rotateSpeed':'2000','scale':'1','scaleX':'1','scaleY':'1','timeOffset':'0','timer':{'initialTime':1419434956210},'translate':false,'translateX':'0','translateXSpeed':'1000','translateY':'0','translateYSpeed':'1000','url':'','xyRatio':'1','zoomAmount':'0','zoomSpeed':'2000'};
         this.model.popups.push(defaultPopup);
     };
+    saver.removePopup = function() {
+        var editPopup = this.model.editPopup[0];
+        var index = this.model.popups.indexOf(editPopup);
+        this.model.popups.splice(index, 1);
+        window.editChanger.changeEditing();
+    };
     saver.dupePage = function() {
         var page = new this.Page();
         page.set('name', 'dup of ' + this.model.name);
@@ -282,6 +291,6 @@ define(function(require, exports, module) {
     };
     window.editChanger = editChanger;
 
-    this.loadPage('GjENlwcbMb');
+    this.loadPage(initialPageId);
 
 });
