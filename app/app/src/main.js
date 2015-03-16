@@ -202,8 +202,8 @@ define(function(require, exports, module) {
     saver.deleteFrame = function(frame) {
         var editPopup = this.model.editPopup[0];
         var frameTDs = frame.parentElement.parentElement.children;
-        var frameTDsArray = [].slice.call(frameTDs)
-        var clickedIndex = frameTDsArray.indexOf(frame.parentElement) - 1
+        var frameTDsArray = [].slice.call(frameTDs);
+        var clickedIndex = frameTDsArray.indexOf(frame.parentElement) - 1;
         editPopup.frames.splice(clickedIndex, 1);
     };
     saver.dupePage = function() {

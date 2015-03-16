@@ -4,6 +4,7 @@ define(function(require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
+    var RenderController = require('famous/views/RenderController');
 
     function _createPopup() {
         var self = this;
@@ -74,7 +75,7 @@ define(function(require, exports, module) {
                     var numFrames = self.config.frames.length;
                     animationSpeed = animationSpeed || 1;
                     var frameNumber = Math.floor(self.sawToothFunction((timePassed+timeOffset)/animationSpeed, numFrames));
-                    self.surface.setContent(self.config.frames[frameNumber].url);
+                    self.renderController.show(self.frameSurfaces[frameNumber]);
                 }
                 return Transform.thenMove(
                     Transform.thenScale(
@@ -86,12 +87,30 @@ define(function(require, exports, module) {
             align: [0,0]
         });
 
-        this.surface = new ImageSurface({
-            size: [this.model.page.x, this.model.page.y],
-            content: this.config.url
-        });
+        if (this.config.frames){
+            this.frameSurfaces = this.config.frames.map(
+                function(frame) {
+                    return new ImageSurface({
+                        size: [self.model.page.x, self.model.page.y],
+                        content: frame.url
+                    });
+                }
+            );
+            this.renderController = new RenderController();
+            this.renderController.options.inTransition = false;
+            this.renderController.options.outTransition = false;
+            this.renderController.options.overlap = false;
+            this.renderController.show(this.frameSurfaces[0]);
+            this.surface = this.renderController;
+        }
+        else {
+            this.surface = new ImageSurface({
+                size: [this.model.page.x, this.model.page.y],
+                content: this.config.url
+            });
+        }
 
-        this._add(this.modifier).add(this.surface);
+        this.renderNode = this._add(this.modifier).add(this.surface);
 
     }
 
