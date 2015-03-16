@@ -128,14 +128,7 @@
                             <tr>
                                 <td>Animation? <input type="checkbox" rv-checked="item.animation"></td>
                                 <td>Speed: <input rv-input="item.animationSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.animationSpeed"></td>
-                                <td><button onclick="window.saver.addFrame()">Add Frame</button></td>
-                            </tr>
-                            <tr>
-                                <td>Frames:</td>
-                                <td rv-each-frame="item.frames">
-                                    URL: <input rv-value='frame.url' type="text">
-                                    <button onclick="window.saver.deleteFrame(this)">Delete frame</button>
-                                </td>
+                                <td>Num Frames: <input rv-input="item.numFrames" type='range' min='1' max='60'><input style="width:50px" rv-input="item.numFrames"></td>
                             </tr>
                             <tr>
                                 <td><button onclick="window.saver.removePopup()">Remove Popup!!</button></td>

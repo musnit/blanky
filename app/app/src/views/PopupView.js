@@ -4,7 +4,6 @@ define(function(require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var RenderController = require('famous/views/RenderController');
 
     function _createPopup() {
         var self = this;
@@ -15,7 +14,7 @@ define(function(require, exports, module) {
                 return [originX,originY];
             },
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier, animationSpeed;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier, animationSpeed, numFrames;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -34,7 +33,8 @@ define(function(require, exports, module) {
                 zoomCutEnd = parseInt(self.config.zoomCutEnd);
                 height = parseInt(self.config.height);
                 zoomRelativeMultiplier = parseInt(self.config.zoomRelativeMultiplier);
-                animationSpeed = parseInt(self.config.animationSpeed);
+                animationSpeed = parseInt(self.config.animationSpeed) || 100;
+                numFrames = parseInt(self.config.numFrames);
                 if (self.config.motionType === 'triangle'){
                     translateFunction = self.triangleFunction;
                 }
@@ -72,10 +72,8 @@ define(function(require, exports, module) {
                     zoom = 1;
                 }
                 if (self.config.animation){
-                    var numFrames = self.config.frames.length;
-                    animationSpeed = animationSpeed || 1;
                     var frameNumber = Math.floor(self.sawToothFunction((timePassed+timeOffset)/animationSpeed, numFrames));
-                    self.renderController.show(self.frameSurfaces[frameNumber]);
+                    y -= frameNumber * self.model.page.y * zoom;
                 }
                 return Transform.thenMove(
                     Transform.thenScale(
@@ -87,30 +85,20 @@ define(function(require, exports, module) {
             align: [0,0]
         });
 
-        if (this.config.frames){
-            this.frameSurfaces = this.config.frames.map(
-                function(frame) {
-                    return new ImageSurface({
-                        size: [self.model.page.x, self.model.page.y],
-                        content: frame.url
-                    });
-                }
-            );
-            this.renderController = new RenderController();
-            this.renderController.options.inTransition = false;
-            this.renderController.options.outTransition = false;
-            this.renderController.options.overlap = false;
-            this.renderController.show(this.frameSurfaces[0]);
-            this.surface = this.renderController;
+        var sizeY;
+        if (this.config.animation && this.config.numFrames){
+            sizeY = this.model.page.y*this.config.numFrames;
         }
         else {
-            this.surface = new ImageSurface({
-                size: [this.model.page.x, this.model.page.y],
-                content: this.config.url
-            });
+            sizeY = this.model.page.y;
         }
 
-        this.renderNode = this._add(this.modifier).add(this.surface);
+        this.surface = new ImageSurface({
+            size: [this.model.page.x, sizeY],
+            content: this.config.url
+        });
+
+        this._add(this.modifier).add(this.surface);
 
     }
 
