@@ -14,7 +14,7 @@ define(function(require, exports, module) {
                 return [originX,originY];
             },
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, zoomRelativeMultiplier, animationSpeed, numFrames;
+                var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, animationSpeed, numFrames;
                 x = parseInt(self.config.initialX);
                 y = parseInt(self.config.initialY);
                 scale = parseFloat(self.config.scale);
@@ -31,6 +31,8 @@ define(function(require, exports, module) {
                 zoomAmount = parseInt(self.config.zoomAmount);
                 zoomCutStart = parseInt(self.config.zoomCutStart);
                 zoomCutEnd = parseInt(self.config.zoomCutEnd);
+                translateCutStart = parseInt(self.config.translateCutStart);
+                translateCutEnd = parseInt(self.config.translateCutEnd);
                 height = parseInt(self.config.height);
                 zoomRelativeMultiplier = parseInt(self.config.zoomRelativeMultiplier);
                 animationSpeed = parseInt(self.config.animationSpeed) || 100;
@@ -45,6 +47,10 @@ define(function(require, exports, module) {
                 var zoomFunctionPeriod = 2 * Math.PI;
                 if (self.config.zoomTypeCut){
                     zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
+                }
+                var translateFunctionPeriod = 2 * Math.PI;
+                if (self.config.translateTypeCut){
+                    translateFunction = self.cutFunction(translateFunction, translateCutStart, translateCutEnd, translateFunctionPeriod);
                 }
                 if (self.config.translate){
                     y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
@@ -137,7 +143,8 @@ define(function(require, exports, module) {
         var newFunction = function(xPosition, range) {
             var startX = normalPeriod * start/100;
             var endX = normalPeriod * end/100;
-            if (xPosition < startX || xPosition > endX){
+            var normalXPosition = xPosition % normalPeriod;
+            if (normalXPosition < startX || normalXPosition > endX){
                 return 0;
             }
             else {

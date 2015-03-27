@@ -97,6 +97,12 @@
                                 <td>Y Speed:<input rv-input="item.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.translateYSpeed"></td>
                             </tr>
                             <tr>
+                                <td></td>
+                                <td>Cut? <input type="checkbox" rv-checked="item.translateTypeCut"></td>
+                                <td>StartPercent: <input rv-input="item.translateCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="item.translateCutStart"></td>
+                                <td>EndPercent: <input rv-input="item.translateCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="item.translateCutEnd"></td>
+                            </tr>
+                            <tr>
                                 <td>Motion type: Sine<input rv-checked='item.motionType' type="radio" value="sine"> Triangle<input rv-checked='item.motionType' type="radio" value="triangle">
                                 </td>
                             </tr>
