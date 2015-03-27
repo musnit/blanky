@@ -27,10 +27,12 @@ define(function(require, exports, module) {
         this.cameraModifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale;
+                var rotate, timePassed, x, y, xyRatio, scale, zoom, zoomSpeed, zoomAmount;
                 x = parseInt(pageJSON.camera.initialX);
                 y = parseInt(pageJSON.camera.initialY);
                 scale = parseFloat(pageJSON.camera.scale);
+                zoomSpeed = parseInt(pageJSON.camera.zoomSpeed);
+                zoomAmount = parseInt(pageJSON.camera.zoomAmount);
                 xyRatio = parseFloat(pageJSON.camera.xyRatio);
                 timePassed = Date.now();
                 if (pageJSON.camera.translate){
@@ -47,11 +49,17 @@ define(function(require, exports, module) {
                 else {
                     rotate = 0;
                 }
+                if (pageJSON.camera.zoom){
+                    zoom = Math.sin(timePassed/zoomSpeed)/zoomAmount;
+                }
+                else {
+                    zoom = 1;
+                }
                 return Transform.thenScale(
                     Transform.thenMove(
                         Transform.rotate(0,0,rotate),
                         [x,y,0])
-                    ,[scale*xyRatio,scale,1]
+                    ,[scale*xyRatio*zoom,scale*zoom,1]
                 );
             },
             align: [0,0]
