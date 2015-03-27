@@ -24,7 +24,7 @@ pages:
 
 
 -- self -- fix weird 0 index bug/zoom vs translate thing on the car page and then see...
-make cut tech work proper
+make cut tech work proper - need actualy function to start/end continuously
 add full screen zoom tech
 
 car vibrating

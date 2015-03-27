@@ -148,7 +148,7 @@ define(function(require, exports, module) {
                 return 0;
             }
             else {
-                return initialFunction((normalPeriod*xPosition)/newPeriod, range);
+                return initialFunction((normalPeriod*normalXPosition)/newPeriod, range);
             }
         };
         return newFunction;
