@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     var PopupPageView = require('views/PopupPageView');
     var Transform = require('famous/core/Transform');
     var Lightbox = require('famous/views/Lightbox');
+    var ParamaterTransformer = require('helpers/ParamaterTransformer');
 
     function _createAppView() {
         this.lightbox = new Lightbox({
@@ -27,40 +28,9 @@ define(function(require, exports, module) {
         this.cameraModifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var rotate, timePassed, x, y, xyRatio, scale, zoom, zoomSpeed, zoomAmount;
-                x = parseInt(pageJSON.camera.initialX);
-                y = parseInt(pageJSON.camera.initialY);
-                scale = parseFloat(pageJSON.camera.scale);
-                zoomSpeed = parseInt(pageJSON.camera.zoomSpeed);
-                zoomAmount = parseInt(pageJSON.camera.zoomAmount);
-                xyRatio = parseFloat(pageJSON.camera.xyRatio);
-                timePassed = Date.now();
-                if (pageJSON.camera.translate){
-                    y += (Math.sin(timePassed/pageJSON.camera.translateYSpeed)+1)*pageJSON.camera.translateY;
-                    x += (Math.sin(timePassed/pageJSON.camera.translateXSpeed)+1)*pageJSON.camera.translateX;
-                }
-                else {
-                    y += 0;
-                    x += 0;
-                }
-                if (pageJSON.camera.rotate){
-                    rotate = Math.sin(timePassed/pageJSON.camera.rotateSpeed)/pageJSON.camera.rotateAngle;
-                }
-                else {
-                    rotate = 0;
-                }
-                if (pageJSON.camera.zoom){
-                    zoom = Math.sin(timePassed/zoomSpeed)/zoomAmount;
-                }
-                else {
-                    zoom = 1;
-                }
-                return Transform.thenScale(
-                    Transform.thenMove(
-                        Transform.rotate(0,0,rotate),
-                        [x,y,0])
-                    ,[scale*xyRatio*zoom,scale*zoom,1]
-                );
+                var transformer = new ParamaterTransformer(pageJSON.camera, null);
+                var transform = transformer.calculateTransform();
+                return transform;
             },
             align: [0,0]
         });
