@@ -50,28 +50,86 @@
 
         <div id="edit-section">
         <h3>Page controls</h3>
-            <table border=1>
+            <table>
             <tr>
-            Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
-            Example name: <input rv-input="name"><br/>
-            Page name: <input rv-input="page.name"><br/>
-            Page X: <input rv-input="page.x"><br/>
-            Page Y: <input rv-input="page.y"><br/>
-            Page device: <input rv-input="device"><br/>
-            <button onclick="window.saver.saveToParse()">Save everything on page</button><br/>
-            <button onclick="window.saver.dupePage()">Duplicate this page</button><br/><br/>
-            <h3>Popup controls</h3>
-            Change item to edit?:
-            <form>
-                <span rv-each-item="popups">
-                    <input name='edit-chooser' rv-value='item.name' onclick="window.editChanger.changeEditing()" type="radio">{item.name}
-                </span>
-            </form><br/>
-            <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
+                <td>
+                    Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'>
+                </td>
             </tr>
+            <tr>
+                <td>
+                    Example name: <input rv-input="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Page name: <input rv-input="page.name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Page X: <input rv-input="page.x">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Page Y: <input rv-input="page.y">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Page device: <input rv-input="device">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sounds:
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    name, src, loop, volume
+                </td>
+            </tr>
+            <tr rv-each-item="sounds">
+                <td>
+                    <input rv-value='item.name' type="text"><input rv-value='item.src' type="text"><input rv-value='item.loop' type="number"><input rv-value='item.volume' type="number"><button onclick="window.saver.deleteSound(this)">delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button onclick="window.saver.addSound()">Add new Sound</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="window.saver.saveToParse()">Save everything on page</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="window.saver.dupePage()">Duplicate this page</button><br/><br/>
+                </td>
+            </tr>
+            </table>
+            <h3>Popup controls</h3>
+            <table>
+                <tr>
+                <td>
+                    Change item to edit?:
+                    <form>
+                        <span rv-each-item="popups">
+                            <input name='edit-chooser' rv-value='item.name' onclick="window.editChanger.changeEditing()" type="radio">{item.name}
+                        </span>
+                    </form>
+                </td>
+                </tr>
+                <tr>
+                    <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
+                </tr>
             <tr rv-each-item="editPopup">
                 <td>
-                    <table>
+                    <table border=1>
                         <tbody>
                             <tr>
                                 <td>Name: <input rv-input="item.name"></td>
@@ -128,6 +186,11 @@
                                 <td>EndPercent: <input rv-input="item.zoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomCutEnd"></td>
                             </tr>
                             <tr>
+                                <td>Skewing? <input type="checkbox" rv-checked="item.skew"></td>
+                                <td>Amount: <input rv-input="item.skewAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.skewAmount"></td>
+                                <td>Speed: <input rv-input="item.skewSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.skewSpeed"></td>
+                            </tr>
+                            <tr>
                                 <td>Accelerometer Translation? <input type="checkbox" rv-checked="item.accel"></td>
                                 <td>Amount: <input rv-input="item.accelAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.accelAmount"></td>
                             </tr>
@@ -145,7 +208,7 @@
             </tr>
             <tr>
                 <td>
-                    <table>
+                    <table border=1>
                         <tbody>
                             <tr>
                                 <td>Name: <input rv-input="camera.name"></td>

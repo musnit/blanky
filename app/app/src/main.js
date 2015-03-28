@@ -59,6 +59,7 @@ define(function(require, exports, module) {
     this.clearPage = function() {
         window.rivetsView.unbind();
         window.appView.lightbox.hide();
+        createjs.Sound.removeAllSounds();
     };
 
     this.loadPage = function(pageID) {
@@ -81,18 +82,16 @@ define(function(require, exports, module) {
 
             window.pageModel.editPopup = [window.pageModel.camera];
             var audioPath = 'content/sounds/';
-            var manifest = [
-                {id:'Music', src:'bgMusic.mp3'},
-                {id:'Waves', src:'light_ocean_waves_on_rocks_001.mp3'}
-            ];
+            var manifest = window.pageModel.sounds;
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                if (event.src === 'content/sounds/bgMusic.mp3'){
-                    createjs.Sound.play(event.src, { loop: -1 });
-                }
-                else if (event.src === 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
-                   createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
-                }
+                var soundObject = window.saver.model.sounds.filter(function(sound){
+                    return (event.src === (audioPath + sound.src));
+                })[0];
+                createjs.Sound.play(audioPath + soundObject.src, { 
+                    loop: soundObject.loop, 
+                    volume: soundObject.volume 
+                });
             };
             createjs.Sound.addEventListener('fileload', handleLoad);
             createjs.Sound.registerSounds(manifest, audioPath);
@@ -113,18 +112,16 @@ define(function(require, exports, module) {
             window.saver.Page = Page;
 
             var audioPath = 'content/sounds/';
-            var manifest = [
-                {id:'Music', src:'bgMusic.mp3'},
-                {id:'Waves', src:'light_ocean_waves_on_rocks_001.mp3'}
-            ];
+            var manifest = window.pageModel.sounds;
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                if (event.src === 'content/sounds/bgMusic.mp3'){
-                    createjs.Sound.play(event.src, { loop: -1 });
-                }
-                else if (event.src === 'content/sounds/light_ocean_waves_on_rocks_001.mp3'){
-                   createjs.Sound.play(event.src, { loop:-1, volume: 0.1 });
-                }
+                var soundObject = window.saver.model.sounds.filter(function(sound){
+                    return (event.src === (audioPath + sound.src));
+                })[0];
+                createjs.Sound.play(audioPath + soundObject.src, { 
+                    loop: soundObject.loop, 
+                    volume: soundObject.volume 
+                });
             };
             createjs.Sound.addEventListener('fileload', handleLoad);
             createjs.Sound.registerSounds(manifest, audioPath);
@@ -205,6 +202,16 @@ define(function(require, exports, module) {
         var frameTDsArray = [].slice.call(frameTDs);
         var clickedIndex = frameTDsArray.indexOf(frame.parentElement) - 1;
         editPopup.frames.splice(clickedIndex, 1);
+    };
+    saver.addSound = function() {
+        this.model.sounds = this.model.sounds || [];
+        this.model.sounds.push({name: '', url:''});
+    };
+    saver.deleteSound = function(sound) {
+        var soundTDs = sound.parentElement.parentElement.children;
+        var soundTDsArray = [].slice.call(soundTDs);
+        var clickedIndex = soundTDsArray.indexOf(sound.parentElement) - 1;
+        this.model.sounds.splice(clickedIndex, 1);
     };
     saver.dupePage = function() {
         var page = new this.Page();
