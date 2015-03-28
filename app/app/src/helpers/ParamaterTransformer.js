@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     }
 
     ParamaterTransformer.prototype.constructor = ParamaterTransformer;
-    ParamaterTransformer.prototype.calculateTransform = function(){
+    ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
         var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, animationSpeed, numFrames;
         x = parseInt(self.config.initialX);
@@ -82,7 +82,7 @@ define(function(require, exports, module) {
                 [scale*xyRatio*zoom,scale*zoom,1])
             ,[x,y,height]
         );
-    }
+    };
 
     ParamaterTransformer.prototype.sinFunction = function(xPosition, range) {
         return Math.sin(xPosition)*range;
@@ -120,7 +120,6 @@ define(function(require, exports, module) {
         };
         return newFunction;
     };
-
 
     module.exports = ParamaterTransformer;
 });
