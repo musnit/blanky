@@ -40,8 +40,8 @@ define(function(require, exports, module) {
         else {
             translateFunction = self.sinFunction;
         }
-        zoomFunction = self.zeroOneSinFunction;
-        var skewFunction = self.zeroOneSinFunction;
+        zoomFunction = self.halfOneSinFunction;
+        var skewFunction = self.halfOneSinFunction;
         var zoomFunctionPeriod = 2 * Math.PI;
         if (self.config.zoomTypeCut){
             zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
@@ -97,8 +97,12 @@ define(function(require, exports, module) {
         return Math.sin(xPosition)*range;
     };
 
-    ParamaterTransformer.prototype.zeroOneSinFunction = function(xPosition, range) {
+    ParamaterTransformer.prototype.halfOneSinFunction = function(xPosition, range) {
         return (Math.sin(xPosition)+1)/2*range;
+    };
+
+    ParamaterTransformer.prototype.zeroOneCosFunction = function(xPosition, range) {
+        return ((1-Math.cos(xPosition))/2)*range;
     };
 
     ParamaterTransformer.prototype.absSinFunction = function(xPosition, range) {
