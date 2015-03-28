@@ -85,12 +85,12 @@ define(function(require, exports, module) {
             var manifest = window.pageModel.sounds;
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                var soundObject = window.saver.model.sounds.filter(function(sound){
+                var soundObject = window.saver.model.sounds.filter(function(sound) {
                     return (event.src === (audioPath + sound.src));
                 })[0];
-                createjs.Sound.play(audioPath + soundObject.src, { 
-                    loop: soundObject.loop, 
-                    volume: soundObject.volume 
+                createjs.Sound.play(audioPath + soundObject.src, {
+                    loop: soundObject.loop,
+                    volume: soundObject.volume
                 });
             };
             createjs.Sound.addEventListener('fileload', handleLoad);
@@ -115,12 +115,12 @@ define(function(require, exports, module) {
             var manifest = window.pageModel.sounds;
             createjs.Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                var soundObject = window.saver.model.sounds.filter(function(sound){
+                var soundObject = window.saver.model.sounds.filter(function(sound) {
                     return (event.src === (audioPath + sound.src));
                 })[0];
-                createjs.Sound.play(audioPath + soundObject.src, { 
-                    loop: soundObject.loop, 
-                    volume: soundObject.volume 
+                createjs.Sound.play(audioPath + soundObject.src, {
+                    loop: soundObject.loop,
+                    volume: soundObject.volume
                 });
             };
             createjs.Sound.addEventListener('fileload', handleLoad);

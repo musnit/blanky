@@ -41,7 +41,7 @@ define(function(require, exports, module) {
             translateFunction = self.sinFunction;
         }
         zoomFunction = self.zeroOneSinFunction;
-        skewFunction = self.zeroOneSinFunction;
+        var skewFunction = self.zeroOneSinFunction;
         var zoomFunctionPeriod = 2 * Math.PI;
         if (self.config.zoomTypeCut){
             zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);

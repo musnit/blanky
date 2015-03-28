@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     var Modifier = require('famous/core/Modifier');
 
     var PopupPageView = require('views/PopupPageView');
-    var Transform = require('famous/core/Transform');
     var Lightbox = require('famous/views/Lightbox');
     var ParamaterTransformer = require('helpers/ParamaterTransformer');
 
