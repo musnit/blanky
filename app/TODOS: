@@ -23,20 +23,27 @@ add narration/title screen and other screens/readalong/sort out timing/make timi
 pages:
 
 
+
+To do (tech):
 -- self -- fix weird 0 index bug/zoom vs translate thing on the car page and then see...
 make cut tech work proper - need actualy function to start/end continuously
 add full screen zoom tech
 
-//car vibrating
+To do (animation):
 smoke stretch/growing downwards
 do suttle full screen zoom on car page
+one shot, no movement back up on car page
 tweak the flow of car page to deal with issues near end of animation josh dislikes
+
+To get feedback on:
+//car vibrating
 //do suttle hands tilting on hands page
+
+Sound:
 sound effects
 car growl
 children laughing, 
 pirate swords, 
 //birds in classroom
-one shot, no movement back up
 
 http://www.audioblocks.com/stock-audio/pirate-ship-ocean-waves-wind-wood-creaks.html

@@ -93,26 +93,32 @@ define(function(require, exports, module) {
         );
     };
 
+    //amplitute: 2, about: 0, start: 0
     ParamaterTransformer.prototype.sinFunction = function(xPosition, range) {
         return Math.sin(xPosition)*range;
     };
 
+    //amplitute: 1, about: 0.5, start: 0.5
     ParamaterTransformer.prototype.halfOneSinFunction = function(xPosition, range) {
         return (Math.sin(xPosition)+1)/2*range;
     };
 
+    //amplitute: 1, about: 0.5, start: 0
     ParamaterTransformer.prototype.zeroOneCosFunction = function(xPosition, range) {
         return ((1-Math.cos(xPosition))/2)*range;
     };
 
+    //amplitute: 1, about: 0.5, start: 0
     ParamaterTransformer.prototype.absSinFunction = function(xPosition, range) {
         return -Math.abs(Math.sin(xPosition))*range;
     };
 
+    //amplitute: 2, about: 0, start: 0
     ParamaterTransformer.prototype.triangleFunction = function(xPosition, range) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
     };
 
+    //amplitute: 1, about: 0.5, start: 0
     ParamaterTransformer.prototype.sawToothFunction = function(xPosition, range) {
         return range*(xPosition - Math.floor(xPosition));
     };
