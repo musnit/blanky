@@ -11,7 +11,7 @@ define(function(require, exports, module) {
     var Page = Parse.Object.extend('Page');
     var Fixtures = require('Fixtures');
     window.Fixtures = Fixtures;
-    var initialPageId = 'LpOaOwDyXb';
+    var initialPageId = 'Du6zsqF3x0';
     window.initialPageId = initialPageId;
 
     // create the main context
@@ -220,6 +220,7 @@ define(function(require, exports, module) {
         page.set('popups', this.model.popups);
         page.set('camera', this.model.camera);
         page.set('page', this.model.page);
+        page.set('sounds', this.model.sounds);
         page.save(null, {
           success: function(page) {
             alert('Duplicate page created with objectId: ' + page.id);

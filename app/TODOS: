@@ -19,17 +19,17 @@ cordova and build as real app and test on my phone
 add remaining pages
 add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions
 
-
-pages:
-
-
-
 To do (tech):
+2 - for debugging: show values for stuff live
+3 - make page speed, and make other speeds ratio's on page speed, defaulting to 1.
+4 - 
+
 -- self -- fix weird 0 index bug/zoom vs translate thing on the car page and then see...
 make cut tech work proper - need actualy function to start/end continuously
 add full screen zoom tech
 
 To do (animation):
+make sure animation by frame not bugging inside when not supposed to.
 smoke stretch/growing downwards
 do suttle full screen zoom on car page
 one shot, no movement back up on car page

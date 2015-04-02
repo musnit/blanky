@@ -37,11 +37,14 @@ define(function(require, exports, module) {
         if (self.config.motionType === 'triangle'){
             translateFunction = self.triangleFunction;
         }
+        else if (self.config.motionType === 'sawtooth'){
+            translateFunction = self.sawToothFunction;
+        }
         else {
             translateFunction = self.sinFunction;
         }
-        zoomFunction = self.halfOneSinFunction;
-        var skewFunction = self.halfOneSinFunction;
+        zoomFunction = self.sawToothFunction;
+        var skewFunction = self.sawToothFunction;
         var zoomFunctionPeriod = 2 * Math.PI;
         if (self.config.zoomTypeCut){
             zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
@@ -103,7 +106,7 @@ define(function(require, exports, module) {
         return (Math.sin(xPosition)+1)/2*range;
     };
 
-    //amplitute: 1, about: 0.5, start: 0
+    //amplitute: 1, about: 0.5, start: 0, period: 2pi
     ParamaterTransformer.prototype.zeroOneCosFunction = function(xPosition, range) {
         return ((1-Math.cos(xPosition))/2)*range;
     };
@@ -118,7 +121,7 @@ define(function(require, exports, module) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
     };
 
-    //amplitute: 1, about: 0.5, start: 0
+    //amplitute: 1, about: 0.5, start: 0, period: 1
     ParamaterTransformer.prototype.sawToothFunction = function(xPosition, range) {
         return range*(xPosition - Math.floor(xPosition));
     };
