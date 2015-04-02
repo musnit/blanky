@@ -27,7 +27,7 @@ define(function(require, exports, module) {
         this.cameraModifier = new Modifier({
             origin: [0, 0],
             transform: function() {
-                var transformer = new ParamaterTransformer(pageJSON.camera, null);
+                var transformer = new ParamaterTransformer(pageJSON.camera, pageJSON);
                 var transform = transformer.calculateTransform();
                 return transform;
             },

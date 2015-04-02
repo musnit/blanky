@@ -9,22 +9,23 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.constructor = ParamaterTransformer;
     ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
-        var rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeed, skewAmount, skew, animationSpeed, numFrames;
+        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeed, skewAmount, skew, animationSpeed, numFrames;
+        pageSpeed = parseFloat(self.model.page.speed) || 1;
         x = parseFloat(self.config.initialX);
         y = parseFloat(self.config.initialY);
         scale = parseFloat(self.config.scale);
         xyRatio = parseFloat(self.config.xyRatio);
         timePassed = parseFloat(Date.now());
         timeOffset = parseFloat(self.config.timeOffset);
-        translateXSpeed = parseFloat(self.config.translateXSpeed);
-        translateYSpeed = parseFloat(self.config.translateYSpeed);
+        translateXSpeed = pageSpeed * parseFloat(self.config.translateXSpeed);
+        translateYSpeed = pageSpeed * parseFloat(self.config.translateYSpeed);
         translateX = parseFloat(self.config.translateX);
         translateY = parseFloat(self.config.translateY);
-        rotateSpeed = parseFloat(self.config.rotateSpeed);
+        rotateSpeed = pageSpeed * parseFloat(self.config.rotateSpeed);
         rotateAngle = parseFloat(self.config.rotateAngle);
-        skewSpeed = parseFloat(self.config.skewSpeed);
+        skewSpeed = pageSpeed * parseFloat(self.config.skewSpeed);
         skewAmount = parseFloat(self.config.skewAmount);
-        zoomSpeed = parseFloat(self.config.zoomSpeed);
+        zoomSpeed = pageSpeed * parseFloat(self.config.zoomSpeed);
         zoomAmount = parseFloat(self.config.zoomAmount);
         zoomCutStart = parseFloat(self.config.zoomCutStart);
         zoomCutEnd = parseFloat(self.config.zoomCutEnd);
@@ -32,7 +33,7 @@ define(function(require, exports, module) {
         translateCutEnd = parseFloat(self.config.translateCutEnd);
         height = parseFloat(self.config.height);
         zoomRelativeMultiplier = parseFloat(self.config.zoomRelativeMultiplier);
-        animationSpeed = parseFloat(self.config.animationSpeed) || 100;
+        animationSpeed = pageSpeed * parseFloat(self.config.animationSpeed) || 100;
         numFrames = parseFloat(self.config.numFrames);
         if (self.config.motionType === 'triangle'){
             translateFunction = self.triangleFunction;
