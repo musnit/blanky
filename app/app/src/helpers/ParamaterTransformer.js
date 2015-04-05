@@ -46,13 +46,11 @@ define(function(require, exports, module) {
         }
         zoomFunction = self.sawToothFunction;
         var skewFunction = self.sawToothFunction;
-        var zoomFunctionPeriod = 2 * Math.PI;
         if (self.config.zoomTypeCut){
-            zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunctionPeriod);
+            zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunction.period);
         }
-        var translateFunctionPeriod = 2 * Math.PI;
         if (self.config.translateTypeCut){
-            translateFunction = self.cutFunction(translateFunction, translateCutStart, translateCutEnd, translateFunctionPeriod);
+            translateFunction = self.cutFunction(translateFunction, translateCutStart, translateCutEnd, translateFunction.period);
         }
         if (self.config.translate){
             y += translateFunction((timePassed+timeOffset)/translateYSpeed, translateY);
@@ -97,52 +95,68 @@ define(function(require, exports, module) {
         );
     };
 
-    //amplitute: 2, about: 0, start: 0
+    //amplitute: 2, about: 0, start: 0, period 2pi
     ParamaterTransformer.prototype.sinFunction = function(xPosition, range) {
         return Math.sin(xPosition)*range;
     };
+    ParamaterTransformer.prototype.sinFunction.period = 2 * Math.PI;
 
-    //amplitute: 1, about: 0.5, start: 0.5
+    //amplitute: 1, about: 0.5, start: 0.5, period 2pi
     ParamaterTransformer.prototype.halfOneSinFunction = function(xPosition, range) {
         return (Math.sin(xPosition)+1)/2*range;
     };
+    ParamaterTransformer.prototype.halfOneSinFunction.period = 2 * Math.PI;
 
     //amplitute: 1, about: 0.5, start: 0, period: 2pi
     ParamaterTransformer.prototype.zeroOneCosFunction = function(xPosition, range) {
         return ((1-Math.cos(xPosition))/2)*range;
     };
+    ParamaterTransformer.prototype.zeroOneCosFunction.period = 2 * Math.PI;
 
-    //amplitute: 1, about: 0.5, start: 0
+    //amplitute: 1, about: 0.5, start: 0, period: pi
     ParamaterTransformer.prototype.absSinFunction = function(xPosition, range) {
         return -Math.abs(Math.sin(xPosition))*range;
     };
+    ParamaterTransformer.prototype.absSinFunction.period = Math.PI;
 
-    //amplitute: 2, about: 0, start: 0
+    //amplitute: 2, about: 0, start: 0, period: 2pi
     ParamaterTransformer.prototype.triangleFunction = function(xPosition, range) {
         return (2/Math.PI)*Math.asin(Math.sin(xPosition))*range;
     };
+    ParamaterTransformer.prototype.triangleFunction.period = 2 * Math.PI;
 
     //amplitute: 1, about: 0.5, start: 0, period: 1
     ParamaterTransformer.prototype.sawToothFunction = function(xPosition, range) {
         return range*(xPosition - Math.floor(xPosition));
     };
+    ParamaterTransformer.prototype.sawToothFunction.period = 1;
 
-    ParamaterTransformer.prototype.cutFunction = function(initialFunction, start, end, normalPeriod) {
-        var newPeriodPercent = (end-start);
-        var newPeriod = normalPeriod*newPeriodPercent/100;
-        var newFunction = function(xPosition, range) {
-            var startX = normalPeriod * start/100;
-            var endX = normalPeriod * end/100;
-            var normalXPosition = xPosition % normalPeriod;
-            if (normalXPosition < startX || normalXPosition > endX){
+    ParamaterTransformer.prototype.periodChangedFunction = function(initialFunction, change) {
+        var newFunction = function(xPosition, range){
+            return initialFunction(change*xPosition, range);
+        };
+        newFunction.period = initialFunction.period/change;
+        return newFunction;
+    }
+
+    ParamaterTransformer.prototype.cutFunction = function(initialFunction, start, end, period) {
+        var self = this;
+        var factor = 100/(end-start);
+        var newFunction = function(xPosition, range){
+            var startX = period * start/100;
+            var endX = period * end/100;
+            var moddedXPosition = xPosition % period;
+            if (moddedXPosition < startX || moddedXPosition > endX){
                 return 0;
             }
             else {
-                return initialFunction((normalPeriod*normalXPosition)/newPeriod, range);
+                var modifiedFunction = self.periodChangedFunction(initialFunction, factor);
+                return modifiedFunction(moddedXPosition-startX, range);
             }
         };
+        newFunction.period = initialFunction.period/factor;
         return newFunction;
-    };
+    }
 
     module.exports = ParamaterTransformer;
 });
