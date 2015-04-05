@@ -9,7 +9,7 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.constructor = ParamaterTransformer;
     ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
-        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX, skewSpeedY, skewAmountY, skew, animationSpeed, numFrames;
+        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX, skewSpeedY, skewAmountY, skewX, skewY, animationSpeed, numFrames;
         pageSpeed = parseFloat(self.model.page.speed) || 1;
         x = parseFloat(self.config.initialX);
         y = parseFloat(self.config.initialY);
@@ -136,17 +136,17 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.sawToothFunction.period = 1;
 
     ParamaterTransformer.prototype.periodChangedFunction = function(initialFunction, change) {
-        var newFunction = function(xPosition, range){
+        var newFunction = function(xPosition, range) {
             return initialFunction(change*xPosition, range);
         };
         newFunction.period = initialFunction.period/change;
         return newFunction;
-    }
+    };
 
     ParamaterTransformer.prototype.cutFunction = function(initialFunction, start, end, period) {
         var self = this;
         var factor = 100/(end-start);
-        var newFunction = function(xPosition, range){
+        var newFunction = function(xPosition, range) {
             var startX = period * start/100;
             var endX = period * end/100;
             var moddedXPosition = xPosition % period;
@@ -160,7 +160,7 @@ define(function(require, exports, module) {
         };
         newFunction.period = initialFunction.period/factor;
         return newFunction;
-    }
+    };
 
     module.exports = ParamaterTransformer;
 });
