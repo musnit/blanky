@@ -24,18 +24,7 @@ define(function(require, exports, module) {
     AppView.prototype.constructor = AppView;
     AppView.prototype.createAndShowPage = function(pageJSON) {
         this.contentView = new PopupPageView(pageJSON);
-        this.cameraModifier = new Modifier({
-            origin: [0, 0],
-            transform: function() {
-                var transformer = new ParamaterTransformer(pageJSON.camera, pageJSON);
-                var transform = transformer.calculateTransform();
-                return transform;
-            },
-            align: [0,0]
-        });
-        var fullPage = new View();
-        fullPage.add(this.cameraModifier).add(this.contentView);
-        this.lightbox.show(fullPage);
+        this.lightbox.show(this.contentView);
     };
 
     AppView.DEFAULT_OPTIONS = {};

@@ -3,19 +3,27 @@ define(function(require, exports, module) {
     var PopupView  = require('views/PopupView');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
+    var ParamaterTransformer = require('helpers/ParamaterTransformer');
 
     function _createPage() {
         var self = this;
         this.popupViews = [];
+        self.model.camera.scale = self.model.camera.scale * self.model.camera.scale;
         this.popups.forEach(function(popup) {
             var popupView = new PopupView(popup, self.model);
             self.popupViews.push(popupView);
             var modifier = new Modifier({
-                        origin: [0.5, 0.5],
+                        origin: function() {
+                            var originX = parseFloat(self.model.camera.xOrigin) || 0;
+                            var originY = parseFloat(self.model.camera.yOrigin) || 0;
+                            return [originX,originY];
+                        },
                         align: [0.5,0.5],
                         transform: function() {
-                            return Transform.scale(self.model.camera.scale,self.model.camera.scale,1);
-                        }
+                            var transformer = new ParamaterTransformer(self.model.camera, self.model);
+                            var transform = transformer.calculateTransform();
+                            return transform;
+                        },
             });
 
             self._add(modifier).add(popupView);
