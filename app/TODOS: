@@ -23,19 +23,18 @@ To do (tech):
 2 - for debugging: show values for stuff live
 
 -- self -- fix weird 0 index bug/zoom vs translate thing on the car page and then see...
-make cut tech work proper - need actualy function to start/end continuously
 add full screen zoom tech
 
 To do (animation):
 make sure animation by frame not bugging inside when not supposed to.
-smoke stretch/growing downwards
-do suttle full screen zoom on car page
 tweak the flow of car page to deal with issues near end of animation josh dislikes
 
 To get feedback on:
 car vibrating
 do suttle hands tilting on hands page
 one shot, no movement back up on car page
+do suttle full screen zoom on car page
+smoke stretch/growing downwards
 
 Sound:
 sound effects

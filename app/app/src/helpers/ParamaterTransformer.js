@@ -9,7 +9,7 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.constructor = ParamaterTransformer;
     ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
-        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeed, skewAmount, skew, animationSpeed, numFrames;
+        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX, skewSpeedY, skewAmountY, skew, animationSpeed, numFrames;
         pageSpeed = parseFloat(self.model.page.speed) || 1;
         x = parseFloat(self.config.initialX);
         y = parseFloat(self.config.initialY);
@@ -23,8 +23,10 @@ define(function(require, exports, module) {
         translateY = parseFloat(self.config.translateY);
         rotateSpeed = pageSpeed * parseFloat(self.config.rotateSpeed);
         rotateAngle = parseFloat(self.config.rotateAngle);
-        skewSpeed = pageSpeed * parseFloat(self.config.skewSpeed);
-        skewAmount = parseFloat(self.config.skewAmount);
+        skewSpeedX = pageSpeed * parseFloat(self.config.skewSpeedX);
+        skewAmountX = parseFloat(self.config.skewAmountX);
+        skewSpeedY = pageSpeed * parseFloat(self.config.skewSpeedY);
+        skewAmountY = parseFloat(self.config.skewAmountY);
         zoomSpeed = pageSpeed * parseFloat(self.config.zoomSpeed);
         zoomAmount = parseFloat(self.config.zoomAmount);
         zoomCutStart = parseFloat(self.config.zoomCutStart);
@@ -45,7 +47,7 @@ define(function(require, exports, module) {
             translateFunction = self.sinFunction;
         }
         zoomFunction = self.sawToothFunction;
-        var skewFunction = self.sawToothFunction;
+        var skewFunction = self.zeroOneCosFunction;
         if (self.config.zoomTypeCut){
             zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunction.period);
         }
@@ -67,10 +69,12 @@ define(function(require, exports, module) {
             rotate = 0;
         }
         if (self.config.skew){
-            skew = 1+skewFunction((timePassed+timeOffset)/skewSpeed, skewAmount);
+            skewX = 1+skewFunction((timePassed+timeOffset)/skewSpeedX, skewAmountX);
+            skewY = 1+skewFunction((timePassed+timeOffset)/skewSpeedY, skewAmountY);
         }
         else {
-            skew = 1;
+            skewX = 1;
+            skewY = 1;
         }
         if (self.config.zoom){
             if (self.config.zoomRelativeTranslate){
@@ -90,7 +94,7 @@ define(function(require, exports, module) {
         return Transform.thenMove(
             Transform.thenScale(
                 Transform.rotate(0,0,rotate),
-                [scale*xyRatio*zoom*skew,scale*zoom,1])
+                [scale*xyRatio*zoom*skewX,scale*zoom*skewY,1])
             ,[x,y,height]
         );
     };
