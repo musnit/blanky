@@ -1,9 +1,8 @@
 define(function(require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
-
-    var Modifier = require('famous/core/Modifier');
     var View = require('famous/core/View');
     var ParamaterTransformer = require('helpers/ParamaterTransformer');
+    var Modifier = require('famous/core/Modifier');
 
     function _createPopup() {
         var self = this;

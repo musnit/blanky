@@ -2,11 +2,8 @@
 
 define(function(require, exports, module) {
     var View          = require('famous/core/View');
-    var Modifier = require('famous/core/Modifier');
-
     var PopupPageView = require('views/PopupPageView');
     var Lightbox = require('famous/views/Lightbox');
-    var ParamaterTransformer = require('helpers/ParamaterTransformer');
 
     function _createAppView() {
         this.lightbox = new Lightbox({
