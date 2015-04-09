@@ -12,6 +12,8 @@ define(function(require, exports, module) {
     var Fixtures = require('Fixtures');
     window.Fixtures = Fixtures;
     var initialPageId = 'Du6zsqF3x0';
+    this.loopingIDs = ['Du6zsqF3x0','FnTu1Egg5v','w9zCNnEbfC'];
+    this.loopNum = 1;
     window.initialPageId = initialPageId;
 
     // create the main context
@@ -313,4 +315,9 @@ define(function(require, exports, module) {
 
     this.loadPage(initialPageId);
 
+    var self = this;
+    document.onclick= function(event) {
+        self.loadPage(self.loopingIDs[self.loopNum%3]);
+        self.loopNum++;
+    };
 });
