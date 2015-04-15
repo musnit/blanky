@@ -315,9 +315,9 @@ define(function(require, exports, module) {
 
     this.loadPage(initialPageId);
 
-    var self = this;
-    document.onclick= function(event) {
-        self.loadPage(self.loopingIDs[self.loopNum%3]);
-        self.loopNum++;
-    };
+    //var self = this;
+    //document.onclick= function(event) {
+    //    self.loadPage(self.loopingIDs[self.loopNum%3]);
+    //    self.loopNum++;
+    //};
 });

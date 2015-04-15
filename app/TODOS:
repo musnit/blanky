@@ -1,39 +1,16 @@
-Features needed:
-control start and end of animation positions, rather than midpoint? think about timeline based/ tweening between keyframes/ my way now which is just like choosing range (ie, start and end keyframe), and sin between those points, and buggy offset
-choose zoom origin?
-
-..relative animations/numbers rather than absolute?
 overflow-hidden bug: https://github.com/Famous/famous/issues/493 
 
-accelerometer - detect orientation and swpa x/y accordingly.
-accelerometer - test factor to multiply x/y translation when using real device.
+
 TODOS:
 null/zerochecks for the different values used on popupview/camera/...
-add accelerometer control
 DRY the popupview and camera modifier code. well like literally CR all files.
-split app code from main code
 add swipe transitioning in app code with cool transition
 remove all globalz!
-cordova and build as real app and test on my phone
-add remaining pages
 add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions
+fix accelerometer stuff on device
+accelerometer - detect orientation and swap x/y accordingly.
+ideas
+for debugging: show values for stuff live
 
-To do (tech):
-2 - for debugging: show values for stuff live
-
-To do (animation):
-make sure animation by frame not bugging inside when not supposed to.
-
-To get feedback on:
-car vibrating
-do suttle hands tilting on hands page
-smoke stretch/growing downwards
-
-Sound:
-sound effects
-car growl
-children laughing, 
-pirate swords, 
-//birds in classroom
 
 http://www.audioblocks.com/stock-audio/pirate-ship-ocean-waves-wind-wood-creaks.html
