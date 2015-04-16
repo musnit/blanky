@@ -10,21 +10,8 @@ define(function(require, exports, module) {
         this.popups.forEach(function(popup) {
             var popupView = new PopupView(popup, self.model);
             self.popupViews.push(popupView);
-            var modifier = new Modifier({
-                        origin: function() {
-                            var originX = parseFloat(self.model.camera.xOrigin) || 0;
-                            var originY = parseFloat(self.model.camera.yOrigin) || 0;
-                            return [originX,originY];
-                        },
-                        align: [0.5,0.5],
-                        transform: function() {
-                            var transformer = new ParamaterTransformer(self.model.camera, self.model);
-                            var transform = transformer.calculateTransform();
-                            return transform;
-                        }
-            });
 
-            self._add(modifier).add(popupView);
+            self.add(popupView);
         });
     }
 
