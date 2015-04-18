@@ -1,8 +1,6 @@
 define(function(require, exports, module) {
     var View = require('famous/core/View');
     var PopupView  = require('views/PopupView');
-    var Modifier = require('famous/core/Modifier');
-    var ParamaterTransformer = require('helpers/ParamaterTransformer');
 
     function _createPage() {
         var self = this;

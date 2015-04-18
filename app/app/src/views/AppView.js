@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                 if (pageJSON.camera.perspectiveZoomCut){
                     perspectiveFunction = ParamaterTransformer.prototype.cutFunction(perspectiveFunction, perspectiveZoomCutStart, perspectiveZoomCutEnd, perspectiveFunction.period);
                 }
-                if(pageJSON.camera.perspectiveZoom){
+                if (pageJSON.camera.perspectiveZoom){
                     var timePassed = parseFloat(Date.now())%pageSpeed;
                     var timeOffset = parseFloat(pageJSON.camera.timeOffset);
                     var perspective = pageJSON.page.perspective - perspectiveFunction((timePassed+timeOffset)/perspectiveZoomSpeed, perspectiveZoomAmount);
