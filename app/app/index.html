@@ -145,6 +145,8 @@
                                 <td>Name: <input rv-input="item.name"></td>
                                 <td>Url: <input rv-input="item.url"></td>
                                 <td>Depth: <input rv-input="item.height" type='range' min='0' max='20'><input style="width:50px" rv-input="item.height"></td>
+                                <td>Camera Bound? <input type="checkbox" rv-checked="item.cameraBound"></td>
+                                <td>Offset: <input rv-input="item.cameraBoundOffset" type='range' min='0' max='20'><input style="width:50px" rv-input="item.cameraBoundOffset"></td>
                             </tr>
                             <tr>
                                 <td>Initial X:<input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>

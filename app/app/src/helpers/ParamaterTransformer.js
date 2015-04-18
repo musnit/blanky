@@ -9,7 +9,10 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.constructor = ParamaterTransformer;
     ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
-        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY, rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX, skewSpeedY, skewAmountY, skewX, skewY, animationSpeed, numFrames;
+        var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY,
+            rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, cameraBoundOffset,
+            zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX,
+            skewSpeedY, skewAmountY, skewX, skewY, animationSpeed, numFrames;
         pageSpeed = parseFloat(self.model.page.speed) || 1;
         x = parseFloat(self.config.initialX);
         y = parseFloat(self.config.initialY);
@@ -34,6 +37,7 @@ define(function(require, exports, module) {
         translateCutStart = parseFloat(self.config.translateCutStart);
         translateCutEnd = parseFloat(self.config.translateCutEnd);
         height = parseFloat(self.config.height);
+        cameraBoundOffset = parseFloat(self.config.cameraBoundOffset);
         zoomRelativeMultiplier = parseFloat(self.config.zoomRelativeMultiplier);
         animationSpeed = pageSpeed * parseFloat(self.config.animationSpeed) || 100;
         numFrames = parseFloat(self.config.numFrames);
@@ -89,14 +93,18 @@ define(function(require, exports, module) {
         }
         if (self.config.animation){
             var frameNumber = Math.floor(self.sawToothFunction((timePassed+timeOffset)/animationSpeed, numFrames));
-            y -= frameNumber * self.model.page.y * zoom;
+            y -= frameNumber * self.model.page.y * scale * zoom;
         }
-        return Transform.thenMove(
+        if (self.config.cameraBound){
+            height = window.mainContext.getPerspective() + cameraBoundOffset;
+        }
+        var finalTransform = Transform.thenMove(
             Transform.thenScale(
                 Transform.rotate(0,0,rotate),
                 [scale*xyRatio*zoom*skewX,scale*zoom*skewY,1])
             ,[x,y,height]
         );
+        return finalTransform;
     };
 
     //amplitute: 2, about: 0, start: 0, period 2pi

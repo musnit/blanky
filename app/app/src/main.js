@@ -11,7 +11,7 @@ define(function(require, exports, module) {
     var Page = Parse.Object.extend('Page');
     var Fixtures = require('Fixtures');
     window.Fixtures = Fixtures;
-    var initialPageId = 'Du6zsqF3x0';
+    var initialPageId = 'x9ofzQXCSR';
     this.loopingIDs = ['Du6zsqF3x0','FnTu1Egg5v','w9zCNnEbfC'];
     this.loopNum = 1;
     window.initialPageId = initialPageId;

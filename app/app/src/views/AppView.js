@@ -56,7 +56,7 @@ define(function(require, exports, module) {
                 return transform;
             }
         });
-
+        window.cameraModifier = cameraModifier;
         this.add(cameraModifier).add(this.lightbox);
         this.lightbox.show(this.contentView);
     };
