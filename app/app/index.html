@@ -83,6 +83,11 @@
             </tr>
             <tr>
                 <td>
+                    Page Perspective: <input rv-input="page.perspective">
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Page device: <input rv-input="device">
                 </td>
             </tr>
@@ -258,6 +263,20 @@
                                 <td>Accelerometer Translation? <input type="checkbox" rv-checked="camera.accel"></td>
                                 <td>Amount: <input rv-input="camera.accelAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.accelAmount"></td>
                             </tr>
+                            <tr>
+                                <td>Zoom Perspective? <input type="checkbox" rv-checked="camera.perspectiveZoom"></td>
+                                <td>Motion type: Sine<input rv-checked='camera.perspectiveZoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.perspectiveZoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.perspectiveZoomType' type="radio" value="sawtooth">
+                                </td>
+                                <td>Amount: <input rv-input="camera.perspectiveZoomAmount" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.perspectiveZoomAmount"></td>
+                                <td>Speed: <input rv-input="camera.perspectiveZoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.perspectiveZoomSpeed"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Cut? <input type="checkbox" rv-checked="camera.perspectiveZoomCut"></td>
+                                <td>StartPercent: <input rv-input="camera.perspectiveZoomCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="camera.perspectiveZoomCutStart"></td>
+                                <td>EndPercent: <input rv-input="camera.perspectiveZoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="camera.perspectiveZoomCutEnd"></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </td>

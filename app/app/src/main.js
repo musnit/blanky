@@ -18,7 +18,7 @@ define(function(require, exports, module) {
 
     // create the main context
     var mainContext = Engine.createContext(document.getElementById('device-screen'));
-    mainContext.setPerspective(1000);
+    mainContext.setPerspective(100);
     window.mainContext = mainContext;
     window.Engine = Engine;
     var appView = new AppView();
