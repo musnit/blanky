@@ -17,6 +17,7 @@
     </author>
 
     <gap:platform name="ios" />
+    <preference name="phonegap-version" value="3.7.0" />
 
 </widget>
 
