@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     window.appView = this.appView;
     this.createMotionBindings();
 
-  };
+  }
 
   BlankyApp.prototype.clearPage = function() {
       window.appView.lightbox.hide();
@@ -28,15 +28,15 @@ define(function(require, exports, module) {
   };
 
   BlankyApp.prototype.loadPage = function(pageID) {
-      var pageModel = window.pagesModel.pages.filter(function(page){
-          return page.objectId === pageID
+      var pageModel = window.pagesModel.pages.filter(function(page) {
+          return page.objectId === pageID;
       })[0];
       window.pageModel = pageModel;
       window.appView.createAndShowPage(pageModel);
 
       var audioPath = 'content/sounds/';
       var manifest = window.pageModel.sounds;
-      if(manifest){
+      if (manifest){
         this.Sound.alternateExtensions = ['mp3'];
         var handleLoad = function(event) {
             var soundObject = window.pageModel.sounds.filter(function(sound) {

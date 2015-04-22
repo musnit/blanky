@@ -13,12 +13,12 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('build', [
+  grunt.registerTask('buildtool', [
     'clean:dist',
     'lint',
     'processhtml:dist',
     'useminPrepare',
-    'requirejs',
+    'requirejs:compiletool',
     'concat',
     'cssmin',
     'uglify',
@@ -26,6 +26,25 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('buildapp', [
+    'clean:dist',
+    'lint',
+    'processhtml:dist',
+    'useminPrepare',
+    'requirejs:compileapp',
+    'concat',
+    'cssmin',
+    'uglify',
+    'copy:dist',
+    'rev',
+    'usemin',
+    'htmlmin'
+  ]);
+
+  grunt.registerTask('build', [
+    'buildtool'
   ]);
 
   grunt.registerTask('lint', [
@@ -38,6 +57,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'build'
+    'buildtool'
   ]);
 };

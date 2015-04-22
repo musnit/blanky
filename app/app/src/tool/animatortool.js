@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
     Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
     var Page = Parse.Object.extend('Page');
+    var rivets = require('rivets');
 
     rivets.binders.input = {
         publishes: true,
@@ -39,7 +40,7 @@ define(function(require, exports, module) {
         window.pagesListView.bind();
         document.getElementById('page-chooser').value = window.initialPageId;
 
-        self.loadPage(initialPageId);
+        self.loadPage(window.initialPageId);
       },
       error: function(collection, error) {
         alert('error with fetching page list');
@@ -55,13 +56,13 @@ define(function(require, exports, module) {
             blanky.loadPage(pageID);
             window.saver.currentPageID = pageID;
 
-            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), pageModel);
+            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), window.pageModel);
             window.rivetsView = rivetsView;
             window.rivetsView.unbind();
-            window.rivetsView.models = pageModel;
+            window.rivetsView.models = window.pageModel;
             window.rivetsView.bind();
 
-            window.saver.model = pageModel;
+            window.saver.model = window.pageModel;
             window.saver.Page = Page;
 
             window.pageModel.editPopup = [window.pageModel.camera];

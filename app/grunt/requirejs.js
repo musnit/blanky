@@ -1,5 +1,5 @@
 module.exports =  {
-  compile: {
+  compiletool: {
     options: {
       optimize: 'uglify2',
       uglify2: {
@@ -8,10 +8,10 @@ module.exports =  {
         }
       },
       baseUrl: '<%= config.app %>/src',
-      mainConfigFile: '<%= config.app %>/src/requireConfig.js',
+      mainConfigFile: '<%= config.app %>/src/toolConfig.js',
       name: 'almond',
-      include: 'main',
-      insertRequire: ['main'],
+      include: 'tool/animatortool',
+      insertRequire: ['tool/animatortool'],
       out: '<%= config.dist %>/src/main.js',
       wrap: true
     }

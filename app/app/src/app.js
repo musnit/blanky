@@ -12,7 +12,7 @@ define(function(require, exports, module) {
     var BlankyApp = require('BlankyApp');
     var blanky = new BlankyApp();
 
-    blanky.loadPage(initialPageId);
+    blanky.loadPage(window.initialPageId);
 
     document.onclick= function(event) {
         blanky.clearPage();
