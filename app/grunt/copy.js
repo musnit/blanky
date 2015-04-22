@@ -11,6 +11,7 @@ module.exports = {
         '.htaccess',
         'images/{,*/}*.webp',
         '{,*/}*.html',
+        '{,*/}*.xml',
         'styles/fonts/{,*/}*.*'
       ]
     }]
