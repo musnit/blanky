@@ -1,30 +1,15 @@
 /* globals define */
 define(function(require, exports, module) {
     'use strict';
+
+    var BlankyApp = require('BlankyApp');
+    var blanky = new BlankyApp();
+
     // import dependencies
-    var Engine = require('famous/core/Engine');
-    var AppView = require('views/AppView');
-    var Sound = require('soundjs');
     var Parse = require('parse');
-    this.initialTime = Date.now();
-    Engine.setOptions({appMode: false});
+
     Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
     var Page = Parse.Object.extend('Page');
-    var Fixtures = require('Fixtures');
-    window.Fixtures = Fixtures;
-    var initialPageId = 'Du6zsqF3x0';
-    this.loopingIDs = ['Du6zsqF3x0','FnTu1Egg5v','w9zCNnEbfC'];
-    this.loopNum = 1;
-    window.initialPageId = initialPageId;
-
-    // create the main context
-    var mainContext = Engine.createContext(document.getElementById('device-screen'));
-    mainContext.setPerspective(100);
-    window.mainContext = mainContext;
-    window.Engine = Engine;
-    var appView = new AppView();
-    mainContext.add(appView);
-    window.appView = appView;
 
     rivets.binders.input = {
         publishes: true,
@@ -41,7 +26,7 @@ define(function(require, exports, module) {
       model: Page
     });
     var pageCollection = new PageCollection();
-
+    var self = this;
     pageCollection.fetch({
       success: function(pages) {
         var pagesModel = {};
@@ -53,6 +38,8 @@ define(function(require, exports, module) {
         window.pagesListView.models = pagesModel;
         window.pagesListView.bind();
         document.getElementById('page-chooser').value = window.initialPageId;
+
+        self.loadPage(initialPageId);
       },
       error: function(collection, error) {
         alert('error with fetching page list');
@@ -61,18 +48,12 @@ define(function(require, exports, module) {
 
     this.clearPage = function() {
         window.rivetsView.unbind();
-        window.appView.lightbox.hide();
-        Sound.removeAllSounds();
+        blanky.clearPage();
     };
 
     this.loadPage = function(pageID) {
-        var query = new Parse.Query(Page);
-        query.get(pageID, {
-          success: function(page) {
+            blanky.loadPage(pageID);
             window.saver.currentPageID = pageID;
-            var pageModel = page.toJSON();
-            window.pageModel = pageModel;
-            window.appView.createAndShowPage(pageModel);
 
             var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), pageModel);
             window.rivetsView = rivetsView;
@@ -84,94 +65,7 @@ define(function(require, exports, module) {
             window.saver.Page = Page;
 
             window.pageModel.editPopup = [window.pageModel.camera];
-            var audioPath = 'content/sounds/';
-            var manifest = window.pageModel.sounds;
-            Sound.alternateExtensions = ['mp3'];
-            var handleLoad = function(event) {
-                var soundObject = window.pageModel.sounds.filter(function(sound) {
-                    return (event.src === (audioPath + sound.src));
-                })[0];
-                Sound.play(audioPath + soundObject.src, {
-                    loop: soundObject.loop,
-                    volume: soundObject.volume
-                });
-            };
-            Sound.addEventListener('fileload', handleLoad);
-            Sound.registerSounds(manifest, audioPath);
-          },
-          error: function() {
-            window.saver.currentPageID = pageID;
-            var pageModel = window.Fixtures[pageID].results[0];
-            window.pageModel = pageModel;
-            window.appView.createAndShowPage(pageModel);
-            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), pageModel);
-            window.rivetsView = rivetsView;
-            window.rivetsView.unbind();
-            window.rivetsView.models = pageModel;
-            window.rivetsView.bind();
-
-            window.pageModel.editPopup = [window.pageModel.camera];
-            window.saver.model = pageModel;
-            window.saver.Page = Page;
-
-            var audioPath = 'content/sounds/';
-            var manifest = window.pageModel.sounds;
-            Sound.alternateExtensions = ['mp3'];
-            var handleLoad = function(event) {
-                var soundObject = window.saver.model.sounds.filter(function(sound) {
-                    return (event.src === (audioPath + sound.src));
-                })[0];
-                Sound.play(audioPath + soundObject.src, {
-                    loop: soundObject.loop,
-                    volume: soundObject.volume
-                });
-            };
-            Sound.addEventListener('fileload', handleLoad);
-            Sound.registerSounds(manifest, audioPath);
-          }
-        });
     };
-
-    this.createMotionBindings = function() {
-
-        if (window.DeviceOrientationEvent) {
-            window.originalOrientation = false;
-            window.orientationDifference = [0,0,0];
-            window.addEventListener('deviceorientation', function(eventData) {
-                // gamma is the left-to-right tilt in degrees, where right is positive
-                var tiltLR = eventData.gamma;
-
-                // beta is the front-to-back tilt in degrees, where front is positive
-                var tiltFB = eventData.beta;
-
-                // alpha is the compass direction the device is facing in degrees
-                var dir = eventData.alpha;
-
-                // call our orientation event handler
-                if (!window.originalOrientation){
-                    window.originalOrientation = [tiltLR, tiltFB, dir];
-                }
-
-                var changeInX = tiltLR-window.originalOrientation[0];
-                var changeInY = tiltFB-window.originalOrientation[1];
-                if (changeInX >30) {
-                    changeInX = 30;
-                }
-                if (changeInY >30) {
-                    changeInY = 30;
-                }
-                if (changeInX <-30) {
-                    changeInX = -30;
-                }
-                if (changeInY <-30) {
-                    changeInY = -30;
-                }
-
-                window.orientationDifference = [changeInX, changeInY];
-            }, false);
-        }
-    };
-    this.createMotionBindings();
 
     var saver = {};
     saver.saveToParse = function() {
@@ -313,12 +207,4 @@ define(function(require, exports, module) {
         }
     };
     window.editChanger = editChanger;
-
-    this.loadPage(initialPageId);
-
-    //var self = this;
-    //document.onclick= function(event) {
-    //    self.loadPage(self.loopingIDs[self.loopNum%3]);
-    //    self.loopNum++;
-    //};
 });
