@@ -1,10 +1,11 @@
-
 /* globals define */
 define(function(require, exports, module) {
     'use strict';
     // import dependencies
     var Engine = require('famous/core/Engine');
     var AppView = require('views/AppView');
+    var Sound = require('soundjs');
+    var Parse = require('parse');
     this.initialTime = Date.now();
     Engine.setOptions({appMode: false});
     Parse.initialize('U0A3f3L3EHbQpF8Oig2zhlOasUF6PhJkTOQOvjoH', 'aNTIn2zXGxzAEl8BLOnHzuWvaOYySN5QqHPLgA1X');
@@ -61,7 +62,7 @@ define(function(require, exports, module) {
     this.clearPage = function() {
         window.rivetsView.unbind();
         window.appView.lightbox.hide();
-        createjs.Sound.removeAllSounds();
+        Sound.removeAllSounds();
     };
 
     this.loadPage = function(pageID) {
@@ -85,18 +86,18 @@ define(function(require, exports, module) {
             window.pageModel.editPopup = [window.pageModel.camera];
             var audioPath = 'content/sounds/';
             var manifest = window.pageModel.sounds;
-            createjs.Sound.alternateExtensions = ['mp3'];
+            Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
-                var soundObject = window.saver.model.sounds.filter(function(sound) {
+                var soundObject = window.pageModel.sounds.filter(function(sound) {
                     return (event.src === (audioPath + sound.src));
                 })[0];
-                createjs.Sound.play(audioPath + soundObject.src, {
+                Sound.play(audioPath + soundObject.src, {
                     loop: soundObject.loop,
                     volume: soundObject.volume
                 });
             };
-            createjs.Sound.addEventListener('fileload', handleLoad);
-            createjs.Sound.registerSounds(manifest, audioPath);
+            Sound.addEventListener('fileload', handleLoad);
+            Sound.registerSounds(manifest, audioPath);
           },
           error: function() {
             window.saver.currentPageID = pageID;
@@ -115,18 +116,18 @@ define(function(require, exports, module) {
 
             var audioPath = 'content/sounds/';
             var manifest = window.pageModel.sounds;
-            createjs.Sound.alternateExtensions = ['mp3'];
+            Sound.alternateExtensions = ['mp3'];
             var handleLoad = function(event) {
                 var soundObject = window.saver.model.sounds.filter(function(sound) {
                     return (event.src === (audioPath + sound.src));
                 })[0];
-                createjs.Sound.play(audioPath + soundObject.src, {
+                Sound.play(audioPath + soundObject.src, {
                     loop: soundObject.loop,
                     volume: soundObject.volume
                 });
             };
-            createjs.Sound.addEventListener('fileload', handleLoad);
-            createjs.Sound.registerSounds(manifest, audioPath);
+            Sound.addEventListener('fileload', handleLoad);
+            Sound.registerSounds(manifest, audioPath);
           }
         });
     };

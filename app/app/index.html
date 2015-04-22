@@ -17,9 +17,7 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/rivets/0.7.1/rivets.bundled.min.js"></script>
-        <script src="http://www.parsecdn.com/js/parse-1.3.2.min.js"></script>
-        <script src="https://code.createjs.com/soundjs-0.6.0.min.js"></script>
+        <script src="lib/rivets/rivets.bundled.min.js"></script>
 
         <!-- build:js(app/) src/polyfills.js -->
         <script type="text/javascript" src="lib/famous-polyfills/functionPrototypeBind.js"></script>
@@ -27,12 +25,8 @@
         <script type="text/javascript" src="lib/famous-polyfills/requestAnimationFrame.js"></script>
         <!-- endbuild -->
 
-        <!-- process:remove:dev -->
-        <script type="text/javascript" src="src/main.js"></script>
-        <!-- /process -->
-
         <!-- process:remove:dist -->
-        <script type="text/javascript" src="lib/requirejs/require.js" data-main="src/requireConfig"></script>
+        <script type="text/javascript" src="lib/requirejs/require.js" data-main="src/toolConfig"></script>
         <!-- /process -->
     </head>
     <body id="body">
