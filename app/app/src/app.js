@@ -17,6 +17,6 @@ define(function(require, exports, module) {
     document.onclick= function(event) {
         blanky.clearPage();
         blanky.loadPage(loopingIDs[loopNum%3]);
-        blanky.loopNum++;
+        loopNum++;
     };
 });

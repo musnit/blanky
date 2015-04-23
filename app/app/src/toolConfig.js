@@ -6,6 +6,13 @@ require.config({
       },
       parse: {
         exports: 'Parse'
+      },
+      sightglass : {
+          exports: 'sightglass'
+      },
+      rivets : {
+          deps : ['sightglass'],
+          exports : 'rivets'
       }
     },
     paths: {
