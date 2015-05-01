@@ -38,7 +38,7 @@
           Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' hidden oninput="window.timeController.update(this.value)" type='range' min='0' max='113097' style="width:800px"><br/>
             Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
             <select id='page-chooser'>
-                <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name }</option>
+                <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name } - { page.objectId }</option>
             </select><br/>
             <button onclick="window.saver.addNewPage()">Add new blank page</button><br/>
         </div>
