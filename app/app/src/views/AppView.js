@@ -35,11 +35,14 @@ define(function(require, exports, module) {
                 var perspectiveZoomAmount = parseFloat(pageJSON.camera.perspectiveZoomAmount);
                 var perspectiveZoomCutStart = parseFloat(pageJSON.camera.perspectiveZoomCutStart);
                 var perspectiveZoomCutEnd = parseFloat(pageJSON.camera.perspectiveZoomCutEnd);
-                if (pageJSON.camera.persepectiveZoomType === 'triangle'){
+                if (pageJSON.camera.perspectiveZoomType === 'triangle'){
                     perspectiveFunction = ParamaterTransformer.prototype.triangleFunction;
                 }
-                else if (pageJSON.camera.persepectiveZoomType === 'sawtooth'){
+                else if (pageJSON.camera.perspectiveZoomType === 'sawtooth'){
                     perspectiveFunction = ParamaterTransformer.prototype.sawToothFunction;
+                }
+                else if (pageJSON.camera.perspectiveZoomType === 'cos'){
+                    perspectiveFunction = ParamaterTransformer.prototype.cosFunction;
                 }
                 else {
                     perspectiveFunction = ParamaterTransformer.prototype.sinFunction;

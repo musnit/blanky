@@ -10,9 +10,9 @@ define(function(require, exports, module) {
     ParamaterTransformer.prototype.calculateTransform = function() {
         var self = this;
         var pageSpeed, rotate, timePassed, x, y, xyRatio, scale, timeOffset, translateYSpeed,translateXSpeed, translateX, translateY,
-            rotateSpeed, rotateAngle, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height, cameraBoundOffset,
-            zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX, skewAmountX,
-            skewSpeedY, skewAmountY, skewX, skewY, animationSpeed, numFrames;
+            rotateSpeed, rotateAngle, rotateFunction, zoom, zoomFunction, translateFunction, zoomSpeed, zoomAmount, height,
+            cameraBoundOffset, zoomCutStart, zoomCutEnd, translateCutStart, translateCutEnd, zoomRelativeMultiplier, skewSpeedX,
+            skewAmountX, skewSpeedY, skewAmountY, skewX, skewY, animationSpeed, numFrames;
         pageSpeed = parseFloat(self.model.page.speed) || 1;
         x = parseFloat(self.config.initialX);
         y = parseFloat(self.config.initialY);
@@ -41,17 +41,47 @@ define(function(require, exports, module) {
         zoomRelativeMultiplier = parseFloat(self.config.zoomRelativeMultiplier);
         animationSpeed = pageSpeed * parseFloat(self.config.animationSpeed) || 100;
         numFrames = parseFloat(self.config.numFrames);
+
         if (self.config.motionType === 'triangle'){
             translateFunction = self.triangleFunction;
         }
         else if (self.config.motionType === 'sawtooth'){
             translateFunction = self.sawToothFunction;
         }
+        else if (self.config.motionType === 'cos'){
+            translateFunction = self.cosFunction;
+        }
         else {
             translateFunction = self.sinFunction;
         }
-        zoomFunction = self.sawToothFunction;
-        var skewFunction = self.zeroOneCosFunction;
+
+        if (self.config.zoomType === 'triangle'){
+            zoomFunction = self.triangleFunction;
+        }
+        else if (self.config.zoomType === 'sin'){
+            zoomFunction = self.sinFunction;
+        }
+        else if (self.config.zoomType === 'cos'){
+            zoomFunction = self.cosFunction;
+        }
+        else {
+            zoomFunction = self.sawToothFunction;
+        }
+
+        if (self.config.rotateType === 'triangle'){
+            rotateFunction = self.triangleFunction;
+        }
+        else if (self.config.rotateType === 'sawToothFunction'){
+            rotateFunction = self.sawToothFunction;
+        }
+        else if (self.config.rotateType === 'cos'){
+            rotateFunction = self.cosFunction;
+        }
+        else {
+            rotateFunction = self.sinFunction;
+        }
+
+        var skewFunction = self.cosFunction;
         if (self.config.zoomTypeCut){
             zoomFunction = self.cutFunction(zoomFunction, zoomCutStart, zoomCutEnd, zoomFunction.period);
         }
@@ -67,7 +97,7 @@ define(function(require, exports, module) {
             x += window.orientationDifference[1] * self.config.accelAmount;
         }
         if (self.config.rotate){
-            rotate = Math.sin((timePassed+timeOffset)/rotateSpeed)/rotateAngle;
+            rotate = rotateFunction((timePassed+timeOffset)/rotateSpeed, 1/rotateAngle);
         }
         else {
             rotate = 0;
@@ -119,11 +149,11 @@ define(function(require, exports, module) {
     };
     ParamaterTransformer.prototype.halfOneSinFunction.period = 2 * Math.PI;
 
-    //amplitute: 1, about: 0.5, start: 0, period: 2pi
-    ParamaterTransformer.prototype.zeroOneCosFunction = function(xPosition, range) {
-        return ((1-Math.cos(xPosition))/2)*range;
+    //amplitute: 1, about: 0.5, start: 0, period: 1
+    ParamaterTransformer.prototype.cosFunction = function(xPosition, range) {
+        return ((1-Math.cos(2 * Math.PI * xPosition))/2)*range;
     };
-    ParamaterTransformer.prototype.zeroOneCosFunction.period = 2 * Math.PI;
+    ParamaterTransformer.prototype.cosFunction.period = 1;
 
     //amplitute: 1, about: 0.5, start: 0, period: pi
     ParamaterTransformer.prototype.absSinFunction = function(xPosition, range) {

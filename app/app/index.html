@@ -169,13 +169,15 @@
                                 <td>EndPercent: <input rv-input="item.translateCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="item.translateCutEnd"></td>
                             </tr>
                             <tr>
-                                <td>Motion type: Sine<input rv-checked='item.motionType' type="radio" value="sine"> Triangle<input rv-checked='item.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='item.motionType' type="radio" value="sawtooth">
+                                <td>Motion type: Sine<input rv-checked='item.motionType' type="radio" value="sine"> Triangle<input rv-checked='item.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='item.motionType' type="radio" value="sawtooth"> Cos<input rv-checked='item.motionType' type="radio" value="cos">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Rotation? <input type="checkbox" rv-checked="item.rotate"></td>
                                 <td>Angle: <input rv-input="item.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="item.rotateAngle"></td>
                                 <td>Speed: <input rv-input="item.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.rotateSpeed"></td>
+                                <td>Rotate type: Sine<input rv-checked='item.rotateType' type="radio" value="sine"> Triangle<input rv-checked='item.rotateType' type="radio" value="triangle"> Sawtooth<input rv-checked='item.rotateType' type="radio" value="sawtooth"> Cos<input rv-checked='item.rotateType' type="radio" value="cos">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Zooming? <input type="checkbox" rv-checked="item.zoom"></td>
@@ -192,6 +194,10 @@
                                 <td>Cut? <input type="checkbox" rv-checked="item.zoomTypeCut"></td>
                                 <td>StartPercent: <input rv-input="item.zoomCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomCutStart"></td>
                                 <td>EndPercent: <input rv-input="item.zoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="item.zoomCutEnd"></td>
+                            </tr>
+                            <tr>
+                                <td>Zoom type: Sine<input rv-checked='item.zoomType' type="radio" value="sine"> Triangle<input rv-checked='item.zoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='item.zoomType' type="radio" value="sawtooth"> Cos<input rv-checked='item.zoomType' type="radio" value="cos">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Skewing? <input type="checkbox" rv-checked="item.skew"></td>
@@ -244,18 +250,22 @@
                                 <td>Y Speed:<input rv-input="camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateYSpeed"></td>
                             </tr>
                             <tr>
-                                <td>Motion type: Sine<input rv-checked='camera.motionType' type="radio" value="sine"> Triangle<input rv-checked='camera.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.motionType' type="radio" value="sawtooth">
+                                <td>Motion type: Sine<input rv-checked='camera.motionType' type="radio" value="sine"> Triangle<input rv-checked='camera.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.motionType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.motionType' type="radio" value="cos">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Rotation? <input type="checkbox" rv-checked="camera.rotate"></td>
                                 <td>Angle: <input rv-input="camera.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="camera.rotateAngle"></td>
                                 <td>Speed: <input rv-input="camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.rotateSpeed"></td>
+                                <td>Rotate type: Sine<input rv-checked='camera.rotateType' type="radio" value="sine"> Triangle<input rv-checked='camera.rotateType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.rotateType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.rotateType' type="radio" value="cos">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Zooming? <input type="checkbox" rv-checked="camera.zoom"></td>
                                 <td>Amount: <input rv-input="camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomAmount"></td>
                                 <td>Speed: <input rv-input="camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomSpeed"></td>
+                                <td>Zoom type: Sine<input rv-checked='camera.zoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.zoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.zoomType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.zoomType' type="radio" value="cos">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Accelerometer Translation? <input type="checkbox" rv-checked="camera.accel"></td>
@@ -263,7 +273,7 @@
                             </tr>
                             <tr>
                                 <td>Zoom Perspective? <input type="checkbox" rv-checked="camera.perspectiveZoom"></td>
-                                <td>Motion type: Sine<input rv-checked='camera.perspectiveZoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.perspectiveZoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.perspectiveZoomType' type="radio" value="sawtooth">
+                                <td>Motion type: Sine<input rv-checked='camera.perspectiveZoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.perspectiveZoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.perspectiveZoomType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.perspectiveZoomType' type="radio" value="cos">
                                 </td>
                                 <td>Amount: <input rv-input="camera.perspectiveZoomAmount" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.perspectiveZoomAmount"></td>
                                 <td>Speed: <input rv-input="camera.perspectiveZoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.perspectiveZoomSpeed"></td>
