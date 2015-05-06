@@ -29,6 +29,45 @@ section {
     background-position: top center;
 }
 
+body {
+  font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+}
+
+.singalong {
+  font-size: 35px;
+}
+
+.overlay-text {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.highlight-text {
+  background-repeat: repeat;
+  background-position: 100% 0px;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+@-webkit-keyframes stripes {
+  100% {
+    background-position: 0% 0px;
+  }
+}
+
+.overlay-transparency{
+  background: rgba(120, 223, 235, 0.5);
+}
+
+.overlay-highlighting .overlay-text{
+  background: rgba(255, 0, 0, 0.5);
+}
+
 .hidden-overflow {
   overflow: hidden;
 }

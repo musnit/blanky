@@ -1,0 +1,63 @@
+<head>
+<style type="text/css">
+  
+.overlay-text {
+  background-repeat: repeat;
+  background-position: 100% 0px;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+@-webkit-keyframes stripes {
+  100% {
+    background-position: 0% 0px;
+  }
+}
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+
+.overlay-text-div{
+  text-align: center;
+  font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="overlay-text-div">
+<button onclick="pauseplay()">pause/play</button><br/>
+  <span class="overlay-text">animate thisanimate this!</span>
+</div>
+</body>
+<script type="text/javascript">
+  
+  var text = document.getElementsByClassName('overlay-text')[0];
+  var width = text.getBoundingClientRect().width;
+  var redStart = width + 40;
+  var redEnd = redStart + 40;
+  var blackAgain = redEnd + 40;
+  var end = width*2 + 120;
+  var duration = width/170;
+  text.setAttribute('style',
+    'background-size: '+ end + 'px 3px;' +
+    'background-image: -webkit-linear-gradient(left, ' +
+                      'black 0px,' +
+                      'black ' + width + 'px,' + 
+                      'red ' + redStart + 'px,' + 
+                      'red ' + redEnd + 'px,' + 
+                      'black ' + blackAgain + 'px);' +
+    '-webkit-animation: stripes '+ duration +'s linear infinite;'
+  );
+  var pauseplay = function(){
+    if (text.style.webkitAnimationPlayState === "paused"){
+      text.style.webkitAnimationPlayState = "running";
+    }
+    else{
+      text.style.webkitAnimationPlayState = "paused";
+    }
+  }
+  //control timing with cubic bezier
+  //add to surface
+</script>

@@ -59,9 +59,9 @@ define(function(require, exports, module) {
             }
             return transform;
         };
-        cameraModifier.setOrigin(originFunction);
-        cameraModifier.setTransform(transformFunction);
-        this.lightbox.show(this.contentView);
+        window.cameraModifier.setOrigin(originFunction);
+        window.cameraModifier.setTransform(transformFunction);
+        this.lightbox.show(this.contentView, null, this.contentView.contentInserted);
     };
 
     AppView.DEFAULT_OPTIONS = {};

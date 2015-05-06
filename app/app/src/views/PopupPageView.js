@@ -19,6 +19,12 @@ define(function(require, exports, module) {
         this.model = model;
 
         _createPage.call(this);
+        var self = this;
+        this.contentInserted = function() {
+            self.popupViews.forEach(function(popupView) {
+                popupView.contentInserted();
+            });
+        };
     }
 
     PopupPageView.prototype = Object.create(View.prototype);
