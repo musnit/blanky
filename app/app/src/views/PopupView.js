@@ -9,8 +9,8 @@ define(function(require, exports, module) {
         var self = this;
         this.modifier = new Modifier({
             origin: function() {
-                var originX = self.config.xOrigin || 0;
-                var originY = self.config.yOrigin || 0;
+                var originX = parseFloat(self.config.xOrigin) || 0;
+                var originY = parseFloat(self.config.yOrigin) || 0;
                 return [originX,originY];
             },
             transform: function() {
@@ -27,6 +27,9 @@ define(function(require, exports, module) {
                 var transform = transformer.calculateTransform();
                 return transform;
             },
+            opacity: function(){
+                return parseFloat(self.config.opacity) || 1;
+            },
             align: [0,0]
         });
 
@@ -38,23 +41,21 @@ define(function(require, exports, module) {
             sizeY = this.model.page.y;
         }
 
+        var surfaceType = Surface;
+        var content;
+        var size = [this.model.page.x, sizeY];
+
         if (this.config.surfaceType === 'plain'){
-            this.surface = new Surface({
-                content: '<div class="overlay-text">' + this.config.text + '</div>',
-                size: [this.model.page.x, sizeY]
-            });
+            content = '<div class="overlay-text">' + this.config.text + '</div>';
         }
         else if (this.config.surfaceType === 'singalong'){
             this.textLines = this.config.text.split('\n');
             this.currentLine = 0;
-            this.surface = new Surface({
-                content: '<div class="overlay-text">' +
+            content = '<div class="overlay-text">' +
                          '<span class="highlight-text gradient-shadow singalong" title="' +
                          this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
                          this.textLines[this.currentLine] +
-                         '</div></span></div>',
-                size: [this.model.page.x, sizeY]
-            });
+                         '</div></span></div>';
         }
         else if (this.config.surfaceType === 'highlight'){
             this.textLines = this.config.text.split('\n');
@@ -66,26 +67,30 @@ define(function(require, exports, module) {
                          '</div></span>';
                 return html;
             });
-            this.surface = new Surface({
-                content: '<div class="overlay-text">' +
+            content = '<div class="overlay-text">' +
                          this.linesHtml.join('') +
-                         '</div>',
-                size: [this.model.page.x, sizeY]
-            });
+                         '</div>';
         }
         else if (this.config.surfaceType === 'transparency'){
-            this.surface = new Surface({
-                content: '<div class="overlay-text overlay-transparency"></div>',
-                size: [this.model.page.x, sizeY]
-            });
+            content = '<div class="overlay-text overlay-transparency"></div>';
         }
         else {
-            this.surface = new ImageSurface({
-                size: [this.model.page.x, sizeY],
-                content: this.config.url
-            });
+            surfaceType = ImageSurface;
+            content = this.config.url;
         }
 
+        var classes;
+        if (this.config.surfaceClasses){
+            classes = this.config.surfaceClasses.split(' ');
+        }
+        else {
+            classes = [];
+        }
+        this.surface = new surfaceType({
+            content: content,
+            size: size,
+            classes: classes
+        });
         this._add(this.modifier).add(this.surface);
 
     }
