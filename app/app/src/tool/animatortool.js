@@ -73,11 +73,12 @@ define(function(require, exports, module) {
 
     var saver = {};
     saver.saveToParse = function() {
+        var self = this;
         var page = new this.Page();
         this.model.objectId = this.currentPageID;
         page.save(this.model, {
           success: function() {
-            window.saver.model.objectId = this.currentPageID;
+            window.saver.model.objectId = self.currentPageID;
             alert('saved successfully!');
           }
         });

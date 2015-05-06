@@ -33,8 +33,12 @@ body {
   font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
 }
 
-.singalong {
+.overlay-text {
   font-size: 35px;
+}
+
+.hightlight-inactive{
+  background-image: -webkit-linear-gradient(left, white 0%,white 100%);
 }
 
 .overlay-text {
@@ -55,6 +59,7 @@ body {
 .highlight-text:after {
     text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
     -webkit-text-stroke: 4px black;
+    -moz-text-stroke: 4px black;
     color: transparent;
 }
 
@@ -67,11 +72,18 @@ body {
   background-position: 100% 0px;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -moz-background-clip: text;
   position: absolute;
   width: 100%;
 }
 
 @-webkit-keyframes stripes {
+  100% {
+    background-position: 0% 0px;
+  }
+}
+@-moz-keyframes stripes {
   100% {
     background-position: 0% 0px;
   }
