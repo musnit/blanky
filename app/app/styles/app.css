@@ -48,10 +48,27 @@ body {
 }
 
 .highlight-text {
+    position: relative;
+    text-align: center;
+}
+
+.highlight-text:after {
+    text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;
+    -webkit-text-stroke: 4px black;
+    color: transparent;
+}
+
+.gradient-shadow:after {
+    content: attr(title); /* Pulls the text from the 'title' attribute to make the shadow */
+}
+
+.highlight-text-div {
   background-repeat: repeat;
   background-position: 100% 0px;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+  position: absolute;
+  width: 100%;
 }
 
 @-webkit-keyframes stripes {

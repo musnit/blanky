@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         var self = this;
         this.contentInserted = function() {
             self.popupViews.forEach(function(popupView) {
-                popupView.contentInserted();
+                popupView.needsUpdating = true;
             });
         };
     }

@@ -17,15 +17,22 @@ define(function(require, exports, module) {
                 var timePassed = parseFloat(Date.now());
                 var timeOffset = parseFloat(self.config.timeOffset);
                 var pageSpeed = parseFloat(self.model.page.speed) || 1;
+                var singSpeed = (parseFloat(self.config.singSpeed) || 1) * pageSpeed;
                 if (self.needsUpdating && self.surface._currTarget){
                         self.contentInserted();
                         self.needsUpdating = false;
                 }
                 if (self.config.surfaceType === 'singalong'){
-                    var lineNumber = Math.floor(ParamaterTransformer.prototype.sawToothFunction((timePassed+timeOffset)/pageSpeed, self.textLines.length));
+                    var lineNumber = Math.floor(ParamaterTransformer.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
                     if (lineNumber !== self.currentLine){
                         self.currentLine = lineNumber;
-                        self.surface.setContent('<div class="overlay-text"><span class="highlight-text singalong">' + self.textLines[self.currentLine] + '</span></div>');
+                        self.surface.setContent(
+                            '<div class="overlay-text">' +
+                            '<span class="highlight-text gradient-shadow singalong" title="' +
+                            self.textLines[self.currentLine] + '"><div class="highlight-text-div">' +
+                            self.textLines[self.currentLine] +
+                            '</div></span></div>'
+                        );
                         self.needsUpdating = true;
                     }
                 }
@@ -60,7 +67,11 @@ define(function(require, exports, module) {
             this.textLines = this.config.text.split('\n');
             this.currentLine = 0;
             this.surface = new Surface({
-                content: '<div class="overlay-text"><span class="highlight-text singalong">' + this.textLines[this.currentLine] + '</span></div>',
+                content: '<div class="overlay-text">' +
+                         '<span class="highlight-text gradient-shadow singalong" title="' +
+                         this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
+                         this.textLines[this.currentLine] +
+                         '</div></span></div>',
                 size: [this.model.page.x, sizeY]
             });
         }
@@ -89,21 +100,21 @@ define(function(require, exports, module) {
         var self = this;
         this.contentInserted = function() {
             if (self.config.surfaceType === 'highlight' || self.config.surfaceType === 'singalong'){
-              var text = self.surface._currTarget.getElementsByClassName('highlight-text')[0];
+              var text = self.surface._currTarget.getElementsByClassName('highlight-text-div')[0];
               var width = text.getBoundingClientRect().width;
-              var redStart = width + 40;
-              var redEnd = redStart + 40;
-              var blackAgain = redEnd + 40;
-              var end = width*2 + 120;
-              var duration = width/170;
+              var redStart = width + 80;
+              var redEnd = redStart + 80;
+              var blackAgain = redEnd + 80;
+              var end = width*2 + 240;
+              var duration = width/270;
               text.setAttribute('style',
                 'background-size: '+ end + 'px 3px;' +
                 'background-image: -webkit-linear-gradient(left, ' +
-                                  'black 0px,' +
-                                  'black ' + width + 'px,' +
-                                  'red ' + redStart + 'px,' +
-                                  'red ' + redEnd + 'px,' +
-                                  'black ' + blackAgain + 'px);' +
+                                  'white 0px,' +
+                                  'white ' + width + 'px,' +
+                                  'rgb(53, 205, 247) ' + redStart + 'px,' +
+                                  'rgb(53, 205, 247) ' + redEnd + 'px,' +
+                                  'white ' + blackAgain + 'px);' +
                 '-webkit-animation: stripes '+ duration +'s linear infinite;'
               );
               self.needsUpdating = false;

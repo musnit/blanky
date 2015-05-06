@@ -28,7 +28,7 @@ define(function(require, exports, module) {
     });
     var pageCollection = new PageCollection();
     pageCollection.comparator = function(object) {
-      return object.get("page").name;
+      return object.get('page').name;
     };
     var self = this;
     pageCollection.fetch({
