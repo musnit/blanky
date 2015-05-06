@@ -59,7 +59,7 @@ define(function(require, exports, module) {
         else if (this.config.surfaceType === 'highlight'){
             this.textLines = this.config.text.split('\n');
             this.currentLine = 0;
-            this.linesHtml = this.textLines.map(function(textLine){
+            this.linesHtml = this.textLines.map(function(textLine) {
                 var html = '<span class="highlight-text gradient-shadow" title="' +
                          textLine + '"><div class="highlight-text-div hightlight-inactive">' +
                          textLine +
@@ -100,7 +100,7 @@ define(function(require, exports, module) {
             self.needsUpdating = true;
             this.updateContent();
         };
-        this.updateContent = function (){
+        this.updateContent = function() {
             if (self.config.surfaceType === 'singalong' && self.surface._currTarget){
               self.refreshGradient(0);
               self.needsUpdating = false;
@@ -110,8 +110,8 @@ define(function(require, exports, module) {
               self.refreshGradient(self.currentLine);
               self.needsUpdating = false;
             }
-        }
-        this.updateSingalongText = function(){
+        };
+        this.updateSingalongText = function() {
             var timePassed = parseFloat(Date.now());
             var timeOffset = parseFloat(self.config.timeOffset);
             var pageSpeed = parseFloat(self.model.page.speed) || 1;
@@ -128,8 +128,8 @@ define(function(require, exports, module) {
                 );
                 self.needsUpdating = true;
             }
-        }
-        this.updateHighlightText = function (){
+        };
+        this.updateHighlightText = function() {
             var timePassed = parseFloat(Date.now());
             var timeOffset = parseFloat(self.config.timeOffset);
             var pageSpeed = parseFloat(self.model.page.speed) || 1;
@@ -139,8 +139,8 @@ define(function(require, exports, module) {
                 self.currentLine = lineNumber;
                 self.needsUpdating = true;
             }
-        }
-        this.refreshGradient = function (index){
+        };
+        this.refreshGradient = function(index) {
               var text = self.surface._currTarget.getElementsByClassName('highlight-text-div')[index];
               var width = text.getBoundingClientRect().width;
               var redStart = width + 80;
@@ -159,10 +159,10 @@ define(function(require, exports, module) {
                 '-webkit-animation: stripes '+ duration +'s linear infinite;'
               );
         };
-        this.clearGradients = function (){
+        this.clearGradients = function() {
           var texts = self.surface._currTarget.getElementsByClassName('highlight-text-div');
-          var textsArray = Array.prototype.slice.call( texts );
-          textsArray.forEach(function (text){
+          var textsArray = Array.prototype.slice.call(texts);
+          textsArray.forEach(function(text) {
             text.setAttribute('style',
             'background-size: 100% 100%;' +
             'background-image: -webkit-linear-gradient(' +
