@@ -3,7 +3,7 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "blanky"
         version     = "0.0.2" >
-
+    
     <!-- versionCode is optional and Android only -->
 
     <name>Little George's Blanky</name>
@@ -17,7 +17,9 @@
     </author>
 
     <gap:platform name="ios" />
+    
     <preference name="phonegap-version" value="3.7.0" />
+    <gap:plugin name="com.telerik.plugins.wkwebview" version="0.2.5" />
 
 </widget>
 

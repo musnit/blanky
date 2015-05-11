@@ -120,7 +120,7 @@ define(function(require, exports, module) {
               self.refreshGradient(self.currentLine);
               self.needsUpdating = false;
             }
-            else if(self.config.surfaceType === 'repeatingImage' && self.surface._currTarget){
+            else if (self.config.surfaceType === 'repeatingImage' && self.surface._currTarget){
               self.updateBackground();
               self.needsUpdating = false;
             }
