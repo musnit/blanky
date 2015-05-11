@@ -89,6 +89,13 @@ body {
   }
 }
 
+.repeating-image{
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat;
+  background-size: 85%;
+}
+
 .overlay-transparency{
   background: rgba(120, 223, 235, 0.5);
 }

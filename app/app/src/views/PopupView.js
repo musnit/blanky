@@ -27,26 +27,31 @@ define(function(require, exports, module) {
                 var transform = transformer.calculateTransform();
                 return transform;
             },
-            opacity: function(){
+            opacity: function() {
                 return parseFloat(self.config.opacity) || 1;
             },
             align: [0,0]
         });
 
-        var sizeY;
+        var sizeX = this.model.page.x;
+        var sizeY = this.model.page.y;
         if (this.config.animation && this.config.numFrames){
             sizeY = this.model.page.y*this.config.numFrames;
         }
-        else {
-            sizeY = this.model.page.y;
+        else if (this.config.sizeX && this.config.sizeY){
+            sizeX = parseFloat(this.config.sizeX);
+            sizeY = parseFloat(this.config.sizeY);
         }
 
-        var surfaceType = Surface;
+        var SurfaceType = Surface;
         var content;
-        var size = [this.model.page.x, sizeY];
+        var size = [sizeX, sizeY];
 
         if (this.config.surfaceType === 'plain'){
             content = '<div class="overlay-text">' + this.config.text + '</div>';
+        }
+        else if (this.config.surfaceType === 'repeatingImage'){
+            content = '<div class="repeating-image"></div>';
         }
         else if (this.config.surfaceType === 'singalong'){
             this.textLines = this.config.text.split('\n');
@@ -75,7 +80,7 @@ define(function(require, exports, module) {
             content = '<div class="overlay-text overlay-transparency"></div>';
         }
         else {
-            surfaceType = ImageSurface;
+            SurfaceType = ImageSurface;
             content = this.config.url;
         }
 
@@ -86,7 +91,7 @@ define(function(require, exports, module) {
         else {
             classes = [];
         }
-        this.surface = new surfaceType({
+        this.surface = new SurfaceType({
             content: content,
             size: size,
             classes: classes
@@ -113,6 +118,10 @@ define(function(require, exports, module) {
             else if (self.config.surfaceType === 'highlight' && self.surface._currTarget){
               self.clearGradients();
               self.refreshGradient(self.currentLine);
+              self.needsUpdating = false;
+            }
+            else if(self.config.surfaceType === 'repeatingImage' && self.surface._currTarget){
+              self.updateBackground();
               self.needsUpdating = false;
             }
         };
@@ -144,6 +153,10 @@ define(function(require, exports, module) {
                 self.currentLine = lineNumber;
                 self.needsUpdating = true;
             }
+        };
+        this.updateBackground = function() {
+            var bg = self.surface._currTarget.getElementsByClassName('repeating-image')[0];
+            bg.setAttribute('style', 'background-image:url("'+ self.config.url +'");');
         };
         this.refreshGradient = function(index) {
               var text = self.surface._currTarget.getElementsByClassName('highlight-text-div')[index];
