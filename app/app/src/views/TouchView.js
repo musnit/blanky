@@ -85,7 +85,7 @@ define(function(require, exports, module) {
         }.bind(this));
     }
 
-    function ContentView() {
+    function TouchView() {
         View.apply(this, arguments);
         _createPages.call(this);
     }
@@ -94,7 +94,7 @@ define(function(require, exports, module) {
      * Manually triggers next page
      * @return {[type]} [description]
      */
-    ContentView.prototype.nextPage = function() {
+    TouchView.prototype.nextPage = function() {
         if (this.currentPageIndex < this.pages.length - 1) {
             this.pages[this.currentPageIndex].turn();
             this._eventOutput.emit('nextPage');
@@ -104,21 +104,21 @@ define(function(require, exports, module) {
         }
     };
 
-    ContentView.prototype = Object.create(View.prototype);
-    ContentView.prototype.constructor = ContentView;
+    TouchView.prototype = Object.create(View.prototype);
+    TouchView.prototype.constructor = TouchView;
 
-    ContentView.DEFAULT_OPTIONS = {};
+    TouchView.DEFAULT_OPTIONS = {};
 
     /**
      * Manually triggers previous page
      * @return {[type]} [description]
      */
-    ContentView.prototype.prevPage = function() {
+    TouchView.prototype.prevPage = function() {
         if (this.currentPageIndex > 0) {
             this._eventOutput.emit('prevPage');
             this.pages[this.currentPageIndex].turnBack();
         }
     };
 
-    module.exports = ContentView;
+    module.exports = TouchView;
 });
