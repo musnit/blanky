@@ -1,3 +1,4 @@
+// jscs:disable
 define(function(require, exports, module) {
     Timer = require('famous/utilities/Timer');
 
