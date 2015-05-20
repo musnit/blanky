@@ -2,8 +2,9 @@ define(function(require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Surface = require('famous/core/Surface');
     var View = require('famous/core/View');
-    var ParamaterTransformer = require('helpers/ParamaterTransformer');
+    var ParameterTransformer = require('helpers/ParameterTransformer');
     var Modifier = require('famous/core/Modifier');
+    var MathFunctions = require('helpers/MathFunctions');
 
     function _createPopup() {
         var self = this;
@@ -23,7 +24,7 @@ define(function(require, exports, module) {
                 else if (self.config.surfaceType === 'highlight'){
                     self.updateHighlightText();
                 }
-                var transformer = new ParamaterTransformer(self.config, self.model);
+                var transformer = new ParameterTransformer(self.config, self.model);
                 var transform = transformer.calculateTransform();
                 return transform;
             },
@@ -130,7 +131,7 @@ define(function(require, exports, module) {
             var timeOffset = parseFloat(self.config.timeOffset);
             var pageSpeed = parseFloat(self.model.page.speed) || 1;
             var singSpeed = (parseFloat(self.config.singSpeed) || 1) * pageSpeed;
-            var lineNumber = Math.floor(ParamaterTransformer.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
+            var lineNumber = Math.floor(MathFunctions.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
             if (lineNumber !== self.currentLine){
                 self.currentLine = lineNumber;
                 self.surface.setContent(
@@ -148,7 +149,7 @@ define(function(require, exports, module) {
             var timeOffset = parseFloat(self.config.timeOffset);
             var pageSpeed = parseFloat(self.model.page.speed) || 1;
             var singSpeed = (parseFloat(self.config.singSpeed) || 1) * pageSpeed;
-            var lineNumber = Math.floor(ParamaterTransformer.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
+            var lineNumber = Math.floor(MathFunctions.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
             if (lineNumber !== self.currentLine){
                 self.currentLine = lineNumber;
                 self.needsUpdating = true;

@@ -5,7 +5,8 @@ define(function(require, exports, module) {
     var PopupPageView = require('views/PopupPageView');
     var Lightbox = require('famous/views/Lightbox');
     var Modifier = require('famous/core/Modifier');
-    var ParamaterTransformer = require('helpers/ParamaterTransformer');
+    var ParameterTransformer = require('helpers/ParameterTransformer');
+    var MathFunctions = require('helpers/MathFunctions');
 
     function AppView() {
         View.apply(this, arguments);
@@ -28,7 +29,7 @@ define(function(require, exports, module) {
             return [originX,originY];
         };
         var transformFunction = function() {
-            var transformer = new ParamaterTransformer(pageJSON.camera, pageJSON);
+            var transformer = new ParameterTransformer(pageJSON.camera, pageJSON);
             var transform = transformer.calculateTransform();
             var perspectiveFunction;
             var pageSpeed = parseFloat(pageJSON.page.speed) || 1;
@@ -37,19 +38,19 @@ define(function(require, exports, module) {
             var perspectiveZoomCutStart = parseFloat(pageJSON.camera.perspectiveZoomCutStart);
             var perspectiveZoomCutEnd = parseFloat(pageJSON.camera.perspectiveZoomCutEnd);
             if (pageJSON.camera.perspectiveZoomType === 'triangle'){
-                perspectiveFunction = ParamaterTransformer.prototype.triangleFunction;
+                perspectiveFunction = MathFunctions.prototype.triangleFunction;
             }
             else if (pageJSON.camera.perspectiveZoomType === 'sawtooth'){
-                perspectiveFunction = ParamaterTransformer.prototype.sawToothFunction;
+                perspectiveFunction = MathFunctions.prototype.sawToothFunction;
             }
             else if (pageJSON.camera.perspectiveZoomType === 'cos'){
-                perspectiveFunction = ParamaterTransformer.prototype.cosFunction;
+                perspectiveFunction = MathFunctions.prototype.cosFunction;
             }
             else {
-                perspectiveFunction = ParamaterTransformer.prototype.sinFunction;
+                perspectiveFunction = MathFunctions.prototype.sinFunction;
             }
             if (pageJSON.camera.perspectiveZoomCut){
-                perspectiveFunction = ParamaterTransformer.prototype.cutFunction(perspectiveFunction, perspectiveZoomCutStart, perspectiveZoomCutEnd, perspectiveFunction.period);
+                perspectiveFunction = MathFunctions.prototype.cutFunction(perspectiveFunction, perspectiveZoomCutStart, perspectiveZoomCutEnd, perspectiveFunction.period);
             }
             if (pageJSON.camera.perspectiveZoom){
                 var timePassed = parseFloat(Date.now())%pageSpeed;
