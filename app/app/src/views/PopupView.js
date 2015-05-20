@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 
     function _createPopup() {
         var self = this;
+        var transformer = new ParameterTransformer(self.config, self.model);
         this.modifier = new Modifier({
             origin: function() {
                 var originX = parseFloat(self.config.xOrigin) || 0;
@@ -24,7 +25,6 @@ define(function(require, exports, module) {
                 else if (self.config.surfaceType === 'highlight'){
                     self.updateHighlightText();
                 }
-                var transformer = new ParameterTransformer(self.config, self.model);
                 var transform = transformer.calculateTransform();
                 return transform;
             },

@@ -22,6 +22,7 @@ define(function(require, exports, module) {
     AppView.prototype.createAndShowPage = function(pageJSON) {
         window.mainContext.setPerspective(parseFloat(pageJSON.page.perspective));
         this.contentView = new PopupPageView(pageJSON);
+        var transformer = new ParameterTransformer(pageJSON.camera, pageJSON);
 
         var originFunction = function() {
             var originX = parseFloat(pageJSON.camera.xOrigin) || 0;
@@ -29,7 +30,6 @@ define(function(require, exports, module) {
             return [originX,originY];
         };
         var transformFunction = function() {
-            var transformer = new ParameterTransformer(pageJSON.camera, pageJSON);
             var transform = transformer.calculateTransform();
             var perspectiveFunction;
             var pageSpeed = parseFloat(pageJSON.page.speed) || 1;
