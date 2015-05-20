@@ -5,9 +5,9 @@ define(function(require, exports, module) {
 
     FamousHacks.prototype.constructor = FamousHacks;
 
-    function _formatCSSTransform = function(m) {
-        var deviceWidth = window.orientation == 0 ? window.screen.width : window.screen.height;
-        var deviceHeight = window.orientation == 0 ? window.screen.height : window.screen.width;
+    function _formatCSSTransform(m) {
+        var deviceWidth = window.orientation === 0 ? window.screen.width : window.screen.height;
+        var deviceHeight = window.orientation === 0 ? window.screen.height : window.screen.width;
         // iOS returns available pixels, Android returns pixels / pixel ratio
         // http://www.quirksmode.org/blog/archives/2012/07/more_about_devi.html
         if (navigator.userAgent.indexOf('Android') >= 0 && window.devicePixelRatio) {
