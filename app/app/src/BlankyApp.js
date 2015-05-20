@@ -19,9 +19,6 @@ define(function(require, exports, module) {
     this.mainContext.add(this.appView);
     window.appView = this.appView;
     this.createMotionBindings();
-
-    var StatsTimer = require('helpers/StatsTimer');
-    StatsTimer.prototype.createTimer();
   }
 
   BlankyApp.prototype.clearPage = function() {
