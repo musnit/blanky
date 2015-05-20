@@ -7,7 +7,6 @@ define(function(require, exports, module) {
     ConfigParser.prototype.constructor = ConfigParser;
     ConfigParser.prototype.parseConfig = function(config, model) {
         var parsedConfig = {};
-        var rotate, rotateFunction, zoom, zoomFunction, skewX, skewY;
         parsedConfig.pageSpeed = parseFloat(model.page.speed) || 1;
         parsedConfig.x = parseFloat(config.initialX);
         parsedConfig.y = parseFloat(config.initialY);
@@ -105,7 +104,7 @@ define(function(require, exports, module) {
         }
 
         return parsedConfig;
-    }
+    };
 
     module.exports = ConfigParser;
 });

@@ -19,7 +19,7 @@ define(function(require, exports, module) {
         currentTransform.height = this.parsedConfig.height;
         currentTransform.timePassed = parseFloat(Date.now());
         return currentTransform;
-    }
+    };
 
     PerfParameterTransformer.prototype.calculateTransform = function() {
         var currentTransform = this.resetCurrentTransform();
