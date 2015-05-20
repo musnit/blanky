@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var ConfigParser = require('helpers/ConfigParser');
 
     function PerfParameterTransformer(config, model) {
-        this.config = config;
         this.model = model;
         this.parsedConfig = ConfigParser.prototype.parseConfig(config, model);
     }
