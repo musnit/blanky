@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     var pagesModel = {};
     pagesModel.pages = Fixtures.results;
     window.pagesModel = pagesModel;
-    var loopingIDs = ['0KdArIgF1J','UHGPYzstxO','ZSfVfOQ1HC','ndKCzNEswW','Du6zsqF3x0'];
+    var loopingIDs = ['FnTu1Egg5v','ZSfVfOQ1HC','w9zCNnEbfC','Du6zsqF3x0'];
     var loopNum = 1;
 
     var BlankyApp = require('BlankyApp');
@@ -16,7 +16,7 @@ define(function(require, exports, module) {
 
     document.onclick= function(event) {
         blanky.clearPage();
-        blanky.loadPage(loopingIDs[loopNum%3]);
+        blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
         loopNum++;
     };
 });
