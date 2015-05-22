@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     ConfigParser.prototype.constructor = ConfigParser;
     ConfigParser.prototype.parseConfig = function(config, model) {
         var parsedConfig = {};
+        parsedConfig.name = config.name;
         parsedConfig.pageSpeed = parseFloat(model.page.speed) || 1;
         parsedConfig.x = parseFloat(config.initialX);
         parsedConfig.y = parseFloat(config.initialY);
@@ -46,13 +47,15 @@ define(function(require, exports, module) {
         parsedConfig.animationFunction = MathFunctions.prototype.sawToothFunction;
         parsedConfig.translate = config.translate;
         parsedConfig.accel = config.accel;
+        parsedConfig.accelAmount = parseFloat(config.accelAmount) || 1;
+        parsedConfig.accelRotate = config.accelRotate;
+        parsedConfig.accelRotateAmount = parseFloat(config.accelRotateAmount) || 1;
         parsedConfig.rotate = config.rotate;
         parsedConfig.skew = config.skew;
         parsedConfig.zoom = config.zoom;
         parsedConfig.zoomRelativeTranslate = config.zoomRelativeTranslate;
         parsedConfig.animation = config.animation;
         parsedConfig.cameraBound = config.cameraBound;
-        parsedConfig.accelAmount = parseFloat(config.accelAmount);
 
         if (parsedConfig.motionType === 'triangle'){
             parsedConfig.translateFunction = MathFunctions.prototype.triangleFunction;

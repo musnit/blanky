@@ -25,8 +25,8 @@ define(function(require, exports, module) {
         var transformer = new ParameterTransformer(pageJSON.camera, pageJSON);
 
         var originFunction = function() {
-            var originX = parseFloat(pageJSON.camera.xOrigin) || 0;
-            var originY = parseFloat(pageJSON.camera.yOrigin) || 0;
+            var originX = parseFloat(pageJSON.camera.xOrigin) || 0.5;
+            var originY = parseFloat(pageJSON.camera.yOrigin) || 0.5;
             return [originX,originY];
         };
         var transformFunction = function() {

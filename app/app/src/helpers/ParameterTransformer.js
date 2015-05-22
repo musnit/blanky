@@ -18,8 +18,8 @@ define(function(require, exports, module) {
 
     ParameterTransformer.prototype.calculateTransform = function() {
         var timePassed = parseFloat(Date.now());
-        var changeX = 0, changeY = 0, changeRotate = 0, changeSkewX = 1, changeSkewY = 1,
-            changeZoom = 1, changeHeight = 0;
+        var changeX = 0, changeY = 0, changeZ = 0, changeRotateX = 0, changeRotateY = 0, changeRotateZ = 0,
+         changeSkewX = 1, changeSkewY = 1, changeZoom = 1, changeHeight = 0;
 
         if (this.parsedConfig.translate){
             changeX += this.parsedConfig.translateFunction(
@@ -35,8 +35,12 @@ define(function(require, exports, module) {
             changeX += window.orientationDifference[1] * this.parsedConfig.accelAmount;
             changeY += window.orientationDifference[0] * this.parsedConfig.accelAmount;
         }
+        if (this.parsedConfig.accelRotate){
+            changeRotateX += window.orientationDifference[0] * this.parsedConfig.accelRotateAmount;
+            changeRotateY += window.orientationDifference[1] * this.parsedConfig.accelRotateAmount;
+        }
         if (this.parsedConfig.rotate){
-            changeRotate = this.parsedConfig.rotateFunction(
+            changeRotateZ = this.parsedConfig.rotateFunction(
                 (timePassed+this.parsedConfig.timeOffset)/this.parsedConfig.rotateSpeed,
                 1/this.parsedConfig.rotateAngle
             );
@@ -77,7 +81,7 @@ define(function(require, exports, module) {
         }
         var finalTransform = Transform.thenMove(
             Transform.thenScale(
-                Transform.multiply(Transform.rotate(0, 0, changeRotate), this.initialTransform),
+                Transform.multiply(Transform.rotate(changeRotateX, changeRotateY, changeRotateZ), this.initialTransform),
                 [changeZoom*changeSkewX,
                  changeZoom*changeSkewY, 1])
             ,[changeX,changeY,changeHeight]

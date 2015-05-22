@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     var pagesModel = {};
     pagesModel.pages = Fixtures.results;
     window.pagesModel = pagesModel;
-    var loopingIDs = ['FnTu1Egg5v','ZSfVfOQ1HC','w9zCNnEbfC','Du6zsqF3x0'];
+    var loopingIDs = ['FnTu1Egg5v','gBqF9PtfBm','w9zCNnEbfC','Du6zsqF3x0'];
     var loopNum = 1;
 
     var BlankyApp = require('BlankyApp');
