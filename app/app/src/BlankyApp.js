@@ -1,4 +1,6 @@
 define(function(require, exports, module) {
+  var StatsTimer = require('helpers/StatsTimer');
+  var OrientationController = require('helpers/OrientationController');
 
   function BlankyApp() {
     window.blanky = this;
@@ -18,7 +20,8 @@ define(function(require, exports, module) {
     this.appView = new this.AppView();
     this.mainContext.add(this.appView);
     window.appView = this.appView;
-    this.createMotionBindings();
+    window.orientationController = new OrientationController;
+    window.orientationController.startListening();
   }
 
   BlankyApp.prototype.clearPage = function() {
@@ -48,54 +51,6 @@ define(function(require, exports, module) {
         };
         this.Sound.addEventListener('fileload', handleLoad);
         this.Sound.registerSounds(manifest, audioPath);
-      }
-  };
-
-  BlankyApp.prototype.createMotionBindings = function() {
-
-      if (window.DeviceOrientationEvent) {
-          window.originalOrientation = false;
-          window.orientationDifference = [0,0,0];
-          window.addEventListener('deviceorientation', function(eventData) {
-              // gamma is the left-to-right tilt in degrees, where right is positive
-              var rotateX = eventData.gamma;
-
-              // beta is the front-to-back tilt in degrees, where front is positive
-              var rotateY = eventData.beta;
-
-              // alpha is the compass direction the device is facing in degrees
-              var rotateZ = eventData.alpha;
-
-              // call our orientation event handler
-              if (!window.originalOrientation){
-                  window.originalOrientation = [rotateX, rotateY, rotateZ];
-              }
-
-              var changeInX = rotateX-window.originalOrientation[0];
-              var changeInY = rotateY-window.originalOrientation[1];
-              var changeInZ = rotateZ-window.originalOrientation[2];
-              if (changeInX >30) {
-                  changeInX = 30;
-              }
-              if (changeInY >30) {
-                  changeInY = 30;
-              }
-              if (changeInX <-30) {
-                  changeInX = -30;
-              }
-              if (changeInY <-30) {
-                  changeInY = -30;
-              }
-              if (changeInZ <-30) {
-                  changeInY = -30;
-              }
-
-              if (changeInZ <-30) {
-                  changeInY = -30;
-              }
-
-              window.orientationDifference = [changeInX, changeInY, changeInZ];
-          }, false);
       }
   };
 

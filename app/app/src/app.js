@@ -8,13 +8,13 @@ define(function(require, exports, module) {
     window.pagesModel = pagesModel;
     var loopingIDs = ['FnTu1Egg5v','gBqF9PtfBm','w9zCNnEbfC','Du6zsqF3x0'];
     var loopNum = 1;
-
     var BlankyApp = require('BlankyApp');
     var blanky = new BlankyApp();
 
     blanky.loadPage(window.initialPageId);
 
     document.onclick= function(event) {
+        //window.originalOrientation = undefined;
         blanky.clearPage();
         blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
         loopNum++;

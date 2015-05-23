@@ -18,10 +18,7 @@ define(function(require, exports, module) {
         stats.domElement.style.left = '0px';
         stats.domElement.style.top = '0px';
         document.body.appendChild( stats.domElement );
-        Timer.every(function () {
-            stats.end();
-            stats.begin();
-        }, 1);
+        return stats;
     };
     module.exports = StatsTimer;
 });

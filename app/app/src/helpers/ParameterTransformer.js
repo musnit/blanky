@@ -36,8 +36,9 @@ define(function(require, exports, module) {
             changeY += window.orientationDifference[0] * this.parsedConfig.accelAmount;
         }
         if (this.parsedConfig.accelRotate){
-            changeRotateX += window.orientationDifference[0] * this.parsedConfig.accelRotateAmount;
-            changeRotateY += window.orientationDifference[1] * this.parsedConfig.accelRotateAmount;
+            var orientation = window.orientationController.orientationDifferenceNow();
+            changeRotateX += orientation[0] * this.parsedConfig.accelRotateAmount;
+            changeRotateY += orientation[1] * this.parsedConfig.accelRotateAmount;
         }
         if (this.parsedConfig.rotate){
             changeRotateZ = this.parsedConfig.rotateFunction(
