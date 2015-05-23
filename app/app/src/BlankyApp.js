@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     this.appView = new this.AppView();
     this.mainContext.add(this.appView);
     window.appView = this.appView;
-    window.orientationController = new OrientationController;
+    window.orientationController = new OrientationController();
     window.orientationController.startListening();
   }
 

@@ -14,9 +14,14 @@ define(function(require, exports, module) {
     blanky.loadPage(window.initialPageId);
 
     document.onclick= function(event) {
-        //window.originalOrientation = undefined;
-        blanky.clearPage();
-        blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
-        loopNum++;
+        var x = event.clientX;
+        if (x < window.screen.width/2){
+            window.orientationController.reset();
+        }
+        else {
+            blanky.clearPage();
+            blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
+            loopNum++;
+        }
     };
 });

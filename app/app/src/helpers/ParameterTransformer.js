@@ -17,6 +17,7 @@ define(function(require, exports, module) {
     ParameterTransformer.prototype.constructor = ParameterTransformer;
 
     ParameterTransformer.prototype.calculateTransform = function() {
+        var orientation;
         var timePassed = parseFloat(Date.now());
         var changeX = 0, changeY = 0, changeZ = 0, changeRotateX = 0, changeRotateY = 0, changeRotateZ = 0,
          changeSkewX = 1, changeSkewY = 1, changeZoom = 1, changeHeight = 0;
@@ -32,11 +33,12 @@ define(function(require, exports, module) {
             );
         }
         if (this.parsedConfig.accel){
-            changeX += window.orientationDifference[1] * this.parsedConfig.accelAmount;
-            changeY += window.orientationDifference[0] * this.parsedConfig.accelAmount;
+            orientation = window.orientationController.orientationDifferenceAt(timePassed);
+            changeX += orientation[1] * this.parsedConfig.accelAmount;
+            changeY += orientation[0] * this.parsedConfig.accelAmount;
         }
         if (this.parsedConfig.accelRotate){
-            var orientation = window.orientationController.orientationDifferenceNow();
+            orientation = window.orientationController.orientationDifferenceAt(timePassed);
             changeRotateX += orientation[0] * this.parsedConfig.accelRotateAmount;
             changeRotateY += orientation[1] * this.parsedConfig.accelRotateAmount;
         }
