@@ -48,22 +48,7 @@ define(function(require, exports, module) {
         var content;
         var size = [sizeX, sizeY];
 
-        if (this.config.surfaceType === 'plain'){
-            content = '<div class="overlay-text">' + this.config.text + '</div>';
-        }
-        else if (this.config.surfaceType === 'repeatingImage'){
-            content = '<div class="repeating-image"></div>';
-        }
-        else if (this.config.surfaceType === 'singalong'){
-            this.textLines = this.config.text.split('\n');
-            this.currentLine = 0;
-            content = '<div class="overlay-text">' +
-                         '<span class="highlight-text gradient-shadow singalong" title="' +
-                         this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
-                         this.textLines[this.currentLine] +
-                         '</div></span></div>';
-        }
-        else if (this.config.surfaceType === 'highlight'){
+        if (this.config.surfaceType === 'plain' || this.config.surfaceType === 'highlight'){
             this.textLines = this.config.text.split('\n');
             this.currentLine = 0;
             this.linesHtml = this.textLines.map(function(textLine) {
@@ -76,6 +61,18 @@ define(function(require, exports, module) {
             content = '<div class="overlay-text">' +
                          this.linesHtml.join('') +
                          '</div>';
+        }
+        else if (this.config.surfaceType === 'repeatingImage'){
+            content = '<div class="repeating-image"></div>';
+        }
+        else if (this.config.surfaceType === 'singalong'){
+            this.textLines = this.config.text.split('\n');
+            this.currentLine = 0;
+            content = '<div class="overlay-text">' +
+                         '<span class="highlight-text gradient-shadow singalong" title="' +
+                         this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
+                         this.textLines[this.currentLine] +
+                         '</div></span></div>';
         }
         else if (this.config.surfaceType === 'transparency'){
             content = '<div class="overlay-text overlay-transparency"></div>';
