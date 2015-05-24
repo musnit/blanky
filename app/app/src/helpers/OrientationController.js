@@ -10,12 +10,12 @@ define(function(require, exports, module) {
       this.started = false;
       this.baseOrientation = undefined;
       this.orientationDifference = [0,0,0];
-      this.recentReadings = [{
+      this.lastValue = {
           orientationDifference: this.orientationDifference,
           timeStamp: Date.now()
-      }];
+      };
       this.orientationDifferenceAt = function(time){
-        return this.recentReadings[this.recentReadings.length-1].orientationDifference;
+        return this.lastValue.orientationDifference;
       };
     };
     OrientationController.prototype.interpolate = function(x0, y0, x1, y1) {
@@ -26,27 +26,33 @@ define(function(require, exports, module) {
         result.text = 'y = ' + result.m + 'x';
         return result;
     };
-    OrientationController.prototype.makeOrientationFunction = function(readings) {
+    OrientationController.prototype.makeOrientationFunction = function(reading) {
         var self = this;
-        var reading1 = readings[readings.length-2];
-        var reading2 = readings[readings.length-1];
+        var point1 = this.lastValue;
+        var point2 = reading;
         var functions = [undefined,undefined,undefined];
         functions = functions.map(function(value, index){
-            var x0 = reading1.timeStamp;
-            var y0 = reading1.orientationDifference[index];
-            var x1 = reading2.timeStamp;
-            var y1 = reading2.orientationDifference[index];
+            var x0 = point1.timeStamp;
+            var y0 = point1.orientationDifference[index];
+            var x1 = point2.timeStamp;
+            var y1 = point2.orientationDifference[index];
             var fx = self.interpolate(x0, y0, x1, y1);
             return fx;
         });
         window.watchh = functions;
         var orientationDifferenceAt = function(time){
-            if((time - reading2.timeStamp) >= 50){
-                return reading2.orientationDifference;
+            var orientation;
+            if(time >= point2.timeStamp){
+                orientation = point2.orientationDifference;
             }
             else{
-                return [functions[0](time), functions[1](time), functions[2](time)];
+                orientation = [functions[0](time), functions[1](time), functions[2](time)];
             }
+            this.lastValue = {
+                orientationDifference: orientation,
+                timeStamp: time
+            };
+            return orientation;
         };
         return orientationDifferenceAt;
     };
@@ -60,7 +66,7 @@ define(function(require, exports, module) {
     };
 
     OrientationController.prototype.normalize = function(orientation){
-        orientation[1] = orientation[1];
+        orientation[0] = -orientation[0];
         return orientation;
     };
 
@@ -89,13 +95,9 @@ define(function(require, exports, module) {
               });
               var reading = {
                 orientationDifference: orientationDifference,
-                timeStamp: eventData.timeStamp
+                timeStamp: eventData.timeStamp + 50
               };
-              self.recentReadings.push(reading);
-              if (self.recentReadings.length >= 5){
-                self.recentReadings.shift();
-              }
-              self.orientationDifferenceAt = self.makeOrientationFunction(self.recentReadings);
+              self.orientationDifferenceAt = self.makeOrientationFunction(reading);
           });
       }
     };
