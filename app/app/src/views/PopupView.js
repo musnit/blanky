@@ -154,7 +154,7 @@ define(function(require, exports, module) {
             var bg = self.surface._currentTarget.getElementsByClassName('repeating-image')[0];
             bg.setAttribute('style', 'background-image:url("'+ self.config.url +'");');
         };
-        this.setupGradientCSS = function(index){
+        this.setupGradientCSS = function(index) {
           var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
           var width = text.getBoundingClientRect().width;
           var redStart = width + 80;
@@ -173,7 +173,7 @@ define(function(require, exports, module) {
                                '-webkit-animation: stripes '+ duration +'s linear infinite;';
           return gradientCSS;
         },
-        this.refreshGradient = function(index) {;
+        this.refreshGradient = function(index) {
           var gradientCSS = this.setupGradientCSS(index)
           var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
           text.setAttribute('style', gradientCSS);
