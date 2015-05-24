@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     var View = require('famous/core/View');
     var PopupView  = require('views/PopupView');
-
     function _createPage() {
         var self = this;
         this.popupViews = [];

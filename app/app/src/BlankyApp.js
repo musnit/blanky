@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
   var StatsTimer = require('helpers/StatsTimer');
   var OrientationController = require('helpers/OrientationController');
+  var Timer = require('famous/utilities/Timer');
 
   function BlankyApp() {
     window.blanky = this;
@@ -9,7 +10,7 @@ define(function(require, exports, module) {
     this.Sound = require('soundjs');
     this.Engine.setOptions({appMode: false});
 
-    this.initialPageId = 'gBqF9PtfBm';
+    this.initialPageId = '84zIGGgmCH';
     window.initialPageId = this.initialPageId;
 
     // create the main context

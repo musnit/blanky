@@ -114,17 +114,15 @@ define(function(require, exports, module) {
         this.updateContent = function() {
             if (self.config.surfaceType === 'singalong' && self.surface._currentTarget){
               self.refreshGradient(0);
-              self.needsUpdating = false;
             }
             else if (self.config.surfaceType === 'highlight' && self.surface._currentTarget){
               self.clearGradients();
               self.refreshGradient(self.currentLine);
-              self.needsUpdating = false;
             }
             else if (self.config.surfaceType === 'repeatingImage' && self.surface._currentTarget){
               self.updateBackground();
-              self.needsUpdating = false;
             }
+              self.needsUpdating = false;
         };
         this.updateSingalongText = function() {
             var timePassed = parseFloat(Date.now());
@@ -168,6 +166,7 @@ define(function(require, exports, module) {
               var end = width*2 + 240;
               var duration = width/270;
               text.setAttribute('style',
+                '-webkit-transform: translateZ(0);' +
                 'background-size: '+ end + 'px 3px;' +
                 'background-image: -webkit-linear-gradient(left, ' +
                                   'white 0px,' +
