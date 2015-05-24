@@ -157,36 +157,35 @@ define(function(require, exports, module) {
             var bg = self.surface._currentTarget.getElementsByClassName('repeating-image')[0];
             bg.setAttribute('style', 'background-image:url("'+ self.config.url +'");');
         };
-        this.refreshGradient = function(index) {
-              var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
-              var width = text.getBoundingClientRect().width;
-              var redStart = width + 80;
-              var redEnd = redStart + 80;
-              var blackAgain = redEnd + 80;
-              var end = width*2 + 240;
-              var duration = width/270;
-              text.setAttribute('style',
-                '-webkit-transform: translateZ(0);' +
-                'background-size: '+ end + 'px 3px;' +
-                'background-image: -webkit-linear-gradient(left, ' +
-                                  'white 0px,' +
-                                  'white ' + width + 'px,' +
-                                  'rgb(53, 205, 247) ' + redStart + 'px,' +
-                                  'rgb(53, 205, 247) ' + redEnd + 'px,' +
-                                  'white ' + blackAgain + 'px);' +
-                '-webkit-animation: stripes '+ duration +'s linear infinite;'
-              );
+        this.setupGradientCSS = function(index){
+          var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
+          var width = text.getBoundingClientRect().width;
+          var redStart = width + 80;
+          var redEnd = redStart + 80;
+          var blackAgain = redEnd + 80;
+          var end = width*2 + 240;
+          var duration = width/270;
+          var gradientCSS = '-webkit-transform: translateZ(1);' +
+                               'background-size: '+ end + 'px 3px;' +
+                               'background-image: -webkit-linear-gradient(left, ' +
+                                                  'white 0px,' +
+                                                  'white ' + width + 'px,' +
+                                                  'rgb(53, 205, 247) ' + redStart + 'px,' +
+                                                  'rgb(53, 205, 247) ' + redEnd + 'px,' +
+                                                  'white ' + blackAgain + 'px);' +
+                               '-webkit-animation: stripes '+ duration +'s linear infinite;';
+          return gradientCSS;
+        },
+        this.refreshGradient = function(index) {;
+          var gradientCSS = this.setupGradientCSS(index)
+          var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
+          text.setAttribute('style', gradientCSS);
         };
         this.clearGradients = function() {
           var texts = self.surface._currentTarget.getElementsByClassName('highlight-text-div');
           var textsArray = Array.prototype.slice.call(texts);
           textsArray.forEach(function(text) {
-            text.setAttribute('style',
-            'background-size: 100% 100%;' +
-            'background-image: -webkit-linear-gradient(' +
-                              'white 0%,' +
-                              'white 100%);'
-            );
+            text.setAttribute('style','');
           });
         };
     }
