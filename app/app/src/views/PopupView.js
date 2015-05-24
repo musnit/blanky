@@ -112,16 +112,16 @@ define(function(require, exports, module) {
             this.updateContent();
         };
         this.updateContent = function() {
-            if (self.config.surfaceType === 'singalong' && self.surface._currTarget){
+            if (self.config.surfaceType === 'singalong' && self.surface._currentTarget){
               self.refreshGradient(0);
               self.needsUpdating = false;
             }
-            else if (self.config.surfaceType === 'highlight' && self.surface._currTarget){
+            else if (self.config.surfaceType === 'highlight' && self.surface._currentTarget){
               self.clearGradients();
               self.refreshGradient(self.currentLine);
               self.needsUpdating = false;
             }
-            else if (self.config.surfaceType === 'repeatingImage' && self.surface._currTarget){
+            else if (self.config.surfaceType === 'repeatingImage' && self.surface._currentTarget){
               self.updateBackground();
               self.needsUpdating = false;
             }
@@ -156,11 +156,11 @@ define(function(require, exports, module) {
             }
         };
         this.updateBackground = function() {
-            var bg = self.surface._currTarget.getElementsByClassName('repeating-image')[0];
+            var bg = self.surface._currentTarget.getElementsByClassName('repeating-image')[0];
             bg.setAttribute('style', 'background-image:url("'+ self.config.url +'");');
         };
         this.refreshGradient = function(index) {
-              var text = self.surface._currTarget.getElementsByClassName('highlight-text-div')[index];
+              var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
               var width = text.getBoundingClientRect().width;
               var redStart = width + 80;
               var redEnd = redStart + 80;
@@ -179,7 +179,7 @@ define(function(require, exports, module) {
               );
         };
         this.clearGradients = function() {
-          var texts = self.surface._currTarget.getElementsByClassName('highlight-text-div');
+          var texts = self.surface._currentTarget.getElementsByClassName('highlight-text-div');
           var textsArray = Array.prototype.slice.call(texts);
           textsArray.forEach(function(text) {
             text.setAttribute('style',
