@@ -162,7 +162,7 @@ define(function(require, exports, module) {
           var blackAgain = redEnd + 80;
           var end = width*2 + 240;
           var duration = width/270;
-          var gradientCSS = '-webkit-transform: translateZ(1);' +
+          var gradientCSS = '-webkit-transform: translateZ(0);' +
                                'background-size: '+ end + 'px 3px;' +
                                'background-image: -webkit-linear-gradient(left, ' +
                                                   'white 0px,' +
