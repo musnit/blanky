@@ -9,13 +9,15 @@ define(function(require, exports, module) {
       this.mediasPlaying = [];
     }
     SoundController.prototype.createSounds = function(manifest) {
+      if (self.isApp){
+        manifest = undefined;
+      }
       var self = this;
       self.manifest = manifest;
       var audioPath = './content/sounds/';
       if (manifest){
         if (self.isApp){
           self.mediasPlaying = [];
-          return;
           manifest.forEach(function(sound) {
             alert('smedia');
             alert('Media' + typeof Media);
