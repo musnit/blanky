@@ -3,27 +3,28 @@ define(function(require, exports, module) {
   var OrientationController = require('helpers/OrientationController');
   var SoundController = require('helpers/SoundController');
   var Timer = require('famous/utilities/Timer');
+  var Engine = require('famous/core/Engine');
+  var AppView = require('views/AppView');
 
   function BlankyApp(isApp) {
-    window.blanky = this;
     this.isApp = isApp;
-    this.Engine = require('famous/core/Engine');
-    this.AppView = require('views/AppView');
-    this.Engine.setOptions({appMode: false});
-    this.soundController = new SoundController(isApp);
-    this.initialPageId = 'UHGPYzstxO';
-    window.initialPageId = this.initialPageId;
 
-    // create the main context
-    this.mainContext = this.Engine.createContext(document.getElementById('device-screen'));
-    this.mainContext.setPerspective(100);
-    window.mainContext = this.mainContext;
-    window.Engine = this.Engine;
-    this.appView = new this.AppView();
-    this.mainContext.add(this.appView);
-    window.appView = this.appView;
+    window.Engine = Engine;
+    Engine.setOptions({appMode: false});
+
+    window.initialPageId = 'UHGPYzstxO';
+    window.blanky = this;
+
+    window.appView = new AppView();
+
+    window.mainContext = Engine.createContext(document.getElementById('device-screen'));
+    window.mainContext.setPerspective(100);
+    window.mainContext.add(window.appView);
+
     window.orientationController = new OrientationController();
     window.orientationController.startListening();
+
+    this.soundController = new SoundController(isApp);
   }
 
   BlankyApp.prototype.clearPage = function() {
