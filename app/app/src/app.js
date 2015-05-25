@@ -9,15 +9,15 @@ define(function(require, exports, module) {
     var loopingIDs = ['UHGPYzstxO','gBqF9PtfBm','w9zCNnEbfC','Du6zsqF3x0'];
     var loopNum = 1;
     var BlankyApp = require('BlankyApp');
-    var startApp = function(isApp){
-        var blanky = new BlankyApp(isApp);
+    var startApp = function(isApp) {
+        window.blanky = new BlankyApp(isApp);
 
-        blanky.loadPage(window.initialPageId);
+        window.blanky.loadPage(window.initialPageId);
     };
 
-    var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-    if (isApp) {
-        document.addEventListener("deviceready", startApp(true), false);
+    var isApp = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+    if (isApp){
+        document.addEventListener('deviceready', startApp(true), false);
     }
     else {
         startApp(false);
@@ -29,8 +29,8 @@ define(function(require, exports, module) {
             window.orientationController.reset();
         }
         else {
-            blanky.clearPage();
-            blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
+            window.blanky.clearPage();
+            window.blanky.loadPage(loopingIDs[loopNum%loopingIDs.length]);
             loopNum++;
         }
     };

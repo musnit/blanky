@@ -23,7 +23,7 @@ define(function(require, exports, module) {
     window.appView = this.appView;
     window.orientationController = new OrientationController();
     window.orientationController.startListening();
-    if(isApp){
+    if (isApp){
       this.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
     }
   }
