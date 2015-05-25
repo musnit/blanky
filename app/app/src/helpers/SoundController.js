@@ -9,10 +9,10 @@ define(function(require, exports, module) {
       this.mediasPlaying = [];
     }
     SoundController.prototype.createSounds = function(manifest) {
+      var self = this;
       if (self.isApp){
         manifest = undefined;
       }
-      var self = this;
       self.manifest = manifest;
       var audioPath = './content/sounds/';
       if (manifest){
