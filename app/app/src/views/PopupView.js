@@ -172,9 +172,9 @@ define(function(require, exports, module) {
                                                   'white ' + blackAgain + 'px);' +
                                '-webkit-animation: stripes '+ duration +'s linear infinite;';
           return gradientCSS;
-        },
+        };
         this.refreshGradient = function(index) {
-          var gradientCSS = this.setupGradientCSS(index)
+          var gradientCSS = this.setupGradientCSS(index);
           var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
           text.setAttribute('style', gradientCSS);
         };

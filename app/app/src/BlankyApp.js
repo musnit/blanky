@@ -10,7 +10,7 @@ define(function(require, exports, module) {
     this.Sound = require('soundjs');
     this.Engine.setOptions({appMode: false});
 
-    this.initialPageId = 'UHGPYzstxO';
+    this.initialPageId = 'c8rIApqevh';
     window.initialPageId = this.initialPageId;
 
     // create the main context
