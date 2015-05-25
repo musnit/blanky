@@ -15,6 +15,7 @@ define(function(require, exports, module) {
       if (manifest){
         if (self.isApp){
           self.mediasPlaying = [];
+          return;
           manifest.forEach(function(sound) {
             alert('smedia');
             alert('Media' + typeof Media);
