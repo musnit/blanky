@@ -1,15 +1,16 @@
 define(function(require, exports, module) {
   var StatsTimer = require('helpers/StatsTimer');
   var OrientationController = require('helpers/OrientationController');
+  var SoundController = require('helpers/SoundController');
   var Timer = require('famous/utilities/Timer');
 
   function BlankyApp(isApp) {
     window.blanky = this;
+    this.isApp = isApp;
     this.Engine = require('famous/core/Engine');
     this.AppView = require('views/AppView');
-    this.Sound = require('soundjs');
     this.Engine.setOptions({appMode: false});
-
+    this.soundController = new SoundController(isApp);
     this.initialPageId = 'UHGPYzstxO';
     window.initialPageId = this.initialPageId;
 
@@ -23,15 +24,12 @@ define(function(require, exports, module) {
     window.appView = this.appView;
     window.orientationController = new OrientationController();
     window.orientationController.startListening();
-    if (isApp){
-      this.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
-    }
   }
 
   BlankyApp.prototype.clearPage = function() {
       window.appView.lightbox.hide();
-      this.Sound.removeAllSounds();
-  };
+      this.soundController.clearSounds();
+    };
 
   BlankyApp.prototype.loadPage = function(pageID) {
       var pageModel = window.pagesModel.pages.filter(function(page) {
@@ -39,23 +37,7 @@ define(function(require, exports, module) {
       })[0];
       window.pageModel = pageModel;
       window.appView.createAndShowPage(pageModel);
-
-      var audioPath = './content/sounds/';
-      var manifest = window.pageModel.sounds;
-      if (manifest){
-        this.Sound.alternateExtensions = ['mp3'];
-        var handleLoad = function(event) {
-            var soundObject = window.pageModel.sounds.filter(function(sound) {
-                return (event.src === (audioPath + sound.src));
-            })[0];
-            window.blanky.Sound.play(audioPath + soundObject.src, {
-                loop: soundObject.loop,
-                volume: soundObject.volume
-            });
-        };
-        this.Sound.addEventListener('fileload', handleLoad);
-        this.Sound.registerSounds(manifest, audioPath);
-      }
+      this.soundController.createSounds(window.pageModel.sounds);
   };
 
   module.exports = BlankyApp;

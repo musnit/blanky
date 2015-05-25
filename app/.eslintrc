@@ -8,7 +8,8 @@
         "Parse": true,
         "rivets": true,
         "createjs": true,
-        "alert": true
+        "alert": true,
+        "Media": true
     },
     "rules": {
         "valid-jsdoc": 0,
