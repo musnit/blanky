@@ -9,18 +9,18 @@ define(function(require, exports, module) {
     var loopingIDs = ['UHGPYzstxO','gBqF9PtfBm','w9zCNnEbfC','Du6zsqF3x0'];
     var loopNum = 1;
     var BlankyApp = require('BlankyApp');
-    var startApp = function(){
-        var blanky = new BlankyApp();
+    var startApp = function(isApp){
+        var blanky = new BlankyApp(isApp);
 
         blanky.loadPage(window.initialPageId);
     };
 
-    var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-    if (app) {
-        document.addEventListener("deviceready", startApp, false);
+    var isApp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+    if (isApp) {
+        document.addEventListener("deviceready", startApp(true), false);
     }
     else {
-        startApp();
+        startApp(false);
     }
 
     document.onclick= function(event) {

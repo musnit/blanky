@@ -3,7 +3,7 @@ define(function(require, exports, module) {
   var OrientationController = require('helpers/OrientationController');
   var Timer = require('famous/utilities/Timer');
 
-  function BlankyApp() {
+  function BlankyApp(isApp) {
     window.blanky = this;
     this.Engine = require('famous/core/Engine');
     this.AppView = require('views/AppView');
@@ -23,6 +23,9 @@ define(function(require, exports, module) {
     window.appView = this.appView;
     window.orientationController = new OrientationController();
     window.orientationController.startListening();
+    if(isApp){
+      this.Sound.registerPlugins([createjs.CordovaAudioPlugin]);
+    }
   }
 
   BlankyApp.prototype.clearPage = function() {
@@ -37,7 +40,7 @@ define(function(require, exports, module) {
       window.pageModel = pageModel;
       window.appView.createAndShowPage(pageModel);
 
-      var audioPath = 'content/sounds/';
+      var audioPath = './content/sounds/';
       var manifest = window.pageModel.sounds;
       if (manifest){
         this.Sound.alternateExtensions = ['mp3'];
