@@ -1,16 +1,25 @@
-BUGS:
+BUGS IMPACTING USERS:
+fix accelerometer stuff on device
+accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
+make readalong text highlighting work on device
+
+BUGS NOT IMPACTING TOO MUCH/IPACTING ONLY ME:
 overflow-hidden bug: https://github.com/Famous/famous/issues/493
 
 TODOS:
+make timing reset at page start and go properly and reset properly
+proper readalong/sort out timing
+add swipe transitioning in app code with cool transition
+add narration/title screen and other screens
+make accelerometer position reset at page start and on big motions..or something for better ux
+
+TECH/RELIABILITY/REFACTOR:
 null/zerochecks for the different values used on popupview/camera/...
 DRY the popupview and camera modifier code. well like literally CR all files.
-add swipe transitioning in app code with cool transition
 remove all globalz!
-add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions
-fix accelerometer stuff on device
-accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
 
-ideas
+IDEAS:
 for debugging: show values for stuff live
 
+NOTES:
 http://www.audioblocks.com/stock-audio/pirate-ship-ocean-waves-wind-wood-creaks.html
