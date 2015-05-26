@@ -63,7 +63,7 @@ define(function(require, exports, module) {
                          '</div>';
         }
         else if (this.config.surfaceType === 'repeatingImage'){
-            content = '<div class="repeating-image"></div>';
+            content = '<div class="repeating-image" style="background-image:url(\''+ self.config.url +'\');"></div>';
         }
         else if (this.config.surfaceType === 'singalong'){
             this.textLines = this.config.text.split('\n');
@@ -111,15 +111,16 @@ define(function(require, exports, module) {
         this.updateContent = function() {
             if (self.config.surfaceType === 'singalong' && self.surface._currentTarget){
               self.refreshGradient(0);
+              self.needsUpdating = false;
             }
             else if (self.config.surfaceType === 'highlight' && self.surface._currentTarget){
               self.clearGradients();
               self.refreshGradient(self.currentLine);
+              self.needsUpdating = false;
             }
             else if (self.config.surfaceType === 'repeatingImage' && self.surface._currentTarget){
-              self.updateBackground();
-            }
               self.needsUpdating = false;
+            }
         };
         this.updateSingalongText = function() {
             var timePassed = parseFloat(Date.now());
@@ -149,10 +150,6 @@ define(function(require, exports, module) {
                 self.currentLine = lineNumber;
                 self.needsUpdating = true;
             }
-        };
-        this.updateBackground = function() {
-            var bg = self.surface._currentTarget.getElementsByClassName('repeating-image')[0];
-            bg.setAttribute('style', 'background-image:url("'+ self.config.url +'");');
         };
         this.setupGradientCSS = function(index) {
           var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];

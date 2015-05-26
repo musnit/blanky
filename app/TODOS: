@@ -1,5 +1,5 @@
-overflow-hidden bug: https://github.com/Famous/famous/issues/493 
-
+BUGS:
+overflow-hidden bug: https://github.com/Famous/famous/issues/493
 
 TODOS:
 null/zerochecks for the different values used on popupview/camera/...
@@ -8,13 +8,9 @@ add swipe transitioning in app code with cool transition
 remove all globalz!
 add narration/title screen and other screens/readalong/sort out timing/make timing reset at page start and go properly/make accelerometer position reset at page start and on big motions
 fix accelerometer stuff on device
-accelerometer - detect orientation and swap x/y accordingly.
+accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
+
 ideas
 for debugging: show values for stuff live
 
-
 http://www.audioblocks.com/stock-audio/pirate-ship-ocean-waves-wind-wood-creaks.html
-
-
-add rivets and thing files back and load
-test build ios as build ios
