@@ -14,11 +14,7 @@ define(function(require, exports, module) {
       var audioPath = './content/sounds/';
       if (manifest){
         if (self.isApp){
-          self.mediasPlaying = [];
           manifest.forEach(function(sound) {
-            alert('smedia');
-            alert('Media' + typeof Media);
-
             var soundMedia = new Media(audioPath + sound.src);
             soundMedia.setVolume(parseFloat(sound.volume));
             soundMedia.play({ numberOfLoops: parseInt(sound.loop) });

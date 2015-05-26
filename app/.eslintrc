@@ -9,7 +9,8 @@
         "rivets": true,
         "createjs": true,
         "alert": true,
-        "Media": true
+        "Media": true,
+        "cordova": true
     },
     "rules": {
         "valid-jsdoc": 0,

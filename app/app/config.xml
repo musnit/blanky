@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns   = "http://www.w3.org/ns/widgets"
-        xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "blanky"
-        version     = "0.0.2" >
-    
-    <!-- versionCode is optional and Android only -->
+<widget
+    xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "blanky"
+    version     = "0.0.8" >
 
     <name>Little George's Blanky</name>
-
     <description>
         An interactive, animated storybook. 
     </description>
-
     <author href="" email="musnit@gmail.com">
         Aidan Musnitzky 
     </author>
 
     <gap:platform name="ios" />
-    
-    <preference name="phonegap-version" value="3.7.0" />
+
     <gap:plugin name="com.telerik.plugins.wkwebview" version="0.2.5" />
-    <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
     <gap:plugin name="org.apache.cordova.file" version="1.3.1" />
     <gap:plugin name="org.apache.cordova.media" version="0.2.13" />
-    <preference name="Orientation" value="landscape" />
 
-    <feature name="File">
-        <param name="ios-package" value="CDVFile" />
-    </feature>
-    <feature name="FileTransfer">
-        <param name="ios-package" value="CDVFileTransfer" />
-    </feature>
-    <feature name="Media">
-        <param name="ios-package" value="CDVSound" />
-    </feature>
+    <preference name="phonegap-version" value="3.7.0" />
+    <preference name="orientation" value="landscape" />
+    <preference name="fullscreen" value="true" />
+    <preference name="deployment-target" value="7.0" />
 
 </widget>
-
