@@ -1,7 +1,7 @@
 BUGS IMPACTING USERS:
 fix accelerometer stuff on device
 accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
-make readalong text highlighting work on device
+make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!
 
 BUGS NOT IMPACTING TOO MUCH/IPACTING ONLY ME:
 overflow-hidden bug: https://github.com/Famous/famous/issues/493
