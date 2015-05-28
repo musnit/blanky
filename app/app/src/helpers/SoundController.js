@@ -8,6 +8,10 @@ define(function(require, exports, module) {
       }
       this.mediasPlaying = [];
     }
+    SoundController.prototype.mediaError = function (e) {
+      alert('Media Error');
+      alert(JSON.stringify(e));
+    };
     SoundController.prototype.createSounds = function(manifest) {
       var self = this;
       self.manifest = manifest;
@@ -15,7 +19,7 @@ define(function(require, exports, module) {
       if (manifest){
         if (self.isApp){
           manifest.forEach(function(sound) {
-            var soundMedia = new Media(audioPath + sound.src);
+            var soundMedia = new Media(audioPath + sound.src, null, self.mediaError );
             soundMedia.setVolume(parseFloat(sound.volume));
             soundMedia.play({ numberOfLoops: parseInt(sound.loop) });
             self.mediasPlaying.push(soundMedia);
