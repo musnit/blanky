@@ -1,7 +1,9 @@
 BUGS IMPACTING USERS:
+get live updating working
+make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!
+use famous's timing
 fix accelerometer stuff on device
 accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
-make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!
 
 BUGS NOT IMPACTING TOO MUCH/IPACTING ONLY ME:
 overflow-hidden bug: https://github.com/Famous/famous/issues/493
@@ -25,9 +27,5 @@ NOTES:
 http://www.audioblocks.com/stock-audio/pirate-ship-ocean-waves-wind-wood-creaks.html
 
 NEW FAMOUS:
-test accelerometer
-test on device
-get live updating working
-use famous's timing
 CR!
 refactor!

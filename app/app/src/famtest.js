@@ -17,14 +17,10 @@ define(function(require, exports, module) {
     var num = 0;
     var changer = node1.addComponent({
         onUpdate: function(time) {
-            node1.setPosition(400-250*Math.cos(time / 1000), 100, 0);
+            node1.setPosition(200-150*Math.cos(time / 1000), 100, 0);
             if (time % 500 > 480){
-                var change = true;
-            }
-            if (change){
                 domEl1.setContent(num);
                 num++;
-                change = false;
             }
             node1.requestUpdateOnNextTick(changer);
         }
