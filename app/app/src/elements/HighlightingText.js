@@ -1,0 +1,107 @@
+/*** HighlightingText.js ***/
+
+define(function(require, exports, module) {
+    var Famous = require('famous');
+    var Element = require('elements/Element');
+
+    function HighlightingText(node, config) {
+      var self = this;
+      this.config = config;
+
+      var options = {
+        attributes: {},
+        properties: {}
+      };
+
+      this.textLines = config.text.split('\n');
+      this.currentLine = 0;
+      this.linesHtml = this.textLines.map(function(textLine) {
+        var html = '<div class="highlight-text gradient-shadow" title="' +
+                 textLine + '"><div class="highlight-text-div hightlight-inactive">' +
+                 textLine +
+                 '</div></div>';
+        return html;
+      });
+      classes = 'overlay-text';
+      options.tagName = 'div';
+      options.attributes = {
+        'class': classes
+      };
+      options.content = this.linesHtml.join('');
+      Element.apply(this, [node, options, config]);
+
+      this.updaterComponent = {
+          onUpdate: function(time) {
+              if (self.needsUpdating){
+                  self.updateContent();
+              }
+              self.updateHighlightText();
+              node.requestUpdate(this.id);
+          }
+      };
+      this.updaterComponentID = node.addComponent(this.updaterComponent);
+      this.updaterComponent.id = this.updaterComponentID;
+      node.requestUpdate(this.updaterComponentID);
+    }
+
+    HighlightingText.prototype = Object.create(Element.prototype);
+    HighlightingText.prototype.constructor = HighlightingText;
+
+    HighlightingText.prototype.updateHighlightText = function() {
+      var timePassed = parseFloat(Date.now());
+      var timeOffset = parseFloat(this.config.timeOffset);
+      var pageSpeed = parseFloat(this.model.page.speed) || 1;
+      var singSpeed = (parseFloat(this.config.singSpeed) || 1) * pageSpeed;
+      var lineNumber = Math.floor(MathFunctions.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, this.textLines.length));
+      if (lineNumber !== this.currentLine){
+          this.currentLine = lineNumber;
+          this.needsUpdating = true;
+      }
+    };
+    HighlightingText.prototype.updateContent = function() {
+      if (this.surface._currentTarget){
+        this.clearGradients();
+        this.refreshGradient(this.currentLine);
+        this.needsUpdating = false;
+      }
+    };
+    HighlightingText.prototype.refreshGradient = function(index) {
+      var gradientCSS = this.setupGradientCSS(index);
+      var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
+      text.setAttribute('style', gradientCSS);
+    };
+    HighlightingText.prototype.clearGradients = function() {
+      var texts = self.surface._currentTarget.getElementsByClassName('highlight-text-div');
+      var textsArray = Array.prototype.slice.call(texts);
+      textsArray.forEach(function(text) {
+        text.setAttribute('style','');
+      });
+    };
+    HighlightingText.prototype.setupGradientCSS = function(index) {
+      var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
+      var width = text.getBoundingClientRect().width;
+      var redStart = width + 80;
+      var redEnd = redStart + 80;
+      var blackAgain = redEnd + 80;
+      var end = width*2 + 240;
+      var duration = width/270;
+      var gradientCSS = '-webkit-transform: translateZ(0);' +
+                           'background-size: '+ end + 'px 3px;' +
+                           'background-image: -webkit-linear-gradient(left, ' +
+                                              'white 0px,' +
+                                              'white ' + width + 'px,' +
+                                              'rgb(53, 205, 247) ' + redStart + 'px,' +
+                                              'rgb(53, 205, 247) ' + redEnd + 'px,' +
+                                              'white ' + blackAgain + 'px);' +
+                           '-webkit-animation: stripes '+ duration +'s linear infinite;';
+      return gradientCSS;
+    };
+    HighlightingText.prototype.contentInserted = function() {
+      self.needsUpdating = true;
+      this.updateContent();
+    };
+
+    HighlightingText.DEFAULT_OPTIONS = {};
+
+    module.exports = HighlightingText;
+});

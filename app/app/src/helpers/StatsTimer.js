@@ -1,7 +1,5 @@
 // jscs:disable
 define(function(require, exports, module) {
-    Timer = require('famous/utilities/Timer');
-
     function StatsTimer() {
     }
     StatsTimer.prototype.createTimer = function() {

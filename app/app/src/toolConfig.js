@@ -16,7 +16,7 @@ require.config({
       }
     },
     paths: {
-        famous: '../lib/famous',
+        famous: '../lib/famous.min',
         requirejs: '../lib/requirejs/require',
         almond: '../lib/almond/almond',
         soundjs: '../lib/sound/soundjs-0.6.0.min',

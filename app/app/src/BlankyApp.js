@@ -1,25 +1,22 @@
 define(function(require, exports, module) {
+  var Famous = require('famous');
+
   var StatsTimer = require('helpers/StatsTimer');
   var OrientationController = require('helpers/OrientationController');
   var SoundController = require('helpers/SoundController');
-  var Timer = require('famous/utilities/Timer');
-  var Engine = require('famous/core/Engine');
-  var AppView = require('views/AppView');
+  var Timer = Famous.Clock;
+  var FamousEngine = Famous.core.FamousEngine;
+  var AppNode = require('nodes/AppNode');
 
   function BlankyApp(isApp) {
     this.isApp = isApp;
-
-    window.Engine = Engine;
-    Engine.setOptions({appMode: false});
+    FamousEngine.init();
 
     window.initialPageId = 'UHGPYzstxO';
     window.blanky = this;
 
-    window.appView = new AppView();
-
-    window.mainContext = Engine.createContext(document.getElementById('device-screen'));
-    window.mainContext.setPerspective(100);
-    window.mainContext.add(window.appView);
+    var mainScene = FamousEngine.createScene('#device-screen');
+    window.appNode = new AppNode(mainScene);
 
     window.orientationController = new OrientationController();
     window.orientationController.startListening();
@@ -28,7 +25,7 @@ define(function(require, exports, module) {
   }
 
   BlankyApp.prototype.clearPage = function() {
-      window.appView.lightbox.hide();
+      window.appNode.clearPage();
       this.soundController.clearSounds();
     };
 
@@ -37,7 +34,7 @@ define(function(require, exports, module) {
           return page.objectId === pageID;
       })[0];
       window.pageModel = pageModel;
-      window.appView.createAndShowPage(pageModel);
+      window.appNode.createAndShowPage(pageModel);
       this.soundController.createSounds(window.pageModel.sounds);
   };
 

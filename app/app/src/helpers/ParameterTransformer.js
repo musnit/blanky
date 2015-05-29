@@ -1,17 +1,14 @@
 define(function(require, exports, module) {
-    var Transform = require('famous/core/Transform');
-    var ConfigParser = require('helpers/ConfigParser');
 
-    function ParameterTransformer(config, model) {
+    function ParameterTransformer(parsedConfig, model) {
         this.model = model;
-        this.parsedConfig = ConfigParser.prototype.parseConfig(config, model);
-        this.initialTransform = Transform.thenMove(
-            Transform.thenScale(
-                Transform.identity,
-                [this.parsedConfig.scale*this.parsedConfig.xyRatio,
-                 this.parsedConfig.scale, 1])
-            ,[this.parsedConfig.x,this.parsedConfig.y,this.parsedConfig.height]
-        );
+        this.parsedConfig = parsedConfig;
+        this.initialPosition = [this.parsedConfig.x,this.parsedConfig.y,this.parsedConfig.height];
+        this.initialOrigin = [this.parsedConfig.xOrigin,this.parsedConfig.yOrigin, 0];
+        this.initialScale = [this.parsedConfig.scale*this.parsedConfig.xyRatio,
+                 this.parsedConfig.scale, 1];
+        this.initialSize = [this.parsedConfig.sizeX, this.parsedConfig.sizeY];
+        this.initialOpacity = this.parsedConfig.opacity;
     }
 
     ParameterTransformer.prototype.constructor = ParameterTransformer;
@@ -80,17 +77,33 @@ define(function(require, exports, module) {
             changeY -= frameNumber * this.model.page.y * this.parsedConfig.scale;
         }
         if (this.parsedConfig.cameraBound){
-            changeHeight = window.mainContext.getPerspective() + this.parsedConfig.cameraBoundOffset;
+            var position = this.node.getPosition();
+            changeHeight = position[2];
         }
-        var finalTransform = Transform.thenMove(
-            Transform.thenScale(
-                Transform.multiply(Transform.rotate(changeRotateX, changeRotateY, changeRotateZ), this.initialTransform),
-                [changeZoom*changeSkewX,
-                 changeZoom*changeSkewY, 1])
-            ,[changeX,changeY,changeHeight]
-        );
-        return finalTransform;
+        var newTransformations = {
+            rotate: [changeRotateX, changeRotateY, changeRotateZ],
+            scale: [this.initialScale[0]*changeZoom*changeSkewX, this.initialScale[1]*changeZoom*changeSkewY, this.initialScale[2]],
+            position: [this.initialPosition[0] + changeX, this.initialPosition[1] + changeY, this.initialPosition[2] + changeHeight]
+        }
+        return newTransformations;
     };
+    ParameterTransformer.prototype.createComponent = function(node) {
+        this.node = node;
+        var self = this;
+        var component = {
+            onUpdate: function(time) {
+                var updatedTransform = self.calculateTransform();
+                node.setRotation(updatedTransform.rotate[0], updatedTransform.rotate[1], updatedTransform.rotate[2]);
+                node.setScale(updatedTransform.scale[0], updatedTransform.scale[1], updatedTransform.scale[2]);
+                node.setPosition(updatedTransform.position[0], updatedTransform.position[1], updatedTransform.position[2]);
+                node.requestUpdate(this.id);
+            }
+        }; 
+        var id = node.addComponent(component);
+        component.id = id;
+        return id;
+    };
+
 
     module.exports = ParameterTransformer;
 });

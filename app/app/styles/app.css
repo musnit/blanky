@@ -3,10 +3,19 @@ html {
 
 body {
   overflow: auto;
+  margin: 0px;
 }
 
 table {
   width: 780px;
+}
+
+#device-screen{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 section {
@@ -40,16 +49,6 @@ body {
 .hightlight-inactive{
   background-image: -webkit-linear-gradient(left, white 0%,white 100%);
   background-size: 100% 100%;
-}
-
-.overlay-text {
-  text-align: center;
-  display: -webkit-flex;
-  -webkit-justify-content: center;
-  align-content: center;
-  -webkit-flex-direction: column;
-  width: 100%;
-  height: 100%;
 }
 
 .highlight-text {
@@ -91,8 +90,6 @@ body {
 }
 
 .repeating-image{
-  width: 100%;
-  height: 100%;
   background-repeat: repeat;
   background-size: 85%;
 }

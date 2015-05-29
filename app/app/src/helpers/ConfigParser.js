@@ -9,8 +9,14 @@ define(function(require, exports, module) {
         var parsedConfig = {};
         parsedConfig.name = config.name;
         parsedConfig.pageSpeed = parseFloat(model.page.speed) || 1;
+        parsedConfig.numFrames = parseFloat(config.numFrames);
+        parsedConfig.opacity = parseFloat(config.opacity) || 1;
+        parsedConfig.sizeX = parseFloat(config.sizeX);
+        parsedConfig.sizeY = parseFloat(config.sizeY);
         parsedConfig.x = parseFloat(config.initialX);
         parsedConfig.y = parseFloat(config.initialY);
+        parsedConfig.xOrigin = parseFloat(config.xOrigin) || 0;
+        parsedConfig.yOrigin = parseFloat(config.yOrigin) || 0;
         parsedConfig.scale = parseFloat(config.scale);
         parsedConfig.xyRatio = parseFloat(config.xyRatio);
         parsedConfig.timeOffset = parseFloat(config.timeOffset);
