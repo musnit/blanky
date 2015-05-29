@@ -1,7 +1,6 @@
 /*** Image.js ***/
 
 define(function(require, exports, module) {
-    var Famous = require('famous');
     var Element = require('elements/Element');
 
     function Image(node, config) {

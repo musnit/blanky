@@ -5,10 +5,9 @@ define(function(require, exports, module) {
     var DOMElement = Famous.domRenderables.DOMElement;
 
     function Element(node, options, config) {
-      var self = this;
       var extraClasses = (config.surfaceClasses || '').trim();
       extraClasses = (extraClasses + ' ' + (options.myClasses || '')).trim();
-      if(extraClasses && extraClasses !== ''){
+      if (extraClasses && extraClasses !== ''){
         options.classes = extraClasses.split(' ');
       }
       DOMElement.apply(this, [node, options]);

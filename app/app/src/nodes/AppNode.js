@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     var Node          = Famous.core.Node;
     var PopupPageNode = require('nodes/PopupPageNode');
     var PagerNode = require('nodes/PagerNode');
-    var ParameterTransformer = require('helpers/ParameterTransformer');
 
     function AppNode(scene) {
         Node.apply(this, arguments);
@@ -21,7 +20,7 @@ define(function(require, exports, module) {
         this.contentNode = new PopupPageNode(pageJSON, this.scene);
         this.pagerNode.showPage(this.contentNode);
     };
-    AppNode.prototype.clearPage = function(){
+    AppNode.prototype.clearPage = function() {
         this.pagerNode.clearPage();
     };
     AppNode.DEFAULT_OPTIONS = {};

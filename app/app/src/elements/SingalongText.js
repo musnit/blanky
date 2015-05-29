@@ -1,7 +1,6 @@
 /*** SingalongText.js ***/
 
 define(function(require, exports, module) {
-    var Famous = require('famous');
     var Element = require('elements/Element');
     var MathFunctions = require('helpers/MathFunctions');
 

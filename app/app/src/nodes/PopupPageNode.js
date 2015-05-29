@@ -9,19 +9,20 @@ define(function(require, exports, module) {
     var MathFunctions = require('helpers/MathFunctions');
 
     function _createPage() {
+        var popupNode;
         var self = this;
         this.popupNodes = [];
         this.cameraBoundNodes = [];
         this.mainRoot = this.addChild();
         this.cameraBoundRoot = this.addChild();
         this.popups.forEach(function(popup) {
-            if(popup.cameraBound){
-                var popupNode = new PopupNode(popup, self.model);
+            if (popup.cameraBound){
+                popupNode = new PopupNode(popup, self.model);
                 self.cameraBoundNodes.push(popupNode);
                 self.cameraBoundRoot.addChild(popupNode);
             }
-            else{
-                var popupNode = new PopupNode(popup, self.model);
+            else {
+                popupNode = new PopupNode(popup, self.model);
                 self.popupNodes.push(popupNode);
                 self.mainRoot.addChild(popupNode);
             }
@@ -34,10 +35,9 @@ define(function(require, exports, module) {
         this.popups = model.popups;
         this.model = model;
         this.scene = scene;
-        this.camera = new Camera(scene)
+        this.camera = new Camera(scene);
         this.camera.setDepth(parseFloat(model.page.perspective));
         if (model.camera.perspectiveZoom){
-            this.perspectiveFunction;
             this.pageSpeed = parseFloat(model.page.speed) || 1;
             this.perspectiveZoomSpeed = this.pageSpeed * parseFloat(model.camera.perspectiveZoomSpeed);
             this.perspectiveZoomAmount = parseFloat(model.camera.perspectiveZoomAmount);
@@ -69,42 +69,41 @@ define(function(require, exports, module) {
                 self.camera.setDepth(perspective);
                 self.cameraBoundNodes.forEach(function(node) {
                     var nodePosition = node.getPosition();
-                    node.setPosition(nodePosition[0], nodePosition[1], perspective*0.7 + node.parsedConfig.cameraBoundOffset)
+                    node.setPosition(nodePosition[0], nodePosition[1], perspective*0.7 + node.parsedConfig.cameraBoundOffset);
                 });
                 self.requestUpdate(this.id);
             }
           }
-        }; 
+        };
         this.cameraUpdaterComponentID = this.addComponent(this.cameraUpdaterComponent);
         this.cameraUpdaterComponent.id = this.cameraUpdaterComponentID;
         this.requestUpdate(this.cameraUpdaterComponentID);
 
         _createPage.call(this);
-        var self = this;
-        self.setAlign(0,0);
-        self.setSizeMode('absolute','absolute');
-        self.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
+
+        this.setAlign(0,0);
+        this.setSizeMode('absolute','absolute');
+        this.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
 
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
         var transformer = new ParameterTransformer(this.parsedConfig, model);
-        self.mainRoot.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
-        self.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-        self.mainRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
-        self.cameraBoundRoot.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-        self.cameraBoundRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
+        this.mainRoot.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
+        this.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
+        this.mainRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
+        this.cameraBoundRoot.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
+        this.cameraBoundRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
 
-        self.componentID = transformer.createComponent(self.mainRoot);
-        self.mainRoot.requestUpdate(self.componentID);
-
-        this.contentInserted = function() {
-            self.popupNodes.forEach(function(popupNode) {
-                popupNode.contentInserted();
-            });
-        };
+        this.componentID = transformer.createComponent(this.mainRoot);
+        this.mainRoot.requestUpdate(this.componentID);
     }
 
     PopupPageNode.prototype = Object.create(Node.prototype);
     PopupPageNode.prototype.constructor = PopupPageNode;
+    PopupPageNode.prototype.contentInserted = function() {
+      this.popupNodes.forEach(function(popupNode) {
+        popupNode.contentInserted();
+      });
+    };
 
     module.exports = PopupPageNode;
 });

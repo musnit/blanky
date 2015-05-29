@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 
   var Famous = require('famous');
-  var DOMElement = Famous.domRenderables.DOMElement;
   var Node = Famous.core.Node;
   var ParameterTransformer = require('helpers/ParameterTransformer');
   var ConfigParser = require('helpers/ConfigParser');
@@ -30,24 +29,24 @@ define(function(require, exports, module) {
       self.transformComponentID = transformer.createComponent(self);
       self.requestUpdate(self.transformComponentID);
 
-      var elementType;
-      switch(self.config.surfaceType) {
+      var ElementType;
+      switch (self.config.surfaceType) {
           case 'highlight':
-              elementType = HighlightingText;
+              ElementType = HighlightingText;
               break;
           case 'plain':
-              elementType = PlainText;
+              ElementType = PlainText;
               break;
           case 'repeatingImage':
-              elementType = RepeatingImage;
+              ElementType = RepeatingImage;
               break;
           case 'singalong':
-              elementType = SingalongText;
+              ElementType = SingalongText;
               break;
           default:
-              elementType = Image;
+              ElementType = Image;
       }
-      this.domElement = new elementType(this, this.config, this.model);
+      this.domElement = new ElementType(this, this.config, this.model);
   }
 
   function PopupNode(config, model) {
@@ -55,7 +54,6 @@ define(function(require, exports, module) {
       this.config = config;
       this.model = model;
       _createPopup.call(this);
-      var self = this;
       this.contentInserted = function() {
         this.domElement.contentInserted();
       };

@@ -1,7 +1,6 @@
 /*** RepeatingImage.js ***/
 
 define(function(require, exports, module) {
-    var Famous = require('famous');
     var Element = require('elements/Element');
 
     function RepeatingImage(node, config) {

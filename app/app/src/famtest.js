@@ -9,7 +9,7 @@ define(function(require, exports, module) {
     var node1 = scene.addChild();
 
     var domEl1 = new DOMElement(node1, {
-        content: '0',
+        content: '0'
     });
 
     node1.setSizeMode('absolute','absolute');
@@ -18,7 +18,7 @@ define(function(require, exports, module) {
     var changer = node1.addComponent({
         onUpdate: function(time) {
             node1.setPosition(400-250*Math.cos(time / 1000), 100, 0);
-            if(time % 500 > 480){
+            if (time % 500 > 480){
                 var change = true;
             }
             if (change){

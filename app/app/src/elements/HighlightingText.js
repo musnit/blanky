@@ -1,12 +1,10 @@
 /*** HighlightingText.js ***/
 
 define(function(require, exports, module) {
-    var Famous = require('famous');
     var Element = require('elements/Element');
     var MathFunctions = require('helpers/MathFunctions');
 
     function HighlightingText(node, config, model) {
-      window.okkk = this;
       var self = this;
       this.config = config;
       this.model = model;
@@ -82,7 +80,7 @@ define(function(require, exports, module) {
       var self = this;
       var linesHtml = this.textLines.map(function(textLine, index) {
         var html;
-        if(index === activeLine){
+        if (index === activeLine){
           html = '<div class="highlight-text gradient-shadow" title="' +
                    textLine + '"><div class="highlight-text-div" style="' + self.setupGradientCSS() + '">' +
                    textLine +

@@ -84,7 +84,7 @@ define(function(require, exports, module) {
             rotate: [changeRotateX, changeRotateY, changeRotateZ],
             scale: [this.initialScale[0]*changeZoom*changeSkewX, this.initialScale[1]*changeZoom*changeSkewY, this.initialScale[2]],
             position: [this.initialPosition[0] + changeX, this.initialPosition[1] + changeY, this.initialPosition[2] + changeHeight]
-        }
+        };
         return newTransformations;
     };
     ParameterTransformer.prototype.createComponent = function(node) {
@@ -98,12 +98,11 @@ define(function(require, exports, module) {
                 node.setPosition(updatedTransform.position[0], updatedTransform.position[1], updatedTransform.position[2]);
                 node.requestUpdate(this.id);
             }
-        }; 
+        };
         var id = node.addComponent(component);
         component.id = id;
         return id;
     };
-
 
     module.exports = ParameterTransformer;
 });
