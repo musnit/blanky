@@ -52,8 +52,9 @@ body {
 }
 
 .highlight-text {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 .highlight-text:after {

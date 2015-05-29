@@ -5,13 +5,13 @@ define(function(require, exports, module) {
     var DOMElement = Famous.domRenderables.DOMElement;
 
     function Element(node, options, config) {
-
-      options['attributes']['class'] = options['attributes']['class'] || "";
+      var self = this;
       var extraClasses = (config.surfaceClasses || '').trim();
-      options['attributes']['class'] = (options['attributes']['class'] + ' ' + extraClasses).trim();
-
+      extraClasses = (extraClasses + ' ' + (options.myClasses || '')).trim();
+      if(extraClasses && extraClasses !== ''){
+        options.classes = extraClasses.split(' ');
+      }
       DOMElement.apply(this, [node, options]);
-
     }
 
     Element.prototype = Object.create(DOMElement.prototype);

@@ -3,21 +3,21 @@
 define(function(require, exports, module) {
     var Famous = require('famous');
     var Element = require('elements/Element');
+    var MathFunctions = require('helpers/MathFunctions');
 
-    function SingalongText(node, config) {
+    function SingalongText(node, config, model) {
       var self = this;
       this.config = config;
+      this.model = model;
+
       var options = {
         attributes: {},
         properties: {}
       };
       this.textLines = config.text.split('\n');
       this.currentLine = 0;
-      classes = 'overlay-text';
       options.tagName = 'div';
-      options.attributes = {
-        'class': classes
-      };
+      options.myClasses = 'overlay-text';
       options.content = '<span class="highlight-text gradient-shadow singalong" title="' +
                    this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
                    this.textLines[this.currentLine] +

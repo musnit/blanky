@@ -18,11 +18,8 @@ define(function(require, exports, module) {
                  '</div></div>';
         return html;
       });
-      var classes = 'overlay-text';
       options.tagName = 'div';
-      options.attributes = {
-        'class': classes
-      };
+      options.myClasses = 'overlay-text';
       options.content = linesHtml.join('');
       Element.apply(this, [node, options, config]);
     }

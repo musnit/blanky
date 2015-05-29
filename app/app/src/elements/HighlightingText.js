@@ -3,11 +3,14 @@
 define(function(require, exports, module) {
     var Famous = require('famous');
     var Element = require('elements/Element');
+    var MathFunctions = require('helpers/MathFunctions');
 
-    function HighlightingText(node, config) {
+    function HighlightingText(node, config, model) {
+      window.okkk = this;
       var self = this;
       this.config = config;
-
+      this.model = model;
+      this.node = node;
       var options = {
         attributes: {},
         properties: {}
@@ -15,19 +18,9 @@ define(function(require, exports, module) {
 
       this.textLines = config.text.split('\n');
       this.currentLine = 0;
-      this.linesHtml = this.textLines.map(function(textLine) {
-        var html = '<div class="highlight-text gradient-shadow" title="' +
-                 textLine + '"><div class="highlight-text-div hightlight-inactive">' +
-                 textLine +
-                 '</div></div>';
-        return html;
-      });
-      classes = 'overlay-text';
       options.tagName = 'div';
-      options.attributes = {
-        'class': classes
-      };
-      options.content = this.linesHtml.join('');
+      options.myClasses = 'overlay-text';
+      options.content = this.createContent(-1);
       Element.apply(this, [node, options, config]);
 
       this.updaterComponent = {
@@ -59,27 +52,12 @@ define(function(require, exports, module) {
       }
     };
     HighlightingText.prototype.updateContent = function() {
-      if (this.surface._currentTarget){
-        this.clearGradients();
-        this.refreshGradient(this.currentLine);
-        this.needsUpdating = false;
-      }
+      var content = this.createContent(this.currentLine);
+      this.setContent(content);
+      this.needsUpdating = false;
     };
-    HighlightingText.prototype.refreshGradient = function(index) {
-      var gradientCSS = this.setupGradientCSS(index);
-      var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
-      text.setAttribute('style', gradientCSS);
-    };
-    HighlightingText.prototype.clearGradients = function() {
-      var texts = self.surface._currentTarget.getElementsByClassName('highlight-text-div');
-      var textsArray = Array.prototype.slice.call(texts);
-      textsArray.forEach(function(text) {
-        text.setAttribute('style','');
-      });
-    };
-    HighlightingText.prototype.setupGradientCSS = function(index) {
-      var text = self.surface._currentTarget.getElementsByClassName('highlight-text-div')[index];
-      var width = text.getBoundingClientRect().width;
+    HighlightingText.prototype.setupGradientCSS = function() {
+      var width = this.node.getAbsoluteSize()[0];
       var redStart = width + 80;
       var redEnd = redStart + 80;
       var blackAgain = redEnd + 80;
@@ -99,6 +77,26 @@ define(function(require, exports, module) {
     HighlightingText.prototype.contentInserted = function() {
       self.needsUpdating = true;
       this.updateContent();
+    };
+    HighlightingText.prototype.createContent = function(activeLine) {
+      var self = this;
+      var linesHtml = this.textLines.map(function(textLine, index) {
+        var html;
+        if(index === activeLine){
+          html = '<div class="highlight-text gradient-shadow" title="' +
+                   textLine + '"><div class="highlight-text-div" style="' + self.setupGradientCSS() + '">' +
+                   textLine +
+                   '</div></div>';
+        }
+        else {
+          html = '<div class="highlight-text gradient-shadow" title="' +
+                   textLine + '"><div class="highlight-text-div hightlight-inactive">' +
+                   textLine +
+                   '</div></div>';
+        }
+        return html;
+      });
+      return linesHtml.join('');
     };
 
     HighlightingText.DEFAULT_OPTIONS = {};

@@ -9,11 +9,8 @@ define(function(require, exports, module) {
         attributes: {},
         properties: {}
       };
-      classes = 'repeating-image';
       options.tagName = 'div';
-      options.attributes = {
-        'class': classes
-      };
+      options.myClasses = 'repeating-image';
       options.properties = {
         'background-image': 'url(\''+ config.url +'\')'
       };

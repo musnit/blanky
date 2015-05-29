@@ -4,7 +4,6 @@ define(function(require, exports, module) {
   var DOMElement = Famous.domRenderables.DOMElement;
   var Node = Famous.core.Node;
   var ParameterTransformer = require('helpers/ParameterTransformer');
-  var MathFunctions = require('helpers/MathFunctions');
   var ConfigParser = require('helpers/ConfigParser');
   var RepeatingImage = require('elements/RepeatingImage');
   var HighlightingText = require('elements/HighlightingText');
@@ -48,7 +47,7 @@ define(function(require, exports, module) {
           default:
               elementType = Image;
       }
-      this.domElement = new elementType(this, this.config);
+      this.domElement = new elementType(this, this.config, this.model);
   }
 
   function PopupNode(config, model) {
