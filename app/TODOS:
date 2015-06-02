@@ -1,3 +1,8 @@
+JOSH DELIVERABLES:
+narration on all pages
+text on all pages
+tweaks from email
+
 BUGS IMPACTING USERS:
 get live updating working
 make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!

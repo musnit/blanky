@@ -14,7 +14,7 @@ define(function(require, exports, module) {
         this.popupNodes = [];
         this.cameraBoundNodes = [];
         this.mainRoot = this.addChild();
-        this.cameraBoundRoot = this.addChild();
+        this.cameraBoundRoot = this.topScene.addChild();
         this.popups.forEach(function(popup) {
             if (popup.cameraBound){
                 popupNode = new PopupNode(popup, self.model);
@@ -29,12 +29,12 @@ define(function(require, exports, module) {
         });
     }
 
-    function PopupPageNode(model, scene) {
-        var self = this;
+    function PopupPageNode(model, scene, topScene) {
         Node.apply(this, arguments);
         this.popups = model.popups;
         this.model = model;
         this.scene = scene;
+        this.topScene = topScene;
         this.camera = new Camera(scene);
         this.camera.setDepth(parseFloat(model.page.perspective));
         if (model.camera.perspectiveZoom){
@@ -60,25 +60,6 @@ define(function(require, exports, module) {
             }
         }
 
-        this.cameraUpdaterComponent = {
-          onUpdate: function(time) {
-            if (model.camera.perspectiveZoom){
-                var timePassed = parseFloat(Date.now())%self.pageSpeed;
-                var timeOffset = parseFloat(model.camera.timeOffset);
-                var perspective = model.page.perspective - self.perspectiveFunction((timePassed+timeOffset)/self.perspectiveZoomSpeed, self.perspectiveZoomAmount);
-                self.camera.setDepth(perspective);
-                self.cameraBoundNodes.forEach(function(node) {
-                    var nodePosition = node.getPosition();
-                    node.setPosition(nodePosition[0], nodePosition[1], perspective*0.7 + node.parsedConfig.cameraBoundOffset);
-                });
-                self.requestUpdate(this.id);
-            }
-          }
-        };
-        this.cameraUpdaterComponentID = this.addComponent(this.cameraUpdaterComponent);
-        this.cameraUpdaterComponent.id = this.cameraUpdaterComponentID;
-        this.requestUpdate(this.cameraUpdaterComponentID);
-
         _createPage.call(this);
 
         this.setAlign(0,0);
@@ -90,8 +71,6 @@ define(function(require, exports, module) {
         this.mainRoot.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
         this.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
         this.mainRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
-        this.cameraBoundRoot.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-        this.cameraBoundRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
 
         this.componentID = transformer.createComponent(this.mainRoot);
         this.mainRoot.requestUpdate(this.componentID);
@@ -103,6 +82,10 @@ define(function(require, exports, module) {
       this.popupNodes.forEach(function(popupNode) {
         popupNode.contentInserted();
       });
+    };
+    PopupPageNode.prototype.dismount = function() {
+      this.cameraBoundRoot.dismount();
+      Node.prototype.dismount.apply(this, arguments);
     };
 
     module.exports = PopupPageNode;

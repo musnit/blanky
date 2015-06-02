@@ -76,10 +76,6 @@ define(function(require, exports, module) {
             ));
             changeY -= frameNumber * this.model.page.y * this.parsedConfig.scale;
         }
-        if (this.parsedConfig.cameraBound){
-            var position = this.node.getPosition();
-            changeHeight = position[2];
-        }
         var newTransformations = {
             rotate: [changeRotateX, changeRotateY, changeRotateZ],
             scale: [this.initialScale[0]*changeZoom*changeSkewX, this.initialScale[1]*changeZoom*changeSkewY, this.initialScale[2]],

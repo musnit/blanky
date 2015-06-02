@@ -16,7 +16,8 @@ define(function(require, exports, module) {
     window.blanky = this;
 
     var mainScene = FamousEngine.createScene('#device-screen');
-    window.appNode = new AppNode(mainScene);
+    var topScene = FamousEngine.createScene('#top-screen');
+    window.appNode = new AppNode(mainScene, topScene);
 
     window.orientationController = new OrientationController();
     window.orientationController.startListening();

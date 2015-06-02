@@ -14,7 +14,7 @@ define(function(require, exports, module) {
       this.currentContent = contentNode;
     };
     PagerNode.prototype.clearPage = function(contentNode) {
-      this.removeChild(this.currentContent);
+      this.currentContent.dismount();
     };
     module.exports = PagerNode;
 });
