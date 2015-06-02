@@ -9,7 +9,7 @@ define(function(require, exports, module) {
         properties: {}
       };
 
-      var textLines = config.text.split('\n');
+      var textLines = (config.text || "").split('\n');
       var linesHtml = textLines.map(function(textLine) {
         var html = '<div class="highlight-text gradient-shadow" title="' +
                  textLine + '"><div class="highlight-text-div hightlight-inactive">' +
