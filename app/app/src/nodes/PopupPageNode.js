@@ -66,6 +66,10 @@ define(function(require, exports, module) {
         this.setSizeMode('absolute','absolute');
         this.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
 
+        this.topScene.setAlign(0,0);
+        this.topScene.setSizeMode('absolute','absolute');
+        this.topScene.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
+
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
         var transformer = new ParameterTransformer(this.parsedConfig, model);
         this.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
