@@ -13,7 +13,6 @@ define(function(require, exports, module) {
         var self = this;
         this.popupNodes = [];
         this.cameraBoundNodes = [];
-        this.mainRoot = this.addChild();
         this.cameraBoundRoot = this.topScene.addChild();
         this.popups.forEach(function(popup) {
             if (popup.cameraBound){
@@ -24,12 +23,13 @@ define(function(require, exports, module) {
             else {
                 popupNode = new PopupNode(popup, self.model);
                 self.popupNodes.push(popupNode);
-                self.mainRoot.addChild(popupNode);
+                self.addChild(popupNode);
             }
         });
     }
 
     function PopupPageNode(model, scene, topScene) {
+        var self = this;
         Node.apply(this, arguments);
         this.popups = model.popups;
         this.model = model;
@@ -68,12 +68,26 @@ define(function(require, exports, module) {
 
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
         var transformer = new ParameterTransformer(this.parsedConfig, model);
-        this.mainRoot.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
+        this.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
         this.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-        this.mainRoot.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
+        this.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
+        this.cameraUpdaterComponent = {
+          onUpdate: function(time) {
+            if (model.camera.perspectiveZoom){
+                var timePassed = parseFloat(Date.now())%self.pageSpeed;
+                var timeOffset = parseFloat(model.camera.timeOffset);
+                var perspective = model.page.perspective - self.perspectiveFunction((timePassed+timeOffset)/self.perspectiveZoomSpeed, self.perspectiveZoomAmount);
+                self.camera.setDepth(perspective);
+                self.requestUpdate(this.id);
+            }
+          }
+        };
+        this.cameraUpdaterComponentID = this.addComponent(this.cameraUpdaterComponent);
+        this.cameraUpdaterComponent.id = this.cameraUpdaterComponentID;
+        this.requestUpdate(this.cameraUpdaterComponentID);
 
-        this.componentID = transformer.createComponent(this.mainRoot);
-        this.mainRoot.requestUpdate(this.componentID);
+        this.componentID = transformer.createComponent(this);
+        this.requestUpdate(this.componentID);
     }
 
     PopupPageNode.prototype = Object.create(Node.prototype);
