@@ -37,67 +37,81 @@ define(function(require, exports, module) {
         this.model = model;
         this.scene = scene;
         this.topScene = topScene;
-        this.camera = new Camera(scene);
-        this.camera.setDepth(parseFloat(model.page.perspective));
-        if (model.camera.perspectiveZoom){
-            this.pageSpeed = parseFloat(model.page.speed) || 1;
-            this.perspectiveZoomSpeed = this.pageSpeed * parseFloat(model.camera.perspectiveZoomSpeed);
-            this.perspectiveZoomAmount = parseFloat(model.camera.perspectiveZoomAmount);
-            this.perspectiveZoomCutStart = parseFloat(model.camera.perspectiveZoomCutStart);
-            this.perspectiveZoomCutEnd = parseFloat(model.camera.perspectiveZoomCutEnd);
-            if (model.camera.perspectiveZoomType === 'triangle'){
-                this.perspectiveFunction = MathFunctions.prototype.triangleFunction;
-            }
-            else if (model.camera.perspectiveZoomType === 'sawtooth'){
-                this.perspectiveFunction = MathFunctions.prototype.sawToothFunction;
-            }
-            else if (model.camera.perspectiveZoomType === 'cos'){
-                this.perspectiveFunction = MathFunctions.prototype.cosFunction;
-            }
-            else {
-                this.perspectiveFunction = MathFunctions.prototype.sinFunction;
-            }
-            if (model.camera.perspectiveZoomCut){
-                this.perspectiveFunction = MathFunctions.prototype.cutFunction(this.perspectiveFunction, this.perspectiveZoomCutStart, this.perspectiveZoomCutEnd, this.perspectiveFunction.period);
-            }
-        }
 
         _createPage.call(this);
+        this.camera = new Camera(scene);
 
-        this.setAlign(0,0);
-        this.setSizeMode('absolute','absolute');
-        this.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
-
-        this.cameraBoundRoot.setAlign(0,0);
-        this.cameraBoundRoot.setSizeMode('absolute','absolute');
-        this.cameraBoundRoot.setAbsoluteSize(parseFloat(model.page.x), parseFloat(model.page.y));
 
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
-        var transformer = new ParameterTransformer(this.parsedConfig, model);
-        this.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
-        this.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-        this.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
+        this.transformer = new ParameterTransformer(this.parsedConfig, model);
+
+        this.setupInitialState();
+
+
         this.cameraUpdaterComponent = {
           onUpdate: function(time) {
+            if (model.camera.configChanged){
+                self.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
+                self.setupInitialState();
+                self.transformer.setParsedConfig(self.parsedConfig);
+                model.camera.configChanged = false;
+            }
             if (model.camera.perspectiveZoom){
                 var timePassed = parseFloat(Date.now())%self.pageSpeed;
                 var timeOffset = parseFloat(model.camera.timeOffset);
                 var perspective = model.page.perspective - self.perspectiveFunction((timePassed+timeOffset)/self.perspectiveZoomSpeed, self.perspectiveZoomAmount);
                 self.camera.setDepth(perspective);
-                self.requestUpdate(this.id);
             }
+            self.requestUpdate(this.id);
           }
         };
         this.cameraUpdaterComponentID = this.addComponent(this.cameraUpdaterComponent);
         this.cameraUpdaterComponent.id = this.cameraUpdaterComponentID;
         this.requestUpdate(this.cameraUpdaterComponentID);
 
-        this.componentID = transformer.createComponent(this);
+        this.componentID = this.transformer.createComponent(this);
         this.requestUpdate(this.componentID);
     }
 
     PopupPageNode.prototype = Object.create(Node.prototype);
     PopupPageNode.prototype.constructor = PopupPageNode;
+    PopupPageNode.prototype.setupInitialState = function() {
+        this.camera.setDepth(parseFloat(this.model.page.perspective));
+        if (this.model.camera.perspectiveZoom){
+            this.pageSpeed = parseFloat(this.model.page.speed) || 1;
+            this.perspectiveZoomSpeed = this.pageSpeed * parseFloat(this.model.camera.perspectiveZoomSpeed);
+            this.perspectiveZoomAmount = parseFloat(this.model.camera.perspectiveZoomAmount);
+            this.perspectiveZoomCutStart = parseFloat(this.model.camera.perspectiveZoomCutStart);
+            this.perspectiveZoomCutEnd = parseFloat(this.model.camera.perspectiveZoomCutEnd);
+            if (this.model.camera.perspectiveZoomType === 'triangle'){
+                this.perspectiveFunction = MathFunctions.prototype.triangleFunction;
+            }
+            else if (this.model.camera.perspectiveZoomType === 'sawtooth'){
+                this.perspectiveFunction = MathFunctions.prototype.sawToothFunction;
+            }
+            else if (this.model.camera.perspectiveZoomType === 'cos'){
+                this.perspectiveFunction = MathFunctions.prototype.cosFunction;
+            }
+            else {
+                this.perspectiveFunction = MathFunctions.prototype.sinFunction;
+            }
+            if (this.model.camera.perspectiveZoomCut){
+                this.perspectiveFunction = MathFunctions.prototype.cutFunction(this.perspectiveFunction, this.perspectiveZoomCutStart, this.perspectiveZoomCutEnd, this.perspectiveFunction.period);
+            }
+        }
+
+        this.setAlign(0,0);
+        this.setSizeMode('absolute','absolute');
+        this.setAbsoluteSize(parseFloat(this.model.page.x), parseFloat(this.model.page.y));
+
+        this.cameraBoundRoot.setAlign(0,0);
+        this.cameraBoundRoot.setSizeMode('absolute','absolute');
+        this.cameraBoundRoot.setAbsoluteSize(parseFloat(this.model.page.x), parseFloat(this.model.page.y));
+
+        this.setPosition(this.transformer.initialPosition[0], this.transformer.initialPosition[1], this.transformer.initialPosition[2]);
+        this.setOrigin(this.transformer.initialOrigin[0], this.transformer.initialOrigin[1], this.transformer.initialOrigin[2]);
+        this.setScale(this.transformer.initialScale[0], this.transformer.initialScale[1], this.transformer.initialScale[2]);
+    };
     PopupPageNode.prototype.contentInserted = function() {
       this.popupNodes.forEach(function(popupNode) {
         popupNode.contentInserted();

@@ -16,7 +16,7 @@ define(function(require, exports, module) {
 
       this.parsedConfig = ConfigParser.prototype.parseConfig(this.config, this.model);
       this.transformer = new ParameterTransformer(this.parsedConfig, this.model);
-      this.setInitialConfig();
+      this.setupInitialState();
 
       self.transformComponentID = this.transformer.createComponent(self);
       self.requestUpdate(self.transformComponentID);
@@ -47,7 +47,7 @@ define(function(require, exports, module) {
           onUpdate: function(time) {
               if (self.config.configChanged){
                 self.parsedConfig = ConfigParser.prototype.parseConfig(self.config, self.model);
-                self.setInitialConfig();
+                self.setupInitialState();
                 self.transformer.setParsedConfig(self.parsedConfig);
                 self.config.configChanged = false;
               }
@@ -71,7 +71,7 @@ define(function(require, exports, module) {
 
   PopupNode.prototype = Object.create(Node.prototype);
   PopupNode.prototype.constructor = PopupNode;
-  PopupNode.prototype.setInitialConfig = function(){
+  PopupNode.prototype.setupInitialState = function(){
     if (this.parsedConfig.sizeX && this.parsedConfig.sizeY){
       this.setSizeMode('absolute','absolute');
       this.setAbsoluteSize(this.transformer.initialSize[0], this.transformer.initialSize[1]);
