@@ -8,6 +8,7 @@ define(function(require, exports, module) {
   var HighlightingText = require('elements/HighlightingText');
   var Image = require('elements/Image');
   var PlainText = require('elements/PlainText');
+  var ChangingPlainText = require('elements/ChangingPlainText');
   var SingalongText = require('elements/SingalongText');
 
   function _createPopup() {
@@ -36,6 +37,9 @@ define(function(require, exports, module) {
               break;
           case 'plain':
               ElementType = PlainText;
+              break;
+          case 'changingPlain':
+              ElementType = ChangingPlainText;
               break;
           case 'repeatingImage':
               ElementType = RepeatingImage;
