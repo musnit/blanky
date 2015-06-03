@@ -12,14 +12,21 @@ define(function(require, exports, module) {
     var Page = Parse.Object.extend('Page');
     var rivets = require('rivets');
 
+    var publisher;
+
     rivets.binders.input = {
         publishes: true,
         routine: rivets.binders.value.routine,
         bind: function(el) {
-            el.addEventListener('input', this.publish);
+            var self = this;
+            publisher = function(){
+                self.publish();
+                self.model.configChanged = true;
+            }
+            el.addEventListener('input', publisher);
         },
         unbind: function(el) {
-            el.removeEventListener('input', this.publish);
+            el.removeEventListener('input', publisher);
         }
     };
 

@@ -2,7 +2,17 @@ define(function(require, exports, module) {
 
     function ParameterTransformer(parsedConfig, model) {
         this.model = model;
+        this.setParsedConfig(parsedConfig);
+    }
+
+    ParameterTransformer.prototype.constructor = ParameterTransformer;
+
+    ParameterTransformer.prototype.setParsedConfig = function(parsedConfig) {
         this.parsedConfig = parsedConfig;
+        this.setInitialValues();
+    }
+
+    ParameterTransformer.prototype.setInitialValues = function() {
         this.initialPosition = [this.parsedConfig.x,this.parsedConfig.y,this.parsedConfig.height];
         this.initialOrigin = [this.parsedConfig.xOrigin,this.parsedConfig.yOrigin, 0];
         this.initialScale = [this.parsedConfig.scale*this.parsedConfig.xyRatio,
@@ -10,8 +20,6 @@ define(function(require, exports, module) {
         this.initialSize = [this.parsedConfig.sizeX, this.parsedConfig.sizeY];
         this.initialOpacity = this.parsedConfig.opacity;
     }
-
-    ParameterTransformer.prototype.constructor = ParameterTransformer;
 
     ParameterTransformer.prototype.calculateTransform = function() {
         var orientation;

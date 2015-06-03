@@ -13,21 +13,12 @@ define(function(require, exports, module) {
 
   function _createPopup() {
       var self = this;
-      this.parsedConfig = ConfigParser.prototype.parseConfig(self.config, self.model);
-      var transformer = new ParameterTransformer(this.parsedConfig, self.model);
-      if (this.parsedConfig.sizeX && this.parsedConfig.sizeY){
-        self.setSizeMode('absolute','absolute');
-        self.setAbsoluteSize(transformer.initialSize[0], transformer.initialSize[1]);
-      }
-      if (this.config.animation && this.parsedConfig.numFrames){
-        self.setProportionalSize(1 , this.parsedConfig.numFrames);
-      }
-      self.setPosition(transformer.initialPosition[0], transformer.initialPosition[1], transformer.initialPosition[2]);
-      self.setOrigin(transformer.initialOrigin[0], transformer.initialOrigin[1], transformer.initialOrigin[2]);
-      self.setScale(transformer.initialScale[0], transformer.initialScale[1], transformer.initialScale[2]);
-      self.setOpacity(transformer.initialOpacity);
 
-      self.transformComponentID = transformer.createComponent(self);
+      this.parsedConfig = ConfigParser.prototype.parseConfig(this.config, this.model);
+      this.transformer = new ParameterTransformer(this.parsedConfig, this.model);
+      this.setInitialConfig();
+
+      self.transformComponentID = this.transformer.createComponent(self);
       self.requestUpdate(self.transformComponentID);
 
       var ElementType;
@@ -51,6 +42,21 @@ define(function(require, exports, module) {
               ElementType = Image;
       }
       this.domElement = new ElementType(this, this.config, this.model);
+
+      this.refresherComponent = {
+          onUpdate: function(time) {
+              if (self.config.configChanged){
+                self.parsedConfig = ConfigParser.prototype.parseConfig(self.config, self.model);
+                self.setInitialConfig();
+                self.transformer.setParsedConfig(self.parsedConfig);
+                self.config.configChanged = false;
+              }
+              self.requestUpdate(this.id);
+          }
+      };
+      this.refresherComponentID = this.addComponent(this.refresherComponent);
+      this.refresherComponent.id = this.refresherComponentID;
+      this.requestUpdate(this.refresherComponentID);
   }
 
   function PopupNode(config, model) {
@@ -65,6 +71,19 @@ define(function(require, exports, module) {
 
   PopupNode.prototype = Object.create(Node.prototype);
   PopupNode.prototype.constructor = PopupNode;
+  PopupNode.prototype.setInitialConfig = function(){
+    if (this.parsedConfig.sizeX && this.parsedConfig.sizeY){
+      this.setSizeMode('absolute','absolute');
+      this.setAbsoluteSize(this.transformer.initialSize[0], this.transformer.initialSize[1]);
+    }
+    if (this.config.animation && this.parsedConfig.numFrames){
+      this.setProportionalSize(1 , this.parsedConfig.numFrames);
+    }
+    this.setPosition(this.transformer.initialPosition[0], this.transformer.initialPosition[1], this.transformer.initialPosition[2]);
+    this.setOrigin(this.transformer.initialOrigin[0], this.transformer.initialOrigin[1], this.transformer.initialOrigin[2]);
+    this.setScale(this.transformer.initialScale[0], this.transformer.initialScale[1], this.transformer.initialScale[2]);
+    this.setOpacity(this.transformer.initialOpacity);
+  };
 
   module.exports = PopupNode;
 });
