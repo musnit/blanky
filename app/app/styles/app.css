@@ -123,6 +123,7 @@ body {
   right: inherit;
   margin-left: 250px;
   margin-top: 150px;
+  z-index: -999999;
 }
 
 .ipad {
