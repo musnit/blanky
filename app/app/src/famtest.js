@@ -7,7 +7,6 @@ define(function(require, exports, module) {
     FamousEngine.init();
     var scene = FamousEngine.createScene('#device-screen');
     var node1 = scene.addChild();
-    node1.setPosition(500, 100, 0);
     var domEl1 = new DOMElement(node1, {
         content: 'first place'
     });
@@ -16,6 +15,6 @@ define(function(require, exports, module) {
     var node2 = scene2.addChild();
 
     var domEl2 = new DOMElement(node2, {
-        content: 'second place'
+        content: 'first place'
     });
 });
