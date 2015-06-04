@@ -19,8 +19,8 @@ define(function(require, exports, module) {
     var topScene = FamousEngine.createScene('#top-screen');
     window.appNode = new AppNode(mainScene, topScene);
 
-    window.orientationController = new OrientationController();
-    window.orientationController.startListening();
+    window.orientationController = new OrientationController({timePassed: 0});
+    window.orientationController.startListening(this);
 
     this.soundController = new SoundController(isApp);
   }

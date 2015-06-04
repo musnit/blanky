@@ -2,7 +2,6 @@
 define(function(require, exports, module) {
 
     function OrientationController() {
-        this.reset();
     }
     OrientationController.prototype.constructor = OrientationController;
 
@@ -12,7 +11,7 @@ define(function(require, exports, module) {
       this.orientationDifference = [0,0,0];
       this.lastValue = {
           orientationDifference: this.orientationDifference,
-          timeStamp: Date.now()
+          timeStamp: 0
       };
       this.orientationDifferenceAt = function(time){
         return this.lastValue.orientationDifference;
@@ -25,6 +24,10 @@ define(function(require, exports, module) {
         result.m = (y1 - y0)/(x1 - x0);
         result.text = 'y = ' + result.m + 'x';
         return result;
+    };
+    OrientationController.prototype.setTimeKeeper = function(timeKeeper) {
+      this.timeKeeper = timeKeeper;
+      this.reset();
     };
     OrientationController.prototype.makeOrientationFunction = function(reading) {
         var self = this;
@@ -95,7 +98,7 @@ define(function(require, exports, module) {
               });
               var reading = {
                 orientationDifference: orientationDifference,
-                timeStamp: eventData.timeStamp + 50
+                timeStamp: this.timeKeeper.timePassed + 50
               };
               self.orientationDifferenceAt = self.makeOrientationFunction(reading);
           });

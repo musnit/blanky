@@ -42,6 +42,7 @@ define(function(require, exports, module) {
         this.previousTime = 0;
 
         window.timeKeeper = this;
+        window.orientationController.setTimeKeeper(this);
 
         _createPage.call(this);
         this.camera = new Camera(scene);
