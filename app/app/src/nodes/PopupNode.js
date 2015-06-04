@@ -15,7 +15,7 @@ define(function(require, exports, module) {
       var self = this;
 
       this.parsedConfig = ConfigParser.prototype.parseConfig(this.config, this.model);
-      this.transformer = new ParameterTransformer(this.parsedConfig, this.model);
+      this.transformer = new ParameterTransformer(this.parsedConfig, this.model, this.timeKeeper);
       this.setupInitialState();
 
       self.transformComponentID = this.transformer.createComponent(self);
@@ -59,10 +59,11 @@ define(function(require, exports, module) {
       this.requestUpdate(this.refresherComponentID);
   }
 
-  function PopupNode(config, model) {
+  function PopupNode(config, model, timeKeeper) {
       Node.apply(this, arguments);
       this.config = config;
       this.model = model;
+      this.timeKeeper = timeKeeper;
       _createPopup.call(this);
       this.contentInserted = function() {
         this.domElement.contentInserted();

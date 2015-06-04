@@ -19,12 +19,12 @@ define(function(require, exports, module) {
         this.cameraBoundRoot = this.topSceneRoot.addChild();
         this.popups.forEach(function(popup) {
             if (popup.cameraBound){
-                popupNode = new PopupNode(popup, self.model);
+                popupNode = new PopupNode(popup, self.model, self);
                 self.cameraBoundNodes.push(popupNode);
                 self.cameraBoundRoot.addChild(popupNode);
             }
             else {
-                popupNode = new PopupNode(popup, self.model);
+                popupNode = new PopupNode(popup, self.model, self);
                 self.popupNodes.push(popupNode);
                 self.addChild(popupNode);
             }
@@ -38,19 +38,28 @@ define(function(require, exports, module) {
         this.model = model;
         this.scene = scene;
         this.topScene = topScene;
+        this.timePassed = 0;
+        this.previousTime = 0;
+
+        window.timeKeeper = this;
 
         _createPage.call(this);
         this.camera = new Camera(scene);
 
 
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
-        this.transformer = new ParameterTransformer(this.parsedConfig, model);
+        this.transformer = new ParameterTransformer(this.parsedConfig, model, this);
 
         this.setupInitialState();
 
 
-        this.cameraUpdaterComponent = {
+        this.updaterComponent = {
           onUpdate: function(time) {
+            if(!self.paused){
+              var timeDiff = time - self.previousTime;
+              self.timePassed = self.timePassed + timeDiff;
+            }
+            self.previousTime = time;
             if (model.camera.configChanged){
                 self.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
                 self.setupInitialState();
@@ -58,17 +67,16 @@ define(function(require, exports, module) {
                 model.camera.configChanged = false;
             }
             if (model.camera.perspectiveZoom){
-                var timePassed = parseFloat(Date.now())%self.pageSpeed;
                 var timeOffset = parseFloat(model.camera.timeOffset);
-                var perspective = model.page.perspective - self.perspectiveFunction((timePassed+timeOffset)/self.perspectiveZoomSpeed, self.perspectiveZoomAmount);
+                var perspective = model.page.perspective - self.perspectiveFunction((self.timePassed+timeOffset)/self.perspectiveZoomSpeed, self.perspectiveZoomAmount);
                 self.camera.setDepth(perspective);
             }
             self.requestUpdate(this.id);
           }
         };
-        this.cameraUpdaterComponentID = this.addComponent(this.cameraUpdaterComponent);
-        this.cameraUpdaterComponent.id = this.cameraUpdaterComponentID;
-        this.requestUpdate(this.cameraUpdaterComponentID);
+        this.updaterComponentID = this.addComponent(this.updaterComponent);
+        this.updaterComponent.id = this.updaterComponentID;
+        this.requestUpdate(this.updaterComponentID);
 
         this.componentID = this.transformer.createComponent(this);
         this.requestUpdate(this.componentID);
@@ -101,11 +109,9 @@ define(function(require, exports, module) {
             }
         }
 
-        this.setAlign(0,0);
         this.setSizeMode('absolute','absolute');
         this.setAbsoluteSize(parseFloat(this.model.page.x), parseFloat(this.model.page.y));
 
-        this.cameraBoundRoot.setAlign(0,0);
         this.cameraBoundRoot.setSizeMode('absolute','absolute');
         this.cameraBoundRoot.setAbsoluteSize(parseFloat(this.model.page.x), parseFloat(this.model.page.y));
 
@@ -121,6 +127,24 @@ define(function(require, exports, module) {
     PopupPageNode.prototype.dismount = function() {
       this.cameraBoundRoot.dismount();
       Node.prototype.dismount.apply(this, arguments);
+    };
+
+    PopupPageNode.prototype.start = function() {
+      this.initialTime = Date.now();
+      this.currentTime = 0;
+      this.lastTime = 0;
+    };
+
+    PopupPageNode.prototype.pause = function() {
+      this.paused = true;
+    };
+
+    PopupPageNode.prototype.play = function() {
+      this.paused = false;
+    };
+
+    PopupPageNode.prototype.setTime = function(time) {
+      this.timePassed = parseFloat(time);
     };
 
     module.exports = PopupPageNode;

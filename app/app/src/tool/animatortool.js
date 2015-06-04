@@ -171,22 +171,16 @@ define(function(require, exports, module) {
 
     var timeController = {};
     timeController.main = this;
-    timeController.realTime = Date.now;
     timeController.pause = function() {
         var pauseButton = document.getElementById('pause-button');
         pauseButton.onclick = function onclick(event) {
           window.timeController.play();
         };
         pauseButton.textContent = 'Play';
-        document.getElementById('time-chooser').hidden = false;
-        Date.now = function() {
-            return 0;
-        };
+        window.timeKeeper.pause();
     };
     timeController.update = function(newTime) {
-        Date.now = function() {
-            return parseInt(newTime);
-        };
+        window.timeKeeper.setTime(newTime);
     };
     timeController.play = function() {
         var pauseButton = document.getElementById('pause-button');
@@ -194,8 +188,7 @@ define(function(require, exports, module) {
           window.timeController.pause();
         };
         pauseButton.textContent = 'Pause';
-        Date.now = this.realTime;
-        document.getElementById('time-chooser').hidden = true;
+        window.timeKeeper.play();
     };
     window.timeController = timeController;
 

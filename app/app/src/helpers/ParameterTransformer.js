@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 
-    function ParameterTransformer(parsedConfig, model) {
+    function ParameterTransformer(parsedConfig, model, timeKeeper) {
         this.model = model;
+        this.timeKeeper = timeKeeper;
         this.setParsedConfig(parsedConfig);
     }
 
@@ -24,7 +25,7 @@ define(function(require, exports, module) {
 
     ParameterTransformer.prototype.calculateTransform = function() {
         var orientation;
-        var timePassed = parseFloat(Date.now());
+        var timePassed = this.timeKeeper.timePassed;
         var changeX = 0, changeY = 0, changeZ = 0, changeRotateX = 0, changeRotateY = 0, changeRotateZ = 0,
          changeSkewX = 1, changeSkewY = 1, changeZoom = 1, changeHeight = 0;
 
