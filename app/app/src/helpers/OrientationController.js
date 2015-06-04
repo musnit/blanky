@@ -96,11 +96,14 @@ define(function(require, exports, module) {
                     return value;
                 }
               });
-              var reading = {
-                orientationDifference: orientationDifference,
-                timeStamp: this.timeKeeper.timePassed + 50
-              };
-              self.orientationDifferenceAt = self.makeOrientationFunction(reading);
+              if(this.timeKeeper){
+                var reading = {
+                  orientationDifference: orientationDifference,
+                  timeStamp: this.timeKeeper.timePassed + 50
+                };
+                self.orientationDifferenceAt = self.makeOrientationFunction(reading);
+              }
+
           });
       }
     };
