@@ -49,7 +49,6 @@ define(function(require, exports, module) {
         window.pagesListView.models = pagesModel;
         window.pagesListView.bind();
         document.getElementById('page-chooser').value = window.initialPageId;
-
         self.loadPage(window.initialPageId);
       },
       error: function(collection, error) {
@@ -212,4 +211,10 @@ define(function(require, exports, module) {
         }
     };
     window.editChanger = editChanger;
+
+    var globalConfig = {
+        hideOverflow: false
+    }
+    rivets.bind(document.getElementById('globals-section'), globalConfig);
+    rivets.bind(document.getElementById('device-area'), globalConfig);
 });
