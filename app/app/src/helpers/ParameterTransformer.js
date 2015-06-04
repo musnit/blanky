@@ -18,6 +18,7 @@ define(function(require, exports, module) {
         this.initialScale = [this.parsedConfig.scale*this.parsedConfig.xyRatio,
                  this.parsedConfig.scale, 1];
         this.initialSize = [this.parsedConfig.sizeX, this.parsedConfig.sizeY];
+        this.initialRotate = [this.parsedConfig.xRotate, this.parsedConfig.yRotate, this.parsedConfig.zRotate];
         this.initialOpacity = this.parsedConfig.opacity;
     }
 
@@ -85,7 +86,7 @@ define(function(require, exports, module) {
             changeY -= frameNumber * this.model.page.y * this.parsedConfig.scale;
         }
         var newTransformations = {
-            rotate: [changeRotateX, changeRotateY, changeRotateZ],
+            rotate: [this.initialRotate[0] + changeRotateX, this.initialRotate[1] + changeRotateY, this.initialRotate[2] + changeRotateZ],
             scale: [this.initialScale[0]*changeZoom*changeSkewX, this.initialScale[1]*changeZoom*changeSkewY, this.initialScale[2]],
             position: [this.initialPosition[0] + changeX, this.initialPosition[1] + changeY, this.initialPosition[2] + changeHeight]
         };

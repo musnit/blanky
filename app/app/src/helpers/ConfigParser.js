@@ -15,6 +15,9 @@ define(function(require, exports, module) {
         parsedConfig.sizeY = parseFloat(config.sizeY);
         parsedConfig.x = parseFloat(config.initialX);
         parsedConfig.y = parseFloat(config.initialY);
+        parsedConfig.xRotate = parseFloat(config.initialRotateX) || 0;
+        parsedConfig.yRotate = parseFloat(config.initialRotateY) || 0;
+        parsedConfig.zRotate = parseFloat(config.initialRotateZ) || 0;
         parsedConfig.xOrigin = parseFloat(config.xOrigin) || 0;
         parsedConfig.yOrigin = parseFloat(config.yOrigin) || 0;
         parsedConfig.scale = parseFloat(config.scale);
