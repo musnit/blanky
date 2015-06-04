@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         attributes: {},
         properties: {}
       };
-
+      this.timeKeeper = node.timeKeeper;
       this.textLines = (config.text || '').split('\n');
       this.linesHtml = this.textLines.map(function(textLine) {
         var html = '<div class="highlight-text gradient-shadow" title="' +
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
       this.updaterComponent = {
           onUpdate: function(time) {
-            var timePassed = parseFloat(Date.now());
+            var timePassed = self.timeKeeper.timePassed;
             var timeOffset = parseFloat(config.timeOffset);
             var pageSpeed = parseFloat(model.page.speed) || 1;
             var singSpeed = (parseFloat(config.singSpeed) || 1) * pageSpeed;
