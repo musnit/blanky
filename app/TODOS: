@@ -2,13 +2,13 @@ JOSH DELIVERABLES:
 Classroom_
 Like I mentioned earlier, this should be one movement - zoom out from the back of the class until the two are in focus. Don't move the camera down like the car, just pull back, so the viewer can get a sense off moving through space. Thus giving a sense of a third dimension to a flat drawing.
 
+Test changing plaintext on phone
+
 BUGS IMPACTING USERS:
+narration infinite loop
 fix accelerometer stuff on device
 accelerometer - detect orientation and swap x/y accordingly.(or lock orientation)
 make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!
-
-BUGS NOT IMPACTING TOO MUCH/IMPACTING ONLY ME:
-overflow-hidden bug: https://github.com/Famous/famous/issues/493
 
 TODOS:
 make timing reset at page start/stop on page end
@@ -18,6 +18,7 @@ make accelerometer position reset at page start and on big motions..or something
 proper readalong/sort out timing
 
 TECH/RELIABILITY/REFACTOR:
+change from require to some better shit!
 null/zerochecks for the different values used on popupview/camera/... (audit configparser)
 remove all globalz!
 

@@ -24,8 +24,11 @@
     <body id="body">
     <p>
     <h3>Main controls</h3>
+        <div id="globals-section">
+            Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' oninput="window.timeController.update(this.value)" type='range' min='0' max='113097' style="width:800px"><br/>
+            Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
+        </div>
         <div id="editor-section">
-          Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' oninput="window.timeController.update(this.value)" type='range' min='0' max='113097' style="width:800px"><br/>
             Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
             <select id='page-chooser'>
                 <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name } - { page.objectId }</option>
@@ -37,11 +40,6 @@
         <div id="edit-section">
         <h3>Page controls - {objectId}</h3>
             <table>
-            <tr>
-                <td>
-                    Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'>
-                </td>
-            </tr>
             <tr>
                 <td>
                     Example name: <input rv-input="name">
