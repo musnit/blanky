@@ -19,10 +19,10 @@ define(function(require, exports, module) {
         routine: rivets.binders.value.routine,
         bind: function(el) {
             var self = this;
-            publisher = function(){
+            publisher = function() {
                 self.publish();
                 self.model.configChanged = true;
-            }
+            };
             el.addEventListener('input', publisher);
         },
         unbind: function(el) {

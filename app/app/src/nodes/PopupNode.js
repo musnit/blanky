@@ -72,7 +72,7 @@ define(function(require, exports, module) {
 
   PopupNode.prototype = Object.create(Node.prototype);
   PopupNode.prototype.constructor = PopupNode;
-  PopupNode.prototype.setupInitialState = function(){
+  PopupNode.prototype.setupInitialState = function() {
     if (this.parsedConfig.sizeX && this.parsedConfig.sizeY){
       this.setSizeMode('absolute','absolute');
       this.setAbsoluteSize(this.transformer.initialSize[0], this.transformer.initialSize[1]);

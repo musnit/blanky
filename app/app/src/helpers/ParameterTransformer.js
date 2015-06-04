@@ -11,7 +11,7 @@ define(function(require, exports, module) {
     ParameterTransformer.prototype.setParsedConfig = function(parsedConfig) {
         this.parsedConfig = parsedConfig;
         this.setInitialValues();
-    }
+    };
 
     ParameterTransformer.prototype.setInitialValues = function() {
         this.initialPosition = [this.parsedConfig.x,this.parsedConfig.y,this.parsedConfig.height];
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
         this.initialSize = [this.parsedConfig.sizeX, this.parsedConfig.sizeY];
         this.initialRotate = [this.parsedConfig.xRotate, this.parsedConfig.yRotate, this.parsedConfig.zRotate];
         this.initialOpacity = this.parsedConfig.opacity;
-    }
+    };
 
     ParameterTransformer.prototype.calculateTransform = function() {
         var orientation;

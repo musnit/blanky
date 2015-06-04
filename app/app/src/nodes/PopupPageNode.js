@@ -47,16 +47,14 @@ define(function(require, exports, module) {
         _createPage.call(this);
         this.camera = new Camera(scene);
 
-
         this.parsedConfig = ConfigParser.prototype.parseConfig(model.camera, model);
         this.transformer = new ParameterTransformer(this.parsedConfig, model, this);
 
         this.setupInitialState();
 
-
         this.updaterComponent = {
           onUpdate: function(time) {
-            if(!self.paused){
+            if (!self.paused){
               var timeDiff = time - self.previousTime;
               self.timePassed = self.timePassed + timeDiff;
             }
