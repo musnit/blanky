@@ -41,7 +41,7 @@ define(function(require, exports, module) {
           default:
               ElementType = Image;
       }
-      this.domElement = new ElementType(this, this.config, this.model);
+      this.domElement = new ElementType(this, this.parsedConfig, this.model);
 
       this.refresherComponent = {
           onUpdate: function(time) {

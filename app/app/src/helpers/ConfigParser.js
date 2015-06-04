@@ -8,6 +8,8 @@ define(function(require, exports, module) {
     ConfigParser.prototype.parseConfig = function(config, model) {
         var parsedConfig = {};
         parsedConfig.name = config.name;
+        parsedConfig.url = config.url;
+        parsedConfig.text = (config.text || "").replace(/"/g,'&quot;');
         parsedConfig.pageSpeed = parseFloat(model.page.speed) || 1;
         parsedConfig.numFrames = parseFloat(config.numFrames);
         parsedConfig.opacity = parseFloat(config.opacity) || 1;
