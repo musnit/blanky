@@ -52,15 +52,18 @@ define(function(require, exports, module) {
     MathFunctions.prototype.cutFunction = function(initialFunction, start, end, period) {
         var self = this;
         var factor = 100/(end-start);
+        var modifiedFunction = this.periodChangedFunction(initialFunction, factor);
         var newFunction = function(xPosition, range) {
             var startX = period * start/100;
             var endX = period * end/100;
             var moddedXPosition = xPosition % period;
-            if (moddedXPosition < startX || moddedXPosition > endX){
-                return 0;
+            if (moddedXPosition < startX){
+                return initialFunction(0.001, range);
+            }
+            else if (moddedXPosition > endX){
+                return initialFunction(period*0.9999, range);
             }
             else {
-                var modifiedFunction = self.periodChangedFunction(initialFunction, factor);
                 return modifiedFunction(moddedXPosition-startX, range);
             }
         };

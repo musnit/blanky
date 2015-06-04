@@ -1,7 +1,19 @@
 JOSH DELIVERABLES:
-tweaks from email
+Pirate ship_
+Please lifts waves higher the movement on this is pretty decent for now(its jumps here and there - just making a note).
+
+Car_
+This page turned out better than I hoped because of that 3d function. Love it. I do think it should start a second later. And end, should i say stop a second sooner and stay static, whilst the car is still mostly  in frame.
+
+Classroom_
+Like I mentioned earlier, this should be one movement - zoom out from the back of the class until the two are in focus. Don't move the camera down like the car, just pull back, so the viewer can get a sense off moving through space. Thus giving a sense of a third dimension to a flat drawing.
+
+Hands_
+The movement in this one is the best I've seen it yet. My only concern is you never get a feel of the whole drawing. Would there be a way that if one turns the phone portrait it would not scan up and down(be still, but one could still move the layers around. And when one turned it landscape again it would be as it is now.
+
 
 BUGS IMPACTING USERS:
+fix this mathfunction thing idk
 make readalong text highlighting work on device - remove the width DOM call! sort out the setContent call! Breaking the bounding box!
 use famous's timing
 fix accelerometer stuff on device

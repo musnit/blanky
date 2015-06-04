@@ -15,7 +15,8 @@ define(function(require, exports, module) {
         this.cameraBoundNodes = [];
         //Add child twice here - this is a hack that fixes issue with
         //nodes not being cleared properly on page change. idk why lol.
-        this.cameraBoundRoot = this.topScene.addChild().addChild();
+        this.topSceneRoot = this.topScene.addChild();
+        this.cameraBoundRoot = this.topSceneRoot.addChild();
         this.popups.forEach(function(popup) {
             if (popup.cameraBound){
                 popupNode = new PopupNode(popup, self.model);
