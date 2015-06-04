@@ -23,12 +23,12 @@ define(function(require, exports, module) {
     var startApp = function() {
         window.blanky = new BlankyApp(true);
         window.blanky.loadPage(window.initialPageId);
-        window.addEventListener('click', clicked, false);
+        document.getElementById('top-screen').addEventListener('click', clicked, false);
     };
     var startWeb = function() {
         window.blanky = new BlankyApp(false);
         window.blanky.loadPage(window.initialPageId);
-        window.addEventListener('click', clicked, false);
+        document.getElementById('top-screen').addEventListener('click', clicked, false);
     };
 
     var isApp = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
