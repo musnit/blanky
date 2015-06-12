@@ -214,7 +214,7 @@ define(function(require, exports, module) {
 
     var globalConfig = {
         hideOverflow: false
-    }
+    };
     rivets.bind(document.getElementById('globals-section'), globalConfig);
     rivets.bind(document.getElementById('device-area'), globalConfig);
 });

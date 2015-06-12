@@ -50,7 +50,6 @@ define(function(require, exports, module) {
     };
 
     MathFunctions.prototype.cutFunction = function(initialFunction, start, end, period) {
-        var self = this;
         var factor = 100/(end-start);
         var modifiedFunction = this.periodChangedFunction(initialFunction, factor);
         var newFunction = function(xPosition, range) {
