@@ -48,15 +48,6 @@ define(function(require, exports, module) {
         newFunction.period = initialFunction.period/change;
         return newFunction;
     };
-    MathFunctions.prototype.timeFunction = function(timeOffset, speed, multiplier, functionType) {
-        var newFunction = function(time) {
-            var timeInput = time+timeOffset;
-            var x = timeInput/speed;
-            var y = functionType(x, multiplier);
-            return y;
-        };
-        return newFunction;
-    };
 
     MathFunctions.prototype.cutFunction = function(initialFunction, start, end, period) {
         var factor = 100/(end-start);

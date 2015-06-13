@@ -24,7 +24,6 @@ define(function(require, exports, module) {
     };
 
     ParameterTransformer.prototype.calculateTransform = function() {
-        var timePassed = this.timeKeeper.timePassed;
         var characteristics = {
             changeX: 0,
             changeY: 0,
@@ -38,7 +37,7 @@ define(function(require, exports, module) {
             changeHeight: 0
         };
         this.parsedConfig.changingFunctions.forEach(function(changingFunction) {
-            characteristics[changingFunction.characteristic] += changingFunction.fn(timePassed);
+            characteristics[changingFunction.characteristic] += changingFunction.fn(this.timeKeeper.timePassed);
         });
         var newTransformations = {
             rotate: [this.initialRotate[0] + characteristics.changeRotateX, this.initialRotate[1] + characteristics.changeRotateY, this.initialRotate[2] + characteristics.changeRotateZ],

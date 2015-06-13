@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
     var MathFunctions = require('helpers/MathFunctions');
+    var ActionFunctions = require('helpers/ActionFunctions');
 
     function ConfigParser() {
     }
@@ -124,14 +125,13 @@ define(function(require, exports, module) {
         if (parsedConfig.translate){
             parsedConfig.functionsConfigs.push({
                 characteristic:'changeX',
-                timeOffset: parsedConfig.timeOffset,
                 speed: parsedConfig.translateXSpeed,
                 multiplier: parsedConfig.translateX,
                 functionType: parsedConfig.translateFunction
             });
+
             parsedConfig.functionsConfigs.push({
                 characteristic:'changeY',
-                timeOffset: parsedConfig.timeOffset,
                 speed: parsedConfig.translateYSpeed,
                 multiplier: parsedConfig.translateY,
                 functionType: parsedConfig.translateFunction
@@ -140,7 +140,6 @@ define(function(require, exports, module) {
         if (parsedConfig.rotate){
             parsedConfig.functionsConfigs.push({
                 characteristic:'changeRotateZ',
-                timeOffset: parsedConfig.timeOffset,
                 speed: parsedConfig.rotateSpeed,
                 multiplier: 1/parsedConfig.rotateAngle,
                 functionType: parsedConfig.rotateFunction
@@ -149,14 +148,12 @@ define(function(require, exports, module) {
         if (parsedConfig.skew){
             parsedConfig.functionsConfigs.push({
                 characteristic:'changeSkewX',
-                timeOffset: parsedConfig.timeOffset,
                 speed: parsedConfig.skewSpeedX,
                 multiplier: parsedConfig.skewAmountX,
                 functionType: parsedConfig.skewFunction
             });
             parsedConfig.functionsConfigs.push({
                 characteristic:'changeSkewY',
-                timeOffset: parsedConfig.timeOffset,
                 speed: parsedConfig.skewSpeedY,
                 multiplier: parsedConfig.skewAmountY,
                 functionType: parsedConfig.skewFunction
@@ -166,7 +163,6 @@ define(function(require, exports, module) {
             if (parsedConfig.zoomRelativeTranslate){
                 parsedConfig.functionsConfigs.push({
                     characteristic:'changeZoom',
-                    timeOffset: parsedConfig.timeOffset,
                     speed: parsedConfig.zoomSpeed,
                     multiplier: parsedConfig.zoomRelativeMultiplier/parsedConfig.translateY,
                     functionType: parsedConfig.zoomFunction
@@ -175,7 +171,6 @@ define(function(require, exports, module) {
             else {
                 parsedConfig.functionsConfigs.push({
                     characteristic:'changeZoom',
-                    timeOffset: parsedConfig.timeOffset,
                     speed: parsedConfig.zoomSpeed,
                     multiplier: parsedConfig.zoomAmount,
                     functionType: parsedConfig.zoomFunction
@@ -186,13 +181,13 @@ define(function(require, exports, module) {
         parsedConfig.changingFunctions = parsedConfig.functionsConfigs.map(function(functionConfig) {
             return {
                 characteristic: functionConfig.characteristic,
-                fn: MathFunctions.prototype.timeFunction(functionConfig.timeOffset,
+                fn: ActionFunctions.prototype.timeFunction(parsedConfig.timeOffset,
                                functionConfig.speed, functionConfig.multiplier, functionConfig.functionType)
             };
         });
 
         if (parsedConfig.animation){
-            var frameNumberFunction = MathFunctions.prototype.timeFunction(parsedConfig.timeOffset, parsedConfig.animationSpeed,
+            var frameNumberFunction = ActionFunctions.prototype.timeFunction(parsedConfig.timeOffset, parsedConfig.animationSpeed,
                        parsedConfig.numFrames, parsedConfig.animationFunction);
             var animationChangeYFunction = function(timePassed) {
                 return -frameNumberFunction(timePassed) * model.page.y * parsedConfig.scale;
@@ -202,39 +197,24 @@ define(function(require, exports, module) {
                 fn: animationChangeYFunction
             });
         }
-        var orientationFunction = function(timePassed) {
-            return window.orientationController.orientationDifferenceAt(timePassed);
-        };
         if (parsedConfig.accel){
-            var orientationChangeXFunction = function(timePassed) {
-                return orientationFunction(timePassed)[1] * parsedConfig.accelAmount;
-            };
-            var orientationChangeYFunction = function(timePassed) {
-                return orientationFunction(timePassed)[0] * parsedConfig.accelAmount;
-            };
             parsedConfig.changingFunctions.push({
                 characteristic: 'changeX',
-                fn: orientationChangeXFunction
+                fn: ActionFunctions.prototype.accelerometerFunction(1, parsedConfig.accelAmount)
             });
             parsedConfig.changingFunctions.push({
                 characteristic: 'changeY',
-                fn: orientationChangeYFunction
+                fn: ActionFunctions.prototype.accelerometerFunction(0, parsedConfig.accelAmount)
             });
         }
         if (parsedConfig.accelRotate){
-            var orientationChangeRotateXFunction = function(timePassed) {
-                return orientationFunction(timePassed)[0] * parsedConfig.accelRotateAmount;
-            };
-            var orientationChangeRotateYFunction = function(timePassed) {
-                return orientationFunction(timePassed)[1] * parsedConfig.accelRotateAmount;
-            };
             parsedConfig.changingFunctions.push({
                 characteristic: 'changeRotateX',
-                fn: orientationChangeRotateXFunction
+                fn: ActionFunctions.prototype.accelerometerFunction(0, parsedConfig.accelRotateAmount)
             });
             parsedConfig.changingFunctions.push({
                 characteristic: 'changeRotateY',
-                fn: orientationChangeRotateYFunction
+                fn: ActionFunctions.prototype.accelerometerFunction(1, parsedConfig.accelRotateAmount)
             });
         }
 
