@@ -28,7 +28,7 @@
             Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
         </div>
         <div id="editor-section">
-            <select id='page-chooser' onchange="window.pageChanger.changePage()">
+            Change page: <select id='page-chooser' onchange="window.pageChanger.changePage()">
                 <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name } - { page.objectId }</option>
             </select><br/>
             <button onclick="window.saver.addNewPage()">Add new blank page</button><br/>
