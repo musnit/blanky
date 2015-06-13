@@ -22,57 +22,52 @@
         <!-- /process -->
     </head>
     <body id="body">
-    <p>
-    <h3>Main controls</h3>
+        <h3>Main controls</h3>
         <div id="globals-section">
             Control Time: <button id='pause-button' onclick="window.timeController.pause()">Pause</button><input id='time-chooser' oninput="window.timeController.update(this.value)" type='range' min='0' max='113097' style="width:800px"><br/>
             Hide Overflow?: <input rv-checked="hiddenOverflow" type='checkbox'><br/>
         </div>
         <div id="editor-section">
-            Change page?: <button onclick="window.pageChanger.changePage()">Change</button>
-            <select id='page-chooser'>
+            <select id='page-chooser' onchange="window.pageChanger.changePage()">
                 <option rv-each-page="pages" rv-value="page.objectId">{ page.page.name } - { page.device } - { page.name } - { page.objectId }</option>
             </select><br/>
             <button onclick="window.saver.addNewPage()">Add new blank page</button><br/>
-        </div>
-    </p>
-
-        <div id="edit-section">
-        <h3>Page controls - {objectId}</h3>
+        <div rv-each-page="editPage" id="edit-section">
+        <h3>Page controls -  {page.objectId}</h3>
             <table>
             <tr>
                 <td>
-                    Example name: <input rv-input="name">
+                    Example name: <input rv-input="page.name">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page name: <input rv-input="page.name">
+                    Page name: <input rv-input="page.page.name">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page X: <input rv-input="page.x">
+                    Page X: <input rv-input="page.page.x">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page Y: <input rv-input="page.y">
+                    Page Y: <input rv-input="page.page.y">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page Speed: <input rv-input="page.speed">
+                    Page Speed: <input rv-input="page.page.speed">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page Perspective: <input rv-input="page.perspective">
+                    Page Perspective: <input rv-input="page.page.perspective">
                 </td>
             </tr>
             <tr>
                 <td>
-                    Page device: <input rv-input="device">
+                    Page device: <input rv-input="page.device">
                 </td>
             </tr>
             <tr>
@@ -85,7 +80,7 @@
                     name, src, loop, volume
                 </td>
             </tr>
-            <tr rv-each-item="sounds">
+            <tr rv-each-item="page.sounds">
                 <td>
                     <input rv-value='item.name' type="text"><input rv-value='item.src' type="text"><input rv-value='item.loop' type="number"><input rv-value='item.volume' type="number"><button onclick="window.saver.deleteSound(this)">delete</button>
                 </td>
@@ -112,7 +107,7 @@
                 <td>
                     Change item to edit?:
                     <form>
-                        <span rv-each-item="popups">
+                        <span rv-each-item="page.popups">
                             <input name='edit-chooser' rv-value='item.name' onclick="window.editChanger.changeEditing()" type="radio">{item.name}
                         </span>
                     </form>
@@ -121,7 +116,7 @@
                 <tr>
                     <button onclick="window.saver.addNewPopup()">Add new popup</button><br/>
                 </tr>
-            <tr rv-each-item="editPopup">
+            <tr rv-each-item="page.editPopup">
                 <td>
                     <table border=1>
                         <tbody>
@@ -233,20 +228,20 @@
                     <table border=1>
                         <tbody>
                             <tr>
-                                <td>Name: <input rv-input="camera.name"></td>
-                                <td>Url: <input rv-input="camera.url"></td>
-                                <td>Depth: <input rv-input="camera.height" type='range' min='0' max='20'><input style="width:50px" rv-input="camera.height"></td>
+                                <td>Name: <input rv-input="page.camera.name"></td>
+                                <td>Url: <input rv-input="page.camera.url"></td>
+                                <td>Depth: <input rv-input="page.camera.height" type='range' min='0' max='20'><input style="width:50px" rv-input="page.camera.height"></td>
                             </tr>
                             <tr>
-                                <td>Initial X:<input rv-input="camera.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialX"></td>
-                                <td>Initial Y:<input rv-input="camera.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.initialY"></td>
-                                <td>Scale: <input rv-input="camera.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.scale"></td>
-                                <td>XYRatio: <input rv-input="camera.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="camera.xyRatio"></td>
+                                <td>Initial X:<input rv-input="page.camera.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="page.camera.initialX"></td>
+                                <td>Initial Y:<input rv-input="page.camera.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="page.camera.initialY"></td>
+                                <td>Scale: <input rv-input="page.camera.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="page.camera.scale"></td>
+                                <td>XYRatio: <input rv-input="page.camera.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="page.camera.xyRatio"></td>
                             </tr>
                             <tr>
-                                <td>Animation Time Offset: <input rv-input="camera.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.timeOffset"></td>
-                                <td>XOrigin: <input rv-input="camera.xOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="camera.xOrigin"></td>
-                                <td>YOrigin: <input rv-input="camera.yOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="camera.yOrigin"></td>
+                                <td>Animation Time Offset: <input rv-input="page.camera.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.timeOffset"></td>
+                                <td>XOrigin: <input rv-input="page.camera.xOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="page.camera.xOrigin"></td>
+                                <td>YOrigin: <input rv-input="page.camera.yOrigin" step="0.01" type='range' min='0' max='1'><input style="width:50px" rv-input="page.camera.yOrigin"></td>
                             </tr>
                             <tr>
                                 <td>InitialRotateX: <input rv-input="item.initialRotateX" step="0.01" type='range' min='-3.5' max='3.5'><input style="width:50px" rv-input="item.initialRotateX"></td>
@@ -254,50 +249,50 @@
                                 <td>InitialRotateZ: <input rv-input="item.initialRotateZ" step="0.01" type='range' min='-3.5' max='3.5'><input style="width:50px" rv-input="item.initialRotateZ"></td>
                             </tr>
                             <tr>
-                                <td>Translation? <input type="checkbox" rv-checked="camera.translate"></td>
-                                <td>X: <input rv-input="camera.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateX"></td>
-                                <td>X Speed: <input rv-input="camera.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateXSpeed"></td>
-                                <td>Y: <input rv-input="camera.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.translateY"></td>
-                                <td>Y Speed:<input rv-input="camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.translateYSpeed"></td>
+                                <td>Translation? <input type="checkbox" rv-checked="page.camera.translate"></td>
+                                <td>X: <input rv-input="page.camera.translateX" type='range' min='-500' max='500'><input style="width:50px" rv-input="page.camera.translateX"></td>
+                                <td>X Speed: <input rv-input="page.camera.translateXSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.translateXSpeed"></td>
+                                <td>Y: <input rv-input="page.camera.translateY" type='range' min='-500' max='500'><input style="width:50px" rv-input="page.camera.translateY"></td>
+                                <td>Y Speed:<input rv-input="page.camera.translateYSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.translateYSpeed"></td>
                             </tr>
                             <tr>
-                                <td>Motion type: Sine<input rv-checked='camera.motionType' type="radio" value="sine"> Triangle<input rv-checked='camera.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.motionType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.motionType' type="radio" value="cos">
+                                <td>Motion type: Sine<input rv-checked='page.camera.motionType' type="radio" value="sine"> Triangle<input rv-checked='page.camera.motionType' type="radio" value="triangle"> Sawtooth<input rv-checked='page.camera.motionType' type="radio" value="sawtooth"> Cos<input rv-checked='page.camera.motionType' type="radio" value="cos">
                                 </td>
                             </tr>
                             <tr>
-                                <td>Rotation? <input type="checkbox" rv-checked="camera.rotate"></td>
-                                <td>Angle: <input rv-input="camera.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="camera.rotateAngle"></td>
-                                <td>Speed: <input rv-input="camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.rotateSpeed"></td>
-                                <td>Rotate type: Sine<input rv-checked='camera.rotateType' type="radio" value="sine"> Triangle<input rv-checked='camera.rotateType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.rotateType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.rotateType' type="radio" value="cos">
+                                <td>Rotation? <input type="checkbox" rv-checked="page.camera.rotate"></td>
+                                <td>Angle: <input rv-input="page.camera.rotateAngle" type='range' min='1' max='50'><input style="width:50px" rv-input="page.camera.rotateAngle"></td>
+                                <td>Speed: <input rv-input="page.camera.rotateSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.rotateSpeed"></td>
+                                <td>Rotate type: Sine<input rv-checked='page.camera.rotateType' type="radio" value="sine"> Triangle<input rv-checked='page.camera.rotateType' type="radio" value="triangle"> Sawtooth<input rv-checked='page.camera.rotateType' type="radio" value="sawtooth"> Cos<input rv-checked='page.camera.rotateType' type="radio" value="cos">
                                 </td>
                             </tr>
                             <tr>
-                                <td>Zooming? <input type="checkbox" rv-checked="camera.zoom"></td>
-                                <td>Amount: <input rv-input="camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomAmount"></td>
-                                <td>Speed: <input rv-input="camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.zoomSpeed"></td>
-                                <td>Zoom type: Sine<input rv-checked='camera.zoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.zoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.zoomType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.zoomType' type="radio" value="cos">
+                                <td>Zooming? <input type="checkbox" rv-checked="page.camera.zoom"></td>
+                                <td>Amount: <input rv-input="page.camera.zoomAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.zoomAmount"></td>
+                                <td>Speed: <input rv-input="page.camera.zoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.zoomSpeed"></td>
+                                <td>Zoom type: Sine<input rv-checked='page.camera.zoomType' type="radio" value="sine"> Triangle<input rv-checked='page.camera.zoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='page.camera.zoomType' type="radio" value="sawtooth"> Cos<input rv-checked='page.camera.zoomType' type="radio" value="cos">
                                 </td>
                             </tr>
                             <tr>
-                                <td>Accelerometer Translation? <input type="checkbox" rv-checked="camera.accel"></td>
-                                <td>Amount: <input rv-input="camera.accelAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.accelAmount"></td>
+                                <td>Accelerometer Translation? <input type="checkbox" rv-checked="page.camera.accel"></td>
+                                <td>Amount: <input rv-input="page.camera.accelAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.accelAmount"></td>
                             </tr>
                             <tr>
-                                <td>Accelerometer Rotation? <input type="checkbox" rv-checked="camera.accelRotate"></td>
-                                <td>Amount: <input rv-input="camera.accelRotateAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.accelRotateAmount"></td>
+                                <td>Accelerometer Rotation? <input type="checkbox" rv-checked="page.camera.accelRotate"></td>
+                                <td>Amount: <input rv-input="page.camera.accelRotateAmount" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.accelRotateAmount"></td>
                             </tr>
                             <tr>
-                                <td>Zoom Perspective? <input type="checkbox" rv-checked="camera.perspectiveZoom"></td>
-                                <td>Motion type: Sine<input rv-checked='camera.perspectiveZoomType' type="radio" value="sine"> Triangle<input rv-checked='camera.perspectiveZoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='camera.perspectiveZoomType' type="radio" value="sawtooth"> Cos<input rv-checked='camera.perspectiveZoomType' type="radio" value="cos">
+                                <td>Zoom Perspective? <input type="checkbox" rv-checked="page.camera.perspectiveZoom"></td>
+                                <td>Motion type: Sine<input rv-checked='page.camera.perspectiveZoomType' type="radio" value="sine"> Triangle<input rv-checked='page.camera.perspectiveZoomType' type="radio" value="triangle"> Sawtooth<input rv-checked='page.camera.perspectiveZoomType' type="radio" value="sawtooth"> Cos<input rv-checked='page.camera.perspectiveZoomType' type="radio" value="cos">
                                 </td>
-                                <td>Amount: <input rv-input="camera.perspectiveZoomAmount" type='range' min='-500' max='500'><input style="width:50px" rv-input="camera.perspectiveZoomAmount"></td>
-                                <td>Speed: <input rv-input="camera.perspectiveZoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="camera.perspectiveZoomSpeed"></td>
+                                <td>Amount: <input rv-input="page.camera.perspectiveZoomAmount" type='range' min='-500' max='500'><input style="width:50px" rv-input="page.camera.perspectiveZoomAmount"></td>
+                                <td>Speed: <input rv-input="page.camera.perspectiveZoomSpeed" type='range' min='100' max='3000'><input style="width:50px" rv-input="page.camera.perspectiveZoomSpeed"></td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Cut? <input type="checkbox" rv-checked="camera.perspectiveZoomCut"></td>
-                                <td>StartPercent: <input rv-input="camera.perspectiveZoomCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="camera.perspectiveZoomCutStart"></td>
-                                <td>EndPercent: <input rv-input="camera.perspectiveZoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="camera.perspectiveZoomCutEnd"></td>
+                                <td>Cut? <input type="checkbox" rv-checked="page.camera.perspectiveZoomCut"></td>
+                                <td>StartPercent: <input rv-input="page.camera.perspectiveZoomCutStart" type='range' min='0' max='100'><input style="width:50px" rv-input="page.camera.perspectiveZoomCutStart"></td>
+                                <td>EndPercent: <input rv-input="page.camera.perspectiveZoomCutEnd" type='range' min='0' max='100'><input style="width:50px" rv-input="page.camera.perspectiveZoomCutEnd"></td>
                             </tr>
 
                         </tbody>
@@ -306,6 +301,8 @@
             </tr>
             </table>
         </div>
+        </div>
+
         <div id="device-area">
         <img id="iphone-5-pic" src="/content/images/ipad.png">
         <div id="device-screen" rv-class-hidden-overflow="hiddenOverflow" class="iphone-5 famous-container"></div>

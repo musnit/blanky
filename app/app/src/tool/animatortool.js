@@ -57,19 +57,13 @@ define(function(require, exports, module) {
     });
 
     this.clearPage = function() {
-        window.rivetsView.unbind();
         blanky.clearPage();
     };
 
     this.loadPage = function(pageID) {
             blanky.loadPage(pageID);
             window.saver.currentPageID = pageID;
-
-            var rivetsView = window.rivetsView || rivets.bind(document.getElementById('edit-section'), window.pageModel);
-            window.rivetsView = rivetsView;
-            window.rivetsView.unbind();
-            window.rivetsView.models = window.pageModel;
-            window.rivetsView.bind();
+            window.pagesModel.editPage = [window.pageModel];
 
             window.saver.model = window.pageModel;
             window.saver.Page = Page;
