@@ -126,12 +126,6 @@
                                 <td>Depth: <input rv-input="item.height" type='range' min='0' max='20'><input style="width:50px" rv-input="item.height"></td>
                                 <td>Camera Bound? <input type="checkbox" rv-checked="item.cameraBound"></td>
                                 <td>Offset: <input rv-input="item.cameraBoundOffset" type='range' min='0' max='20'><input style="width:50px" rv-input="item.cameraBoundOffset"></td>
-                            </tr>
-                            <tr>
-                                <td>Initial X:<input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>
-                                <td>Initial Y:<input rv-input="item.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialY"></td>
-                                <td>Scale: <input rv-input="item.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.scale"></td>
-                                <td>XYRatio: <input rv-input="item.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.xyRatio"></td>
                                 <td>Image<input rv-checked='item.surfaceType' type="radio" value="image">
                                     Plain<input rv-checked='item.surfaceType' type="radio" value="plain">
                                     Highlight<input rv-checked='item.surfaceType' type="radio" value="highlight">
@@ -140,7 +134,14 @@
                                     OneLineRunOn<input rv-checked='item.surfaceType' type="radio" value="oneLineRunOn">
                                     RepeatingImage<input rv-checked='item.surfaceType' type="radio" value="repeatingImage">
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>Initial X:<input rv-input="item.initialX" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialX"></td>
+                                <td>Initial Y:<input rv-input="item.initialY" type='range' min='-500' max='500'><input style="width:50px" rv-input="item.initialY"></td>
+                                <td>Scale: <input rv-input="item.scale" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.scale"></td>
+                                <td>XYRatio: <input rv-input="item.xyRatio" step="0.01" type='range' min='0.1' max='3'><input style="width:50px" rv-input="item.xyRatio"></td>
                                 <td>Singspeed: <input rv-input="item.singSpeed" type='range' min='0' max='3000'><input style="width:50px" rv-input="item.singSpeed"></td>
+                                <td>Singmotion: <input rv-input="item.singMotion" type='range' min='0' max='3000'><input style="width:50px" rv-input="item.singMotion"></td>
                             </tr>
                             <tr>
                                 <td>Animation Time Offset: <input rv-input="item.timeOffset" type='range' min='100' max='3000'><input style="width:50px" rv-input="item.timeOffset"></td>

@@ -94,7 +94,6 @@ body {
   -moz-text-fill-color: transparent;
   -moz-background-clip: text;
   position: absolute;
-  width: 100%;
 }
 
 @-webkit-keyframes stripes {

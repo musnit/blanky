@@ -48,6 +48,7 @@ define(function(require, exports, module) {
         parsedConfig.zoomRelativeMultiplier = parseFloat(config.zoomRelativeMultiplier);
         parsedConfig.animationSpeed = parsedConfig.pageSpeed * (parseFloat(config.animationSpeed) || 100);
         parsedConfig.singSpeed = parsedConfig.pageSpeed * (parseFloat(config.singSpeed) || 1);
+        parsedConfig.singMotion = (parseFloat(config.singMotion) || 1000);
         parsedConfig.numFrames = parseFloat(config.numFrames);
         parsedConfig.motionType = config.motionType;
         parsedConfig.zoomType = config.zoomType;

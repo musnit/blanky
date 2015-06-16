@@ -25,13 +25,13 @@ define(function(require, exports, module) {
       this.textChildNode = node.addChild();
       this.textChildNode.setPosition(0, 0, 2);
       this.textChildNode.setAlign(0, 0.5);
-      this.textChildNode.setMountPoint(0, 0.5);
+      this.textChildNode.setMountPoint(0, 0.3);
       this.textChildNode.domElement = new Element(this.textChildNode, options, config);
       this.textChildNode.updaterComponent = {
           onUpdate: function(time) {
             var sizeX = self.textChildNode.getComputedValue().computedValues.size[0];
             var timePassed = self.timeKeeper.timePassed;
-            var xPosition = -MathFunctions.prototype.sawToothFunction((timePassed+self.config.timeOffset)/self.config.singSpeed, sizeX - self.config.sizeX);
+            var xPosition = -MathFunctions.prototype.sawToothFunction((timePassed+self.config.timeOffset)/self.config.singSpeed, self.config.singMotion - self.config.sizeX);
             self.textChildNode.setPosition(xPosition, 0, 2);
             self.textChildNode.requestUpdate(this.id);
           }
@@ -39,13 +39,11 @@ define(function(require, exports, module) {
       this.textChildNode.updaterComponentID = this.textChildNode.addComponent(this.textChildNode.updaterComponent);
       this.textChildNode.updaterComponent.id = this.textChildNode.updaterComponentID;
       this.textChildNode.requestUpdate(this.textChildNode.updaterComponentID);
-      this.textChildNode.setSizeMode('render','render');
       this.textChildNode.setOpacity(1);
 
       this.backgroundChildNode = node.addChild();
       this.backgroundChildNode.setPosition(0, 0, 0);
       this.backgroundChildNode.setOpacity(0.85);
-      this.backgroundChildNode.domElement = new RepeatingImage(this.backgroundChildNode, config);
       this.backgroundChildNode.domElement = new RepeatingImage(this.backgroundChildNode, config);
     }
 
