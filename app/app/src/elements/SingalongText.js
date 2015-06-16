@@ -13,7 +13,7 @@ define(function(require, exports, module) {
         attributes: {},
         properties: {}
       };
-      this.textLines = config.text.split('\n');
+      this.textLines = this.config.text.split('\n');
       this.currentLine = 0;
       options.tagName = 'div';
       options.myClasses = 'overlay-text';
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
                    this.textLines[this.currentLine] + '"><div class="highlight-text-div">' +
                    this.textLines[this.currentLine] +
                    '</div></span>';
-      Element.apply(this, [node, options, config]);
+      Element.apply(this, [node, options, this.config]);
 
       this.updaterComponent = {
           onUpdate: function(time) {

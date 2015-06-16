@@ -10,6 +10,7 @@ define(function(require, exports, module) {
   var PlainText = require('elements/PlainText');
   var ChangingPlainText = require('elements/ChangingPlainText');
   var SingalongText = require('elements/SingalongText');
+  var OneLineRunOn = require('elements/OneLineRunOn');
 
   function _createPopup() {
       var self = this;
@@ -22,7 +23,7 @@ define(function(require, exports, module) {
       self.requestUpdate(self.transformComponentID);
 
       var ElementType;
-      switch (self.config.surfaceType) {
+      switch (this.parsedConfig.surfaceType) {
           case 'highlight':
               ElementType = HighlightingText;
               break;
@@ -38,6 +39,9 @@ define(function(require, exports, module) {
           case 'singalong':
               ElementType = SingalongText;
               break;
+          case 'oneLineRunOn':
+              ElementType = OneLineRunOn;
+              break;
           default:
               ElementType = Image;
       }
@@ -46,7 +50,7 @@ define(function(require, exports, module) {
       this.refresherComponent = {
           onUpdate: function(time) {
               if (self.config.configChanged){
-                self.parsedConfig = ConfigParser.prototype.parseConfig(self.config, self.model);
+                self.setParsedConfig(ConfigParser.prototype.parseConfig(self.config, self.model));
                 self.setupInitialState();
                 self.transformer.setParsedConfig(self.parsedConfig);
                 self.config.configChanged = false;
@@ -85,6 +89,10 @@ define(function(require, exports, module) {
     this.setScale(this.transformer.initialScale[0], this.transformer.initialScale[1], this.transformer.initialScale[2]);
     this.setRotation(this.transformer.initialRotate[0], this.transformer.initialRotate[1], this.transformer.initialRotate[2]);
     this.setOpacity(this.transformer.initialOpacity);
+  };
+  PopupNode.prototype.setParsedConfig = function(parsedConfig) {
+    this.parsedConfig = parsedConfig;
+    this.domElement.setParsedConfig(parsedConfig);
   };
 
   module.exports = PopupNode;

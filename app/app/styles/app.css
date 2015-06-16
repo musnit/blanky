@@ -54,6 +54,16 @@ body {
   font-size: 18px;
 }
 
+.runon-text {
+  white-space: nowrap;
+  opacity: 100%;
+  z-index: 2 !important;
+}
+
+.runon-background {
+  overflow: hidden;
+}
+
 .hightlight-inactive{
   background-image: -webkit-linear-gradient(left, white 0%,white 100%);
   background-size: 100% 100%;
@@ -61,7 +71,7 @@ body {
 
 .highlight-text {
   position: relative;
-  text-align: center;
+  text-align: left;
   width: 100%;
 }
 

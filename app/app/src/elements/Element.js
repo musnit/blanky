@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     var DOMElement = Famous.domRenderables.DOMElement;
 
     function Element(node, options, config) {
+      this.config = config;
       var extraClasses = (config.surfaceClasses || '').trim();
       extraClasses = (extraClasses + ' ' + (options.myClasses || '')).trim();
       if (extraClasses && extraClasses !== ''){
@@ -17,6 +18,9 @@ define(function(require, exports, module) {
     Element.prototype.constructor = Element;
     Element.DEFAULT_OPTIONS = {};
     Element.prototype.contentInserted = function() {};
+    Element.prototype.setParsedConfig = function(config) {
+      this.config = config;
+    };
 
     module.exports = Element;
 });

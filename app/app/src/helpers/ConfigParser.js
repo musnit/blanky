@@ -8,6 +8,7 @@ define(function(require, exports, module) {
     ConfigParser.prototype.constructor = ConfigParser;
     ConfigParser.prototype.parseConfig = function(config, model) {
         var parsedConfig = {};
+        parsedConfig.surfaceType = config.surfaceType;
         parsedConfig.name = config.name;
         parsedConfig.url = config.url;
         parsedConfig.text = (config.text || '').replace(/"/g,'&quot;');
@@ -45,7 +46,8 @@ define(function(require, exports, module) {
         parsedConfig.height = parseFloat(config.height);
         parsedConfig.cameraBoundOffset = parseFloat(config.cameraBoundOffset);
         parsedConfig.zoomRelativeMultiplier = parseFloat(config.zoomRelativeMultiplier);
-        parsedConfig.animationSpeed = parsedConfig.pageSpeed * parseFloat(config.animationSpeed) || 100;
+        parsedConfig.animationSpeed = parsedConfig.pageSpeed * (parseFloat(config.animationSpeed) || 100);
+        parsedConfig.singSpeed = parsedConfig.pageSpeed * (parseFloat(config.singSpeed) || 1);
         parsedConfig.numFrames = parseFloat(config.numFrames);
         parsedConfig.motionType = config.motionType;
         parsedConfig.zoomType = config.zoomType;

@@ -14,12 +14,12 @@ define(function(require, exports, module) {
         properties: {}
       };
 
-      this.textLines = config.text.split('\n');
+      this.textLines = this.config.text.split('\n');
       this.currentLine = 0;
       options.tagName = 'div';
       options.myClasses = 'overlay-text';
       options.content = this.createContent(-1);
-      Element.apply(this, [node, options, config]);
+      Element.apply(this, [node, options, this.config]);
 
       this.updaterComponent = {
           onUpdate: function(time) {

@@ -6,12 +6,13 @@ define(function(require, exports, module) {
 
     function ChangingPlainText(node, config, model) {
       var self = this;
+      this.config = config;
       var options = {
         attributes: {},
         properties: {}
       };
       this.timeKeeper = node.timeKeeper;
-      this.textLines = (config.text || '').split('\n');
+      this.textLines = (this.config.text || '').split('\n');
       this.linesHtml = this.textLines.map(function(textLine) {
         var html = '<div class="highlight-text gradient-shadow" title="' +
                  textLine + '"><div class="highlight-text-div hightlight-inactive">' +
@@ -23,14 +24,14 @@ define(function(require, exports, module) {
       options.myClasses = 'overlay-text';
       this.currentLine = 0;
       options.content = this.linesHtml[0];
-      Element.apply(this, [node, options, config]);
+      Element.apply(this, [node, options, this.config]);
 
       this.updaterComponent = {
           onUpdate: function(time) {
             var timePassed = self.timeKeeper.timePassed;
-            var timeOffset = parseFloat(config.timeOffset);
+            var timeOffset = parseFloat(self.config.timeOffset);
             var pageSpeed = parseFloat(model.page.speed) || 1;
-            var singSpeed = (parseFloat(config.singSpeed) || 1) * pageSpeed;
+            var singSpeed = (parseFloat(self.config.singSpeed) || 1) * pageSpeed;
             var lineNumber = Math.floor(MathFunctions.prototype.sawToothFunction((timePassed+timeOffset)/singSpeed, self.textLines.length));
             if (lineNumber !== self.currentLine){
               self.currentLine = lineNumber;

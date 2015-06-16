@@ -12,7 +12,7 @@ define(function(require, exports, module) {
     this.isApp = isApp;
     FamousEngine.init();
 
-    window.initialPageId = 'KmEFZViENH';
+    window.initialPageId = 'w9zCNnEbfC';
     window.blanky = this;
 
     var mainScene = FamousEngine.createScene('#device-screen');
