@@ -4,29 +4,29 @@ define(function(require, exports, module) {
     }
 
     ActionFunctions.prototype.constructor = ActionFunctions;
-    ActionFunctions.prototype.translateCharacteristic = function(dimension){
-        if(dimension === 'x') {
+    ActionFunctions.prototype.translateCharacteristic = function(dimension) {
+        if (dimension === 'x') {
             return 'changeX';
         }
         else {
             return 'changeY';
         }
     };
-    ActionFunctions.prototype.rotateCharacteristic = function(){
+    ActionFunctions.prototype.rotateCharacteristic = function() {
         return 'changeRotateZ';
     };
-    ActionFunctions.prototype.skewCharacteristic = function(dimension){
-        if(dimension === 'x') {
+    ActionFunctions.prototype.skewCharacteristic = function(dimension) {
+        if (dimension === 'x') {
             return 'changeSkewX';
         }
         else {
             return 'changeSkewY';
         }
     };
-    ActionFunctions.prototype.zoomCharacteristic = function(){
+    ActionFunctions.prototype.zoomCharacteristic = function() {
         return 'changeZoom';
     };
-    ActionFunctions.prototype.frameAnimationCharacteristic = function(){
+    ActionFunctions.prototype.frameAnimationCharacteristic = function() {
         return 'changeY';
     };
 
@@ -46,7 +46,6 @@ define(function(require, exports, module) {
         };
         return newFunction;
     };
-
 
     module.exports = ActionFunctions;
 });

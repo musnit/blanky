@@ -14,7 +14,6 @@ define(function(require, exports, module) {
       };
       this.timeKeeper = node.timeKeeper;
       Element.apply(this, [node, {myClasses: 'runon-background'}, config]);
-      var parentPosition = node.getPosition();
 
       options.tagName = 'div';
       options.myClasses = 'runon-text';
